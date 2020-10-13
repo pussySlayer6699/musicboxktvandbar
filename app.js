@@ -342,7 +342,7 @@ const handleMessage = (sender_psid, received_message) => {
           mingalarparReply(sender_psid);
         break;
       case "Hello":
-        hiReply(sender_psid);
+        helloReply(sender_psid);
         break;
       
       case "Get Started":
@@ -502,7 +502,7 @@ const mingalarparReply =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
-const hiReply =(sender_psid) => {
+const helloReply =(sender_psid) => {
   let response = {"text": "Welcome to MusicBox KTV & Bar"};
   callSend(sender_psid, response);
 }
