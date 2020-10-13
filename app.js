@@ -499,18 +499,18 @@ function webviewTest(sender_psid){
 
 
 const hiReply =(sender_psid) => {
-  let response = {"text": "You sent hi message"};
+  let response = {"text": "Welcome to MusicBox KTV & Bar"};
   callSend(sender_psid, response);
 }
 
 
 const greetInMyanmar =(sender_psid) => {
-  let response = {"text": "Mingalarbar. How may I help"};
+  let response = {"text": "Welcome to MusicBox KTV & Bar"};
   callSend(sender_psid, response);
 }
 
 const textReply =(sender_psid) => {
-  let response = {"text": "You sent text message"};
+  let response = {"text": "Welcome to MusicBox KTV & Bar"};
   callSend(sender_psid, response);
 }
 
@@ -551,19 +551,15 @@ const buttonReply =(sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Are you OK?",
-            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
+            "title": "Shall we get started?",
+                                   
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Yes!",
+                  "title": "Get Started",
                   "payload": "yes",
-                },
-                {
-                  "type": "postback",
-                  "title": "No!",
-                  "payload": "no",
                 }
+                
               ],
           }]
         }
