@@ -141,7 +141,7 @@ app.get('/showimages/:sender_id/',function(req,res){
 
         });
         console.log("DATA", data);
-        res.render('gallery.ejs',{data:data, sender_id:sender_id, 'page-title':'welcome to my page'}); 
+        res.render('gallery.ejs',{data:data, sender_id:sender_id, 'page-title':'welcome to MusicBox KTV & Bar'}); 
 
     }
     
@@ -338,25 +338,18 @@ const handleMessage = (sender_psid, received_message) => {
       case "hi":
           hiReply(sender_psid);
         break;
-      case "mingalarbar":
-          greetInMyanmar(sender_psid);
+      case "mingalarpar":
+          mingalarparReply(sender_psid);
         break;
-      case "text":
-        textReply(sender_psid);
+      case "Hello":
+        HelloReply(sender_psid);
         break;
-      case "quick":
-        quickReply(sender_psid);
-        break;
-      case "button":
+      
+      case "Get Started":
         console.log('CASE: BUTTON');            
         buttonReply(sender_psid);
         break;
-      case "webview":
-        webviewTest(sender_psid);
-        break;       
-      case "show images":
-        showImages(sender_psid)
-        break;               
+                    
       default:
           defaultReply(sender_psid);
       }       
@@ -504,12 +497,12 @@ const hiReply =(sender_psid) => {
 }
 
 
-const greetInMyanmar =(sender_psid) => {
+const mingalarparReply =(sender_psid) => {
   let response = {"text": "Welcome to MusicBox KTV & Bar"};
   callSend(sender_psid, response);
 }
 
-const textReply =(sender_psid) => {
+const HelloReply =(sender_psid) => {
   let response = {"text": "Welcome to MusicBox KTV & Bar"};
   callSend(sender_psid, response);
 }
