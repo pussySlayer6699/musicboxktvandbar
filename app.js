@@ -679,25 +679,29 @@ function webviewTest(sender_psid){
 }
 
 /**************
-start hospital
+start KTV
 **************/
-const hospitalAppointment = (sender_psid) => {
-   let response1 = {"text": "Welcome to ABC Hospital"};
+const getStarted = (sender_psid) => {
+   let response1 = {"text": "Shall we get started ?"};
    let response2 = {
-    "text": "Please select department",
+    "text": "Please select section",
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"General Surgery",
-              "payload":"department:General Surgery",              
+              "title":"Basic Info",
+              "payload":"section:Basic Info",              
             },{
               "content_type":"text",
-              "title":"ENT",
-              "payload":"department:ENT",             
+              "title":"Song List",
+              "payload":"section:Song List",             
             },{
               "content_type":"text",
-              "title":"Dermatology",
-              "payload":"department:Dermatology", 
+              "title":"Lounge Packages",
+              "payload":"section:Lounge Packages", 
+            },{
+              "content_type":"text",
+              "title":"Show Promotion",
+              "payload":"section:Show Promotion", 
             }
 
     ]
