@@ -589,7 +589,7 @@ const handlePostback = (sender_psid, received_postback) => {
   }else{
 
       switch(payload) {        
-      case "yes":
+      case "start":
           showButtonReplyYes(sender_psid);
         break;
       case "no":
@@ -682,7 +682,7 @@ function webviewTest(sender_psid){
 start hospital
 **************/
 const hospitalAppointment = (sender_psid) => {
-   let response1 = {"text": "Welcome to ABC Hospital"};
+   let response1 = {"text": ""};
    let response2 = {
     "text": "Please select department",
     "quick_replies":[
@@ -863,10 +863,38 @@ end hospital
 
 
 
-const hiReply =(sender_psid) => {
-  let response = {"text": "Welcome to MusicBox KTV & Bar"};
-  callSend(sender_psid, response);
+
+const hiReply = (sender_psid) => {
+    let response1 = {"text": "Welcome to MusicBox, KTV & Bar. "};
+     let response2 = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title":"Shall we get started?",
+                  
+            "buttons": [                
+                  {
+                "type": "postback",
+                  "title": "Get Started",
+                 
+                  "payload": "start",          
+              
+                },    
+                          
+              ],
+          }
+
+          ]
+        }
+      }
+    }
+     callSend(sender_psid, response1).then(()=>{
+        return callSend(sender_psid, response2)
+      });
 }
+
 
 const helloReply =(sender_psid) => {
   let response = {"text": "Welcome to MusicBox KTV & Bar"};
