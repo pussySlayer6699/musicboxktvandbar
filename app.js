@@ -497,7 +497,7 @@ const handleMessage = (sender_psid, received_message) => {
       case "hi":
           hiReply(sender_psid);
         break;
-      case "hi":
+      case "hello":
           helloReply(sender_psid);
         break;
       case "hospital":
