@@ -497,9 +497,7 @@ const handleMessage = (sender_psid, received_message) => {
       case "hi":
           hiReply(sender_psid);
         break;
-      case "hello":
-          helloReply(sender_psid);
-        break;
+
       case "hospital":
           hospitalAppointment(sender_psid);
         break;                
@@ -677,7 +675,35 @@ function webviewTest(sender_psid){
     }
   callSendAPI(sender_psid, response);
 }
+/**************
+start KTV
+**************/
+const hospitalAppointment = (sender_psid) => {
+   let response1 = {"text": "Welcome to ABC Hospital"};
+   let response2 = {
+    "text": "Please select department",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"General Surgery",
+              "payload":"department:General Surgery",              
+            },{
+              "content_type":"text",
+              "title":"ENT",
+              "payload":"department:ENT",             
+            },{
+              "content_type":"text",
+              "title":"Dermatology",
+              "payload":"department:Dermatology", 
+            }
 
+    ]
+  };
+
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
+}
 /**************
 start hospital
 **************/
@@ -872,22 +898,7 @@ const hiReply =(sender_psid) => {
             {
               "content_type":"text",
               "title":"Get Started",
-              "payload":"start:Get Started",              
-            }
-          ]  
-  callSend(sender_psid, response1).then(()=>{
-    return callSend(sender_psid, response2);
-  });
-}
-const helloReply =(sender_psid) => {
-  let respons1 = {"text": "Welcome to MusicBox KTV & Bar"};
-     let response2 = {
-    "text": "Shall we get started ?",
-    "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"Get Started",
-              "payload":"start:Get Started",              
+              "payload":"department:Get Started",              
             }
           ]  
   callSend(sender_psid, response1).then(()=>{
