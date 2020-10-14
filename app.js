@@ -589,12 +589,20 @@ const handlePostback = (sender_psid, received_postback) => {
   }else{
 
       switch(payload) {        
-      case "start":
-          showButtonReplyYes(sender_psid);
-        break;
-      case "no":
-          showButtonReplyNo(sender_psid);
-        break;                      
+      case "info":
+          courses(sender_psid);
+        break; 
+case "list":
+          courses(sender_psid);
+        break; 
+case "packages":
+          courses(sender_psid);
+        break; 
+case "offer":
+          courses(sender_psid);
+        break; 
+
+                      
       default:
           defaultReply(sender_psid);
     } 
@@ -679,7 +687,7 @@ function webviewTest(sender_psid){
 }
 
 /**************
-start hospital
+start KTV
 **************/
 const hospitalAppointment = (sender_psid) => {
    let response1 = {"text": ""};
@@ -894,6 +902,34 @@ const hiReply = (sender_psid) => {
         return callSend(sender_psid, response2)
       });
 }
+
+const list = (sender_psid) => {
+    let response1 = {"text": "Hello"};
+    let response2 = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "No.1",
+            "image_url":"https://clydetrainingsolutions.com//wp-content/uploads/2020/06/STCW-Icon-Blue.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Basic info",
+                  "payload": "info",
+                },               
+              ],
+          },{
+            "title": "No.2",
+              
+            "image_url":"https://previews.123rf.com/images/alexutemov/alexutemov1604/alexutemov160400820/54707175-sea-oil-rig-platform-symbol-and-oil-drill-rig-in-sea-flat-vector-sea-oil-rig-offshore-platform-techn.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Song list",
+   
+
 
 
 const helloReply =(sender_psid) => {
