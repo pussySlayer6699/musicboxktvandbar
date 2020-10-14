@@ -412,10 +412,10 @@ function handleQuickReply(sender_psid, received_message) {
     
     current_question = 'q1';
     botQuestions(current_question, sender_psid);
-  }else if(received_message.startsWith("section:")){
+  }else if(received_message.startsWith("department:")){
     let dept = received_message.slice(11);
-    userInputs[user_id].section = sect;
-    showBasicInfo(sender_psid);
+    userInputs[user_id].department = dept;
+    showDoctor(sender_psid);
   }else{
 
       switch(received_message) {                
@@ -425,7 +425,7 @@ function handleQuickReply(sender_psid, received_message) {
         case "off":
             showQuickReplyOff(sender_psid);
           break; 
-        case "confirm-reservation":
+        case "confirm-appointment":
               saveAppointment(userInputs[user_id], sender_psid);
           break;              
         default:
@@ -466,11 +466,26 @@ const handleMessage = (sender_psid, received_message) => {
      current_question = 'q4';
      botQuestions(current_question, sender_psid);
   }else if(current_question == 'q4'){
+     console.log('GENDER ENTERED',received_message.text);
+     userInputs[user_id].gender = received_message.text;
+     current_question = 'q5';
+     botQuestions(current_question, sender_psid);
+  }else if(current_question == 'q5'){
      console.log('PHONE NUMBER ENTERED',received_message.text);
      userInputs[user_id].phone = received_message.text;
+     current_question = 'q6';
+     botQuestions(current_question, sender_psid);
+  }else if(current_question == 'q6'){
+     console.log('EMAIL ENTERED',received_message.text);
+     userInputs[user_id].email = received_message.text;
+     current_question = 'q7';
+     botQuestions(current_question, sender_psid);
+  }else if(current_question == 'q7'){
+     console.log('MESSAGE ENTERED',received_message.text);
+     userInputs[user_id].message = received_message.text;
      current_question = '';
      
-     confirmReservation(sender_psid);
+     confirmAppointment(sender_psid);
   }
   else {
       
@@ -482,11 +497,8 @@ const handleMessage = (sender_psid, received_message) => {
       case "hi":
           hiReply(sender_psid);
         break;
-      case "hello":
-          helloReply(sender_psid);
-        break;
-      case "reservation":
-          loungesReservation(sender_psid);
+      case "hospital":
+          hospitalAppointment(sender_psid);
         break;                
       case "text":
         textReply(sender_psid);
@@ -565,10 +577,10 @@ const handlePostback = (sender_psid, received_postback) => {
   console.log('BUTTON PAYLOAD', payload);
 
   
-  if(payload.startsWith("Section:")){
-    let section_name = payload.slice(8);
-    console.log('SELECTED SECTION IS: ', section_name);
-    userInputs[user_id].section = section_name;
+  if(payload.startsWith("Doctor:")){
+    let doctor_name = payload.slice(7);
+    console.log('SELECTED DOCTOR IS: ', doctor_name);
+    userInputs[user_id].doctor = doctor_name;
     console.log('TEST', userInputs);
     firstOrFollowUp(sender_psid);
   }else{
@@ -664,29 +676,25 @@ function webviewTest(sender_psid){
 }
 
 /**************
-start reservation
+start hospital
 **************/
-const ktvReservation = (sender_psid) => {
-   let response1 = {"text": "Welcome to MusicBox KTV & Barl"};
+const hospitalAppointment = (sender_psid) => {
+   let response1 = {"text": "Welcome to ABC Hospital"};
    let response2 = {
-    "text": "How may I help you ?",
+    "text": "Please select department",
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"Basic Info",
-              "payload":"section:Basic Info",              
+              "title":"General Surgery",
+              "payload":"department:General Surgery",              
             },{
               "content_type":"text",
               "title":"ENT",
-              "payload":"section:Song List",             
+              "payload":"department:ENT",             
             },{
               "content_type":"text",
-              "title":"Show Packages",
-              "payload":"section:Show Packages", 
-            },{
-              "content_type":"text",
-              "title":"Show Promotion",
-              "payload":"section:Show Packages", 
+              "title":"Dermatology",
+              "payload":"department:Dermatology", 
             }
 
     ]
@@ -698,55 +706,43 @@ const ktvReservation = (sender_psid) => {
 }
 
 
-const showSection = (sender_psid) => {
+const showDoctor = (sender_psid) => {
     let response = {
       "attachment": {
         "type": "template",
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Basic Info",
-            "subtitle": "Location: No. 24, Yangon International Hotel Compund, Ahlone Road, Ahlone Township, Yangon"
-            "Contact: 09453890777" "Operation Time: 11:00 am - 2:00 am",
-            "image_url":"https://dimg04.c-ctrip.com/images/fd/hotelintl/g4/M00/8C/34/CggYHlXyUziAGcsfAAHeAQr6k5U295_R_550_412_R5_Q70_D.jpg",                       
+            "title": "James Smith",
+            "subtitle": "General Surgeon",
+            "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Basic Info",
-                  "payload": "Section:Basic Info",
+                  "title": "James Smith",
+                  "payload": "Doctor:James Smith",
                 },               
               ],
           },{
-            "title": "Song List",
-            "subtitle": "",
-            "image_url":"https://cdn.onlinewebfonts.com/svg/img_515447.png",                       
+            "title": "Kenneth Martinez",
+            "subtitle": "General Surgeon",
+            "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Song List",
-                  "payload": "Section:Song Lsit",
+                  "title": "Kenneth Martinez",
+                  "payload": "Doctor:Kenneth Martinez",
                 },               
               ],
           },{
-            "title": "Show Packages",
-            "subtitle": "Lounge Packages",
-            "image_url":"https://d2e5ushqwiltxm.cloudfront.net/wp-content/uploads/sites/178/2019/03/12023336/barcodektvphoto1.jpg",                       
+            "title": "Barbara Young",
+            "subtitle": "General Surgeon",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Show Packages",
-                  "payload": "Section:Show Packages",
-                },               
-              ],
-          },{
-            "title": "Show Promotion",
-            "subtitle": "See what we offer.",
-            "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Show Promotion",
-                  "payload": "Section:Show Promotion",
+                  "title": "Barbara Young",
+                  "payload": "Doctor:Barbara Young",
                 },               
               ],
           }
@@ -761,15 +757,19 @@ const showSection = (sender_psid) => {
 
 }
 
-const ReserveNow = (sender_psid) => {
+const firstOrFollowUp = (sender_psid) => {
 
   let response = {
-    "text": "Reserve Now",
+    "text": "First Time Visit or Follow Up",
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"Reserve Now",
-              "payload":"section:Reserve Now",              
+              "title":"First Time",
+              "payload":"visit:first time",              
+            },{
+              "content_type":"text",
+              "title":"Follow Up",
+              "payload":"visit:follow up",             
             }
     ]
   };
@@ -802,14 +802,18 @@ const botQuestions = (current_question, sender_psid) => {
   }
 }
 
-const confirmReservation = (sender_psid) => {
-  console.log('RESERVATION INFO', userInputs);
-  let summery = "section:" + userInputs[user_id].section + "\u000A";
-  summery += "section:" + userInputs[user_id].section + "\u000A";
+const confirmAppointment = (sender_psid) => {
+  console.log('APPOINTMENT INFO', userInputs);
+  let summery = "department:" + userInputs[user_id].department + "\u000A";
+  summery += "doctor:" + userInputs[user_id].doctor + "\u000A";
+  summery += "visit:" + userInputs[user_id].visit + "\u000A";
   summery += "date:" + userInputs[user_id].date + "\u000A";
   summery += "time:" + userInputs[user_id].time + "\u000A";
   summery += "name:" + userInputs[user_id].name + "\u000A";
+  summery += "gender:" + userInputs[user_id].gender + "\u000A";
   summery += "phone:" + userInputs[user_id].phone + "\u000A";
+  summery += "email:" + userInputs[user_id].email + "\u000A";
+  summery += "message:" + userInputs[user_id].message + "\u000A";
 
   let response1 = {"text": summery};
 
@@ -819,7 +823,7 @@ const confirmReservation = (sender_psid) => {
             {
               "content_type":"text",
               "title":"Confirm",
-              "payload":"confirm-reservation",              
+              "payload":"confirm-appointment",              
             },{
               "content_type":"text",
               "title":"Cancel",
@@ -833,15 +837,15 @@ const confirmReservation = (sender_psid) => {
   });
 }
 
-const saveReservation = (arg, sender_psid) => {
+const saveAppointment = (arg, sender_psid) => {
   let data = arg;
   data.ref = generateRandom(6);
   data.status = "pending";
-  db.collection('reservation').add(data).then((success)=>{
+  db.collection('appointments').add(data).then((success)=>{
     console.log('SAVED', success);
-    let text = "Thank you. We have received your reservation."+ "\u000A";
+    let text = "Thank you. We have received your appointment."+ "\u000A";
     text += " We wil call you to confirm soon"+ "\u000A";
-    text += "Your reservation reference number is:" + data.ref;
+    text += "Your booking reference number is:" + data.ref;
     let response = {"text": text};
     callSend(sender_psid, response);
   }).catch((err)=>{
