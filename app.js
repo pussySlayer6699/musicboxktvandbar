@@ -929,6 +929,48 @@ const list = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "Song list",
+                  "payload": "list", 
+                },               
+              ],
+          },
+
+          {
+            "title": "No.3",
+              
+            "image_url":"https://previews.123rf.com/images/alexutemov/alexutemov1604/alexutemov160400820/54707175-sea-oil-rig-platform-symbol-and-oil-drill-rig-in-sea-flat-vector-sea-oil-rig-offshore-platform-techn.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Packages",
+                 
+                  "payload": "packages", 
+                },               
+              ],
+          },{
+            "title": "No.4",
+              
+            "image_url":"https://previews.123rf.com/images/alexutemov/alexutemov1604/alexutemov160400820/54707175-sea-oil-rig-platform-symbol-and-oil-drill-rig-in-sea-flat-vector-sea-oil-rig-offshore-platform-techn.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                   "title": "See what we offer",
+                 
+                  "payload": "offer", 
+                },               
+              ],
+          },
+
+          ]
+        }
+      }
+    }
+  
+ callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
+}
+
+
    
 
 
