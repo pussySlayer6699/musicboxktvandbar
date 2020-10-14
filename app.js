@@ -588,7 +588,10 @@ const handlePostback = (sender_psid, received_postback) => {
     firstOrFollowUp(sender_psid);
   }else{
 
-      switch(payload) {        
+      switch(payload) {
+      case "start":
+          list(sender_psid);
+        break;         
       case "info":
           courses(sender_psid);
         break; 
