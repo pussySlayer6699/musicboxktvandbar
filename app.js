@@ -591,7 +591,7 @@ const handlePostback = (sender_psid, received_postback) => {
           list(sender_psid);
         break;         
       case "info":
-          list(sender_psid);
+          showBasicInfo(sender_psid);
         break; 
       case "list":
           courses(sender_psid);
@@ -970,7 +970,7 @@ const list = (sender_psid) => {
   });
 }
 
-const list = (sender_psid) => {
+const showBasicInfo = (sender_psid) => {
     let response1 = {"text": "Location📍: No.334, within Yangon International Hotel Compound, Ahlone Road, Ahlone Township, Yangon. "};
     let response2 = {"text": "Contact No.📞: 09453890776"};
     let response3 = {"text": "Operation Time⏰: Everyday 11:00 AM - 2:00 AM"};
