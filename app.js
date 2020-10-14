@@ -874,14 +874,14 @@ end hospital
 
 
 const hiReply = (sender_psid) => {
-    let response1 = {"text": "Welcome to MusicBox, KTV & Bar. "};
+    let response1 = {"text": "Welcome to MusicBox KTV & Bar. Let's create a good time together with friends with MUSIC!.🎤😎"};
      let response2 = {
       "attachment": {
         "type": "template",
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title":"Shall we get started?",
+            "title":"So, shall we get started? 🌝",
                   
             "buttons": [                
                   {
@@ -905,55 +905,55 @@ const hiReply = (sender_psid) => {
 }
 
 const list = (sender_psid) => {
-    let response1 = {"text": "Hello"};
+    let response1 = {"text": "How may I help you?😃"};
     let response2 = {
       "attachment": {
         "type": "template",
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "No.1",
-            "image_url":"https://clydetrainingsolutions.com//wp-content/uploads/2020/06/STCW-Icon-Blue.png",                       
+            "title": "Show MusicBox KTV & Bar information. 👀",
+            "image_url":"https://www.gomyanmartours.com/wp-content/uploads/2018/12/Music-Box-Karaoke-In-Yangon-3.jpg",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Basic info",
+                  "title": "Basic Info",
                   "payload": "info",
                 },               
               ],
           },{
-            "title": "No.2",
+            "title": "See Song List and Request 🎙🎵",
               
-            "image_url":"https://previews.123rf.com/images/alexutemov/alexutemov1604/alexutemov160400820/54707175-sea-oil-rig-platform-symbol-and-oil-drill-rig-in-sea-flat-vector-sea-oil-rig-offshore-platform-techn.jpg",                       
+            "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Song list",
+                  "title": "Song List",
                   "payload": "list", 
                 },               
               ],
           },
 
           {
-            "title": "No.3",
+            "title": "Many Exciting Lounge Packages to Pick 🎁",
               
-            "image_url":"https://previews.123rf.com/images/alexutemov/alexutemov1604/alexutemov160400820/54707175-sea-oil-rig-platform-symbol-and-oil-drill-rig-in-sea-flat-vector-sea-oil-rig-offshore-platform-techn.jpg",                       
+            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "See Packages",
+                  "title": "See Lounge Packages",
                  
                   "payload": "packages", 
                 },               
               ],
           },{
-            "title": "No.4",
+            "title": "See what we offer 🤩",
               
-            "image_url":"https://previews.123rf.com/images/alexutemov/alexutemov1604/alexutemov160400820/54707175-sea-oil-rig-platform-symbol-and-oil-drill-rig-in-sea-flat-vector-sea-oil-rig-offshore-platform-techn.jpg",                       
+            "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
             "buttons": [
                 {
                   "type": "postback",
-                   "title": "See what we offer",
+                   "title": "See Promotion",
                  
                   "payload": "offer", 
                 },               
