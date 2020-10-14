@@ -878,6 +878,7 @@ const hiReply =(sender_psid) => {
               "payload":"section:Get Started",              
             }
         ]
+    };
   callSend(sender_psid, response1).then(()=>{
     return callSend(sender_psid, response2);
   });
