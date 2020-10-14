@@ -867,7 +867,7 @@ end hospital
 
 
 
-const hiReply =(sender_psid) => {
+/*const hiReply =(sender_psid) => {
   let response = {"text": "Welcome to MusicBox KTV & Bar"};
    let response2 = {
     "text": "Shall we get started ?",
@@ -882,7 +882,7 @@ const hiReply =(sender_psid) => {
   callSend(sender_psid, response1).then(()=>{
     return callSend(sender_psid, response2);
   });
-}
+}*/
 
 const helloReply =(sender_psid) => {
   let response = {"text": "Welcome to MusicBox KTV & Bar"};
