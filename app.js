@@ -500,8 +500,8 @@ const handleMessage = (sender_psid, received_message) => {
       case "hello":
           helloReply(sender_psid);
         break;
-      case "hospital":
-          hospitalAppointment(sender_psid);
+      case "Get Started":
+          getStarted(sender_psid);
         break;                
       case "text":
         textReply(sender_psid);
