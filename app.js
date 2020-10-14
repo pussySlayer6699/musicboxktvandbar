@@ -497,9 +497,7 @@ const handleMessage = (sender_psid, received_message) => {
       case "hi":
           hiReply(sender_psid);
         break;
-      case "hello":
-          helloReply(sender_psid);
-        break;
+      
       case "hospital":
           hospitalAppointment(sender_psid);
         break;                
@@ -935,10 +933,7 @@ const list = (sender_psid) => {
 
 
 
-const helloReply =(sender_psid) => {
-  let response = {"text": "Welcome to MusicBox KTV & Bar"};
-  callSend(sender_psid, response);
-}
+
 
 
 const greetInMyanmar =(sender_psid) => {
