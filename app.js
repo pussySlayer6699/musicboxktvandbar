@@ -500,8 +500,8 @@ const handleMessage = (sender_psid, received_message) => {
       case "hello":
           helloReply(sender_psid);
         break;
-      case "get started":
-          getStarted(sender_psid);
+      case "hospital":
+          hospitalAppointment(sender_psid);
         break;                
       case "text":
         textReply(sender_psid);
@@ -869,19 +869,7 @@ end hospital
 
 const hiReply =(sender_psid) => {
   let response = {"text": "Welcome to MusicBox KTV & Bar"};
-   let response2 = {
-    "text": "Shall we get started ?",
-    "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"Get Started",
-              "payload":"section:Get Started",              
-            }
-        ]
-    };
-  callSend(sender_psid, response1).then(()=>{
-    return callSend(sender_psid, response2);
-  });
+  callSend(sender_psid, response);
 }
 
 const helloReply =(sender_psid) => {
