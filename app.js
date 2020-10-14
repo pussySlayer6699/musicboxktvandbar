@@ -500,8 +500,8 @@ const handleMessage = (sender_psid, received_message) => {
       case "hello":
           helloReply(sender_psid);
         break;
-      case "Get Started":
-          getStarted(sender_psid);
+      case "hospital":
+          hospitalAppointment(sender_psid);
         break;                
       case "text":
         textReply(sender_psid);
@@ -679,29 +679,25 @@ function webviewTest(sender_psid){
 }
 
 /**************
-start KTV
+start hospital
 **************/
-const getStarted = (sender_psid) => {
-   let response1 = {"text": "Shall we get started ?"};
+const hospitalAppointment = (sender_psid) => {
+   let response1 = {"text": "Welcome to ABC Hospital"};
    let response2 = {
-    "text": "Please select section",
+    "text": "Please select department",
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"Basic Info",
-              "payload":"section:Basic Info",              
+              "title":"General Surgery",
+              "payload":"department:General Surgery",              
             },{
               "content_type":"text",
-              "title":"Song List",
-              "payload":"section:Song List",             
+              "title":"ENT",
+              "payload":"department:ENT",             
             },{
               "content_type":"text",
-              "title":"Lounge Packages",
-              "payload":"section:Lounge Packages", 
-            },{
-              "content_type":"text",
-              "title":"Show Promotion",
-              "payload":"section:Show Promotion", 
+              "title":"Dermatology",
+              "payload":"department:Dermatology", 
             }
 
     ]
