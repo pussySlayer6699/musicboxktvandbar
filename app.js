@@ -597,7 +597,7 @@ const handlePostback = (sender_psid, received_postback) => {
           showSongList(sender_psid);
         break; 
       case "packages":
-          courses(sender_psid);
+          showPackages(sender_psid);
         break; 
       case "offer":
           courses(sender_psid);
@@ -942,7 +942,6 @@ const list = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "See Lounge Packages",
-                 
                   "payload": "packages", 
                 },               
               ],
@@ -953,8 +952,7 @@ const list = (sender_psid) => {
             "buttons": [
                 {
                   "type": "postback",
-                   "title": "See Promotion",
-                 
+                  "title": "See Promotion",
                   "payload": "offer", 
                 },               
               ],
@@ -998,7 +996,6 @@ const showBasicInfo = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "See Lounge Packages",
-                 
                   "payload": "packages", 
                 },               
               ],
@@ -1061,6 +1058,98 @@ const showSongList = (sender_psid) => {
       });
 }   
 
+const showPackages= (sender_psid) => {
+    let response1 = {"text": "Explore the best lounge packages we offer. "};
+    let response2 = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Small Package",
+            "subtitle": "size: small",
+            "subtitle": "people: 4 to 6",
+            "subtitle": "cost: 15,000Ks per hour + 2 water bottles",
+            "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve Now",                 
+                  "payload": "packages",
+                }              
+              ],
+          },{
+            "title": "Regular Package",
+            "subtitle": "size: Normal",
+            "subtitle": "people: 6 to 9",
+            "subtitle": "cost: 20,000Ks per hour + 3 water bottles + chips",
+            "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve Now",                 
+                  "payload": "packages",
+                }              
+              ],
+          },{
+            "title": "Giant Package",
+            "subtitle": "size: Big",
+            "subtitle": "people: 8 to 12",
+            "subtitle": "cost: 45000Ks per hour + 4 water bottles + fruit + chips",
+            "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve Now",                 
+                  "payload": "packages",
+                }              
+              ],
+          },{
+            "title": "VIP Package",
+            "subtitle": "size: Big",
+            "subtitle": "people: 8 to 12",
+            "subtitle": "cost: 75,000Ks per hour + 4 water bottles + fruit + 5 beer + chips",
+            "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve Now",                 
+                  "payload": "packages",
+                }              
+              ],
+          },{
+            "title": "Luxury Package 💎",
+            "subtitle": "size: Big",
+            "subtitle": "people: 10 to 15",
+            "subtitle": "cost: 200,000Ks per hour + 5 water bottles + 2 fruit + 6 beer + chips",
+            "subtitle": "Exclusive: Private Dj, 2 Guitars, Private Bar ",
+            "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve Now",                 
+                  "payload": "packages",
+                }              
+              ],
+          },{
+            "title": "See what we offer 🤩",
+            "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Promotion",                 
+                  "payload": "offer", 
+                },               
+              ],
+          }
+        ]
+      }
+    }
+  }
+        callSend(sender_psid, response1).then(()=>{
+        return callSend(sender_psid, response2)
+      });
+}
 
 
 
