@@ -1111,7 +1111,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Luxury Package 💎",
-            "subtitle1": "size: Big, people: 10 to 15, cost: 200,000Ks per hour + 5 water bottles + 2 fruit + 6 beer + chips, Exclusive: Private Dj, 2 Guitars, Private Bar",
+            "subtitle": "size: Big, people: 10 to 15, cost: 200,000Ks per hour + 5 water bottles + 2 fruit + 6 beer + chips, Exclusive: Private Dj, 2 Guitars, Private Bar",
             "image_url":"https://www.filepicker.io/api/file/Yib3edKSTGChtVmNcGH5/convert?cache=true&crop=0%2C113%2C1999%2C1000",                       
             "buttons": [
                 {
