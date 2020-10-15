@@ -1110,8 +1110,8 @@ const showPackages= (sender_psid) => {
                 }              
               ],
           },{
-            "title": "Luxury Package ",
-            "subtitle": "Big, 10 to 15people, 200,000Ks per hour+5 water bottles+2 fruit+6 beer+chips, Private Dj+2 Guitars+Private Bar",
+            "title": "Luxury Package with Private Dj & Private Bar ",
+            "subtitle": "Big, 10 to 15people, 200,000Ks per hour+5 water bottles+2 fruit+6 beer+chips",
             "image_url":"https://www.filepicker.io/api/file/Yib3edKSTGChtVmNcGH5/convert?cache=true&crop=0%2C113%2C1999%2C1000",                       
             "buttons": [
                 {
