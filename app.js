@@ -600,7 +600,7 @@ const handlePostback = (sender_psid, received_postback) => {
           showPackages(sender_psid);
         break; 
       case "offer":
-          courses(sender_psid);
+          showPromotion(sender_psid);
         break; 
 
                       
@@ -1111,7 +1111,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Luxury Package with Private Dj & Private Bar ",
-            "subtitle": "Big, 10 to 15people, 200,000Ks per hour + 5 water bottles + 2 fruit + 6 beer + chips",
+            "subtitle": "Big, 10 to 15people, 200,000Ks per hour + 5 water bottles + 2 fruit + 6 beer",
             "image_url":"https://www.filepicker.io/api/file/Yib3edKSTGChtVmNcGH5/convert?cache=true&crop=0%2C113%2C1999%2C1000",                       
             "buttons": [
                 {
@@ -1141,7 +1141,45 @@ const showPackages= (sender_psid) => {
 }
 
 
-
+const showPromotion = (sender_psid) => {
+    let response1 = {"text": ""};
+    let response2 = {"text": ""};
+    let response3 = {"text": ""};
+    let response4 = {"text": ""};
+    let response5 = {"text": "Would you like to see lounge packages?"};
+    let response6 = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Many Exciting Lounge Packages to Pick ",
+              
+            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Lounge Packages",
+                  "payload": "packages", 
+                },               
+              ],
+          }
+        ]
+      }
+    }
+  }
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2).then(()=>{;
+    return callSend(sender_psid, response3).then(()=>{;
+    return callSend(sender_psid, response4).then(()=>{;
+    return callSend(sender_psid, response5).then(()=>{;
+    return callSend(sender_psid, response6);  
+  });
+  });
+  });
+  });
+  });
+}
 
 
 const greetInMyanmar =(sender_psid) => {
