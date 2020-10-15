@@ -874,14 +874,14 @@ end hospital
 
 
 const hiReply = (sender_psid) => {
-    let response1 = {"text": "Welcome to MusicBox KTV & Bar. Let's create a good time together with friends and MUSIC!🎤😎"};
+    let response1 = {"text": "Welcome to MusicBox KTV & Bar. Let's create a good time together with friends and MUSIC!"};
      let response2 = {
       "attachment": {
         "type": "template",
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title":"So, shall we get started? 🌝",
+            "title":"So, shall we get started? ",
                   
             "buttons": [                
                   {
@@ -905,14 +905,14 @@ const hiReply = (sender_psid) => {
 }
 
 const list = (sender_psid) => {
-    let response1 = {"text": "How may I help you?😃"};
+    let response1 = {"text": "How may I help you?"};
     let response2 = {
       "attachment": {
         "type": "template",
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Show MusicBox KTV & Bar information. 👀",
+            "title": "Show MusicBox KTV & Bar information. ",
             "image_url":"https://www.gomyanmartours.com/wp-content/uploads/2018/12/Music-Box-Karaoke-In-Yangon-3.jpg",                       
             "buttons": [
                 {
@@ -922,7 +922,7 @@ const list = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "See Song List and Request 🎙🎵",
+            "title": "See Song List and Request ",
               
             "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
             "buttons": [
@@ -935,7 +935,7 @@ const list = (sender_psid) => {
           },
 
           {
-            "title": "Many Exciting Lounge Packages to Pick 🎁",
+            "title": "Many Exciting Lounge Packages to Pick ",
               
             "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
             "buttons": [
@@ -946,7 +946,7 @@ const list = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "See what we offer 🤩",
+            "title": "See what we offer ",
               
             "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
             "buttons": [
@@ -969,9 +969,9 @@ const list = (sender_psid) => {
 }
 
 const showBasicInfo = (sender_psid) => {
-    let response1 = {"text": "📍Location: No.334, within Yangon International Hotel Compound, Ahlone Road, Ahlone Township, Yangon. "};
-    let response2 = {"text": "📞Contact No.: 09453890776"};
-    let response3 = {"text": "🕚Operation Time: Everyday 11:00 AM - 2:00 AM"};
+    let response1 = {"text": "Location: No.334, within Yangon International Hotel Compound, Ahlone Road, Ahlone Township, Yangon. "};
+    let response2 = {"text": "Contact No.: 09453890776"};
+    let response3 = {"text": "Operation Time: Everyday 11:00 AM - 2:00 AM"};
     let response4 = {"text": "Would you like to see song list and lounge packages?"};
     let response5 = {
       "attachment": {
@@ -979,7 +979,7 @@ const showBasicInfo = (sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "See Song List and Request 🎙🎵",
+            "title": "See Song List and Request ",
             "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
             "buttons": [
                 {
@@ -989,7 +989,7 @@ const showBasicInfo = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "Many Exciting Lounge Packages to Pick 🎁",
+            "title": "Many Exciting Lounge Packages to Pick ",
               
             "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
             "buttons": [
@@ -1037,7 +1037,7 @@ const showSongList = (sender_psid) => {
                 }              
               ],
           },{
-            "title": "Many Exciting Lounge Packages to Pick 🎁",
+            "title": "Many Exciting Lounge Packages to Pick.",
               
             "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
             "buttons": [
@@ -1067,7 +1067,7 @@ const showPackages= (sender_psid) => {
           "template_type": "generic",
           "elements": [{
             "title": "Small Package",
-            "subtitle": "size: small, people: 4 to 6, cost: 15,000Ks per hour + 2 water bottles ",
+            "subtitle": "small, 4 to 6 people, 15,000Ks per hour+ 2water bottles ",
             "image_url":"https://jp-mm.drecomejp.com/uploads/picture/image/49417/14233863_10207382915035233_161325588_o.jpg",                       
             "buttons": [
                 {
@@ -1078,7 +1078,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Regular Package",
-            "subtitle": "size: Normal, people: 6 to 9, cost: 20,000Ks per hour + 3 water bottles + chips",
+            "subtitle": "Normal, 6 to 9 people, 20,000Ks per hour+3 water bottles+chips",
             "image_url":"https://www.yangonbookings.com/timthumb/timthumb.php?src=https://www.yangonbookings.com/assets/uploads/listing/4b61466b91825f579bb3a2645fd7e89f.jpg&h=430&w=860",                       
             "buttons": [
                 {
@@ -1089,7 +1089,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Giant Package",
-            "subtitle": "size: Big, people: 8 to 12, cost: 45000Ks per hour + 4 water bottles + fruit + chips",
+            "subtitle": "Big, 8 to 12 people, 45000Ks per hour+4 water bottles+fruit+chips",
             "image_url":"https://www.straitstimes.com/sites/default/files/articles/2020/08/16/hzjewel0815.jpg",                       
             "buttons": [
                 {
@@ -1100,7 +1100,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "VIP Package",
-            "subtitle": "size: Big, people: 8 to 12, cost: 75,000Ks per hour + 4 water bottles + fruit + 5 beer + chips",
+            "subtitle": "Big, 8 to 12people, 75,000Ks per hour+4 water bottles+fruit+5 beer+chips",
             "image_url":"https://i.pinimg.com/originals/a8/8c/aa/a88caa1cfdad9145ba7c8cd615bdd85b.jpg",                       
             "buttons": [
                 {
@@ -1110,8 +1110,8 @@ const showPackages= (sender_psid) => {
                 }              
               ],
           },{
-            "title": "Luxury Package 💎",
-            "subtitle": "size: Big, people: 10 to 15, cost: 200,000Ks per hour + 5 water bottles + 2 fruit + 6 beer + chips, Exclusive: Private Dj, 2 Guitars, Private Bar",
+            "title": "Luxury Package ",
+            "subtitle": "Big, 10 to 15people, 200,000Ks per hour+5 water bottles+2 fruit+6 beer+chips, Private Dj+2 Guitars+Private Bar",
             "image_url":"https://www.filepicker.io/api/file/Yib3edKSTGChtVmNcGH5/convert?cache=true&crop=0%2C113%2C1999%2C1000",                       
             "buttons": [
                 {
@@ -1121,7 +1121,7 @@ const showPackages= (sender_psid) => {
                 }              
               ],
           },{
-            "title": "See what we offer 🤩",
+            "title": "See what we offer ",
             "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
             "buttons": [
                 {
