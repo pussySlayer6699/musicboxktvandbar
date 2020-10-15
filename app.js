@@ -27,10 +27,7 @@ const bot_questions = {
   "q1": "please enter date (yyyy-mm-dd)",
   "q2": "please enter time (hh:mm)",
   "q3": "please enter full name",
-  "q4": "please enter gender",
-  "q5": "please enter phone number",
-  "q6": "please enter email",
-  "q7": "please leave a message"
+  "q4": "please enter phone number",
 }
 
 let current_question = '';
@@ -146,10 +143,10 @@ app.post('/test',function(req,res){
     callSend(sender_psid, response);
 });
 
-app.get('/admin/appointments', async function(req,res){
+app.get('/admin/reservations', async function(req,res){
  
-  const appointmentsRef = db.collection('appointments');
-  const snapshot = await appointmentsRef.get();
+  const reservationsRef = db.collection('reservations');
+  const snapshot = await reservationsRef.get();
 
   if (snapshot.empty) {
     res.send('no data');
@@ -158,24 +155,24 @@ app.get('/admin/appointments', async function(req,res){
   let data = []; 
 
   snapshot.forEach(doc => {
-    let appointment = {};
-    appointment = doc.data();
-    appointment.doc_id = doc.id;
+    let reservation = {};
+    reservation = doc.data();
+    reservation.doc_id = doc.id;
 
-    data.push(appointment);
+    data.push(reservation);
     
   });
 
   console.log('DATA:', data);
 
-  res.render('appointments.ejs', {data:data});
+  res.render('reservations.ejs', {data:data});
   
 });
 
-app.get('/admin/updateappointment/:doc_id', async function(req,res){
+app.get('/admin/updatereservation/:doc_id', async function(req,res){
   let doc_id = req.params.doc_id; 
   
-  const appoinmentRef = db.collection('appointments').doc(doc_id);
+  const appoinmentRef = db.collection('reservations').doc(doc_id);
   const doc = await appoinmentRef.get();
   if (!doc.exists) {
     console.log('No such document!');
@@ -185,13 +182,13 @@ app.get('/admin/updateappointment/:doc_id', async function(req,res){
     data.doc_id = doc.id;
 
     console.log('Document data:', data);
-    res.render('editappointment.ejs', {data:data});
+    res.render('editreservation.ejs', {data:data});
   } 
 
 });
 
 
-app.post('/admin/updateappointment', function(req,res){
+app.post('/admin/updatereservation', function(req,res){
   console.log('REQ:', req.body); 
 
   
@@ -199,23 +196,18 @@ app.post('/admin/updateappointment', function(req,res){
   let data = {
     name:req.body.name,
     phone:req.body.phone,
-    email:req.body.email,
-    gender:req.body.gender,
-    doctor:req.body.doctor,
-    department:req.body.department,
-    visit:req.body.visit,
+    package:req.body.package,
     date:req.body.date,
     time:req.body.time,
-    message:req.body.message,
     status:req.body.status,
     doc_id:req.body.doc_id,
     ref:req.body.ref,
     comment:req.body.comment
   }
 
-  db.collection('appointments').doc(req.body.doc_id)
+  db.collection('reservations').doc(req.body.doc_id)
   .update(data).then(()=>{
-      res.redirect('/admin/appointments');
+      res.redirect('/admin/reservations');
   }).catch((err)=>console.log('ERROR:', error)); 
  
 });
@@ -425,8 +417,8 @@ function handleQuickReply(sender_psid, received_message) {
         case "off":
             showQuickReplyOff(sender_psid);
           break; 
-        case "confirm-appointment":
-              saveAppointment(userInputs[user_id], sender_psid);
+        case "confirm-reservation":
+              saveReservation(userInputs[user_id], sender_psid);
           break;              
         default:
             defaultReply(sender_psid);
@@ -466,27 +458,12 @@ const handleMessage = (sender_psid, received_message) => {
      current_question = 'q4';
      botQuestions(current_question, sender_psid);
   }else if(current_question == 'q4'){
-     console.log('GENDER ENTERED',received_message.text);
-     userInputs[user_id].gender = received_message.text;
-     current_question = 'q5';
-     botQuestions(current_question, sender_psid);
-  }else if(current_question == 'q5'){
      console.log('PHONE NUMBER ENTERED',received_message.text);
      userInputs[user_id].phone = received_message.text;
-     current_question = 'q6';
-     botQuestions(current_question, sender_psid);
-  }else if(current_question == 'q6'){
-     console.log('EMAIL ENTERED',received_message.text);
-     userInputs[user_id].email = received_message.text;
-     current_question = 'q7';
-     botQuestions(current_question, sender_psid);
-  }else if(current_question == 'q7'){
-     console.log('MESSAGE ENTERED',received_message.text);
-     userInputs[user_id].message = received_message.text;
      current_question = '';
-     
-     confirmAppointment(sender_psid);
-  }
+     botQuestions(current_question, sender_psid);
+     confirmReservation(sender_psid);
+  } 
   else {
       
       let user_message = received_message.text;      
@@ -814,18 +791,13 @@ const botQuestions = (current_question, sender_psid) => {
   }
 }
 
-const confirmAppointment = (sender_psid) => {
-  console.log('APPOINTMENT INFO', userInputs);
-  let summery = "department:" + userInputs[user_id].department + "\u000A";
-  summery += "doctor:" + userInputs[user_id].doctor + "\u000A";
-  summery += "visit:" + userInputs[user_id].visit + "\u000A";
+const confirmReservation = (sender_psid) => {
+  console.log('RESERVATION INFO', userInputs);
+  let summery = "package:" + userInputs[user_id].package + "\u000A";
   summery += "date:" + userInputs[user_id].date + "\u000A";
   summery += "time:" + userInputs[user_id].time + "\u000A";
   summery += "name:" + userInputs[user_id].name + "\u000A";
-  summery += "gender:" + userInputs[user_id].gender + "\u000A";
   summery += "phone:" + userInputs[user_id].phone + "\u000A";
-  summery += "email:" + userInputs[user_id].email + "\u000A";
-  summery += "message:" + userInputs[user_id].message + "\u000A";
 
   let response1 = {"text": summery};
 
@@ -835,7 +807,7 @@ const confirmAppointment = (sender_psid) => {
             {
               "content_type":"text",
               "title":"Confirm",
-              "payload":"confirm-appointment",              
+              "payload":"confirm-reservation",              
             },{
               "content_type":"text",
               "title":"Cancel",
@@ -849,15 +821,15 @@ const confirmAppointment = (sender_psid) => {
   });
 }
 
-const saveAppointment = (arg, sender_psid) => {
+const saveReservation = (arg, sender_psid) => {
   let data = arg;
   data.ref = generateRandom(6);
   data.status = "pending";
-  db.collection('appointments').add(data).then((success)=>{
+  db.collection('reservations').add(data).then((success)=>{
     console.log('SAVED', success);
-    let text = "Thank you. We have received your appointment."+ "\u000A";
+    let text = "Thank you. We have received your reservation."+ "\u000A";
     text += " We wil call you to confirm soon"+ "\u000A";
-    text += "Your booking reference number is:" + data.ref;
+    text += "Your reservation reference number is:" + data.ref;
     let response = {"text": text};
     callSend(sender_psid, response);
   }).catch((err)=>{
@@ -1067,7 +1039,7 @@ const showPackages= (sender_psid) => {
           "template_type": "generic",
           "elements": [{
             "title": "Bronze Package",
-            "subtitle": "small, 4 to 6 people, 15,000Ks per hour+ 2water bottles ",
+            "subtitle": "small, 4 to 6 people, 15,000Ks per hour+ 2 water bottles ",
             "image_url":"https://jp-mm.drecomejp.com/uploads/picture/image/49417/14233863_10207382915035233_161325588_o.jpg",                       
             "buttons": [
                 {
@@ -1100,7 +1072,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Platinum (VIP) Package",
-            "subtitle": "Big, 8 to 12people, 75,000Ks per hour + 4 water bottles + fruit + 5 beer + chips",
+            "subtitle": "Big, 8 to 12 people, 75,000Ks per hour + 4 water bottles + fruit + 5 beer + chips",
             "image_url":"https://i.pinimg.com/originals/a8/8c/aa/a88caa1cfdad9145ba7c8cd615bdd85b.jpg",                       
             "buttons": [
                 {
@@ -1111,7 +1083,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Diamond (Luxury) Package with Private Dj & Private Bar ",
-            "subtitle": "Big, 10 to 15people, 200,000Ks per hour + 5 water bottles + 2 fruit + 6 beer",
+            "subtitle": "Big, 10 to 15 people, 200,000Ks per hour + 5 water bottles + 2 fruit + 6 beer",
             "image_url":"https://www.filepicker.io/api/file/Yib3edKSTGChtVmNcGH5/convert?cache=true&crop=0%2C113%2C1999%2C1000",                       
             "buttons": [
                 {
@@ -1146,8 +1118,9 @@ const showPromotion = (sender_psid) => {
     let response2 = {"text": "Silver Room Promotion: One hour free of karaoke for every 25,000Ks spend."};
     let response3 = {"text": "Gold Room Promotion: One hour free of karaoke for every 50,000Ks spend."};
     let response4 = {"text": "Buy one Get one Promotion: Buy one Get one by visting us from 1:00pm to 4:00pm for Bronze, Silver and Gold Packages."};
-    let response5 = {"text": "Would you like to see lounge packages?"};
-    let response6 = {
+    let response5 = {"text": "Contact us for more information."};
+    let response6 = {"text": "Would you like to see lounge packages?"};
+    let response7 = {
       "attachment": {
         "type": "template",
         "payload": {
@@ -1183,7 +1156,9 @@ const showPromotion = (sender_psid) => {
     return callSend(sender_psid, response3).then(()=>{;
     return callSend(sender_psid, response4).then(()=>{;
     return callSend(sender_psid, response5).then(()=>{;
-    return callSend(sender_psid, response6);  
+    return callSend(sender_psid, response6).then(()=>{;
+    return callSend(sender_psid, response7);  
+  });  
   });
   });
   });
