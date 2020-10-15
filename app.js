@@ -1078,7 +1078,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Regular Package",
-            "subtitle": "Normal, 6 to 9 people, 20,000Ks per hour+3 water bottles+chips",
+            "subtitle": "Normal, 6 to 9 people, 20,000Ks per hour + 3 water bottles + chips",
             "image_url":"https://www.yangonbookings.com/timthumb/timthumb.php?src=https://www.yangonbookings.com/assets/uploads/listing/4b61466b91825f579bb3a2645fd7e89f.jpg&h=430&w=860",                       
             "buttons": [
                 {
@@ -1089,7 +1089,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Giant Package",
-            "subtitle": "Big, 8 to 12 people, 45000Ks per hour+4 water bottles+fruit+chips",
+            "subtitle": "Big, 8 to 12 people, 45000Ks per hour + 4 water bottles + fruit + chips",
             "image_url":"https://www.straitstimes.com/sites/default/files/articles/2020/08/16/hzjewel0815.jpg",                       
             "buttons": [
                 {
@@ -1100,7 +1100,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "VIP Package",
-            "subtitle": "Big, 8 to 12people, 75,000Ks per hour+4 water bottles+fruit+5 beer+chips",
+            "subtitle": "Big, 8 to 12people, 75,000Ks per hour + 4 water bottles + fruit + 5 beer + chips",
             "image_url":"https://i.pinimg.com/originals/a8/8c/aa/a88caa1cfdad9145ba7c8cd615bdd85b.jpg",                       
             "buttons": [
                 {
@@ -1111,7 +1111,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Luxury Package with Private Dj & Private Bar ",
-            "subtitle": "Big, 10 to 15people, 200,000Ks per hour+5 water bottles+2 fruit+6 beer+chips",
+            "subtitle": "Big, 10 to 15people, 200,000Ks per hour + 5 water bottles + 2 fruit + 6 beer + chips",
             "image_url":"https://www.filepicker.io/api/file/Yib3edKSTGChtVmNcGH5/convert?cache=true&crop=0%2C113%2C1999%2C1000",                       
             "buttons": [
                 {
