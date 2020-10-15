@@ -594,7 +594,7 @@ const handlePostback = (sender_psid, received_postback) => {
           showBasicInfo(sender_psid);
         break; 
       case "list":
-          courses(sender_psid);
+          showSongList(sender_psid);
         break; 
       case "packages":
           courses(sender_psid);
@@ -971,9 +971,9 @@ const list = (sender_psid) => {
 }
 
 const showBasicInfo = (sender_psid) => {
-    let response1 = {"text": "Location📍: No.334, within Yangon International Hotel Compound, Ahlone Road, Ahlone Township, Yangon. "};
-    let response2 = {"text": "Contact No.📞: 09453890776"};
-    let response3 = {"text": "Operation Time⏰: Everyday 11:00 AM - 2:00 AM"};
+    let response1 = {"text": "📍Location: No.334, within Yangon International Hotel Compound, Ahlone Road, Ahlone Township, Yangon. "};
+    let response2 = {"text": "📞Contact No.: 09453890776"};
+    let response3 = {"text": "🕚Operation Time: Everyday 11:00 AM - 2:00 AM"};
     let response4 = {"text": "Would you like to see song list and lounge packages?"};
     let response5 = {
       "attachment": {
@@ -1018,7 +1018,48 @@ const showBasicInfo = (sender_psid) => {
   });
 }         
 
-   
+const showSongList = (sender_psid) => {
+    let response1 = {"text": "Here is the song list. You can also ask the song you want to sing."};
+    let response2 = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "See Song List or Request ?",
+            "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Song List",
+                  "payload": "list",
+                },{
+                  "type": "postback",
+                  "title": "Song Request",
+                  "payload": "request",
+                }              
+              ],
+          },{
+            "title": "Many Exciting Lounge Packages to Pick 🎁",
+              
+            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Lounge Packages",
+                 
+                  "payload": "packages", 
+                },               
+              ],
+          }
+        ]
+      }
+    }
+  }
+        callSend(sender_psid, response1).then(()=>{
+        return callSend(sender_psid, response2)
+      });
+}   
 
 
 
