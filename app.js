@@ -1066,7 +1066,7 @@ const showPackages= (sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Small Package",
+            "title": "Bronze Package",
             "subtitle": "small, 4 to 6 people, 15,000Ks per hour+ 2water bottles ",
             "image_url":"https://jp-mm.drecomejp.com/uploads/picture/image/49417/14233863_10207382915035233_161325588_o.jpg",                       
             "buttons": [
@@ -1077,7 +1077,7 @@ const showPackages= (sender_psid) => {
                 }              
               ],
           },{
-            "title": "Regular Package",
+            "title": "Silver Package",
             "subtitle": "Normal, 6 to 9 people, 20,000Ks per hour + 3 water bottles + chips",
             "image_url":"https://www.yangonbookings.com/timthumb/timthumb.php?src=https://www.yangonbookings.com/assets/uploads/listing/4b61466b91825f579bb3a2645fd7e89f.jpg&h=430&w=860",                       
             "buttons": [
@@ -1088,7 +1088,7 @@ const showPackages= (sender_psid) => {
                 }              
               ],
           },{
-            "title": "Giant Package",
+            "title": "Gold Package",
             "subtitle": "Big, 8 to 12 people, 45000Ks per hour + 4 water bottles + fruit + chips",
             "image_url":"https://www.straitstimes.com/sites/default/files/articles/2020/08/16/hzjewel0815.jpg",                       
             "buttons": [
@@ -1099,7 +1099,7 @@ const showPackages= (sender_psid) => {
                 }              
               ],
           },{
-            "title": "VIP Package",
+            "title": "Platinum (VIP) Package",
             "subtitle": "Big, 8 to 12people, 75,000Ks per hour + 4 water bottles + fruit + 5 beer + chips",
             "image_url":"https://i.pinimg.com/originals/a8/8c/aa/a88caa1cfdad9145ba7c8cd615bdd85b.jpg",                       
             "buttons": [
@@ -1110,7 +1110,7 @@ const showPackages= (sender_psid) => {
                 }              
               ],
           },{
-            "title": "Luxury Package with Private Dj & Private Bar ",
+            "title": "Diamond (Luxury) Package with Private Dj & Private Bar ",
             "subtitle": "Big, 10 to 15people, 200,000Ks per hour + 5 water bottles + 2 fruit + 6 beer",
             "image_url":"https://www.filepicker.io/api/file/Yib3edKSTGChtVmNcGH5/convert?cache=true&crop=0%2C113%2C1999%2C1000",                       
             "buttons": [
@@ -1142,10 +1142,10 @@ const showPackages= (sender_psid) => {
 
 
 const showPromotion = (sender_psid) => {
-    let response1 = {"text": ""};
-    let response2 = {"text": ""};
-    let response3 = {"text": ""};
-    let response4 = {"text": ""};
+    let response1 = {"text": "Birthday Promotion: 10% off for every packages"};
+    let response2 = {"text": "Silver Room Promotion: One hour free of karaoke for every 25,000Ks spend."};
+    let response3 = {"text": "Gold Room Promotion: One hour free of karaoke for every 50,000Ks spend."};
+    let response4 = {"text": "Buy one Get one Promotion: Buy one Get one by visting us from 1:00pm to 4:00pm for Bronze, Silver and Gold Packages."};
     let response5 = {"text": "Would you like to see lounge packages?"};
     let response6 = {
       "attachment": {
@@ -1161,6 +1161,16 @@ const showPromotion = (sender_psid) => {
                   "type": "postback",
                   "title": "See Lounge Packages",
                   "payload": "packages", 
+                },               
+              ],
+          },{
+            "title": "Show MusicBox KTV & Bar information. ",
+            "image_url":"https://www.gomyanmartours.com/wp-content/uploads/2018/12/Music-Box-Karaoke-In-Yangon-3.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Basic Info",
+                  "payload": "info",
                 },               
               ],
           }
