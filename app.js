@@ -1067,9 +1067,9 @@ const showPackages= (sender_psid) => {
           "template_type": "generic",
           "elements": [{
             "title": "Small Package",
-            "subtitle": "size: small"
-            "subtitle": "people: 4 to 6"
-            "subtitle": "cost: 15,000Ks per hour + 2 water bottles",
+            "subtitle1": "size: small",
+            "subtitle2": "people: 4 to 6",
+            "subtitle3": "cost: 15,000Ks per hour + 2 water bottles",
             "image_url":"https://jp-mm.drecomejp.com/uploads/picture/image/49417/14233863_10207382915035233_161325588_o.jpg",                       
             "buttons": [
                 {
@@ -1080,9 +1080,9 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Regular Package",
-            "subtitle": "size: Normal",
-            "subtitle": "people: 6 to 9",
-            "subtitle": "cost: 20,000Ks per hour + 3 water bottles + chips",
+            "subtitle1": "size: Normal",
+            "subtitle2": "people: 6 to 9",
+            "subtitle3": "cost: 20,000Ks per hour + 3 water bottles + chips",
             "image_url":"https://www.yangonbookings.com/timthumb/timthumb.php?src=https://www.yangonbookings.com/assets/uploads/listing/4b61466b91825f579bb3a2645fd7e89f.jpg&h=430&w=860",                       
             "buttons": [
                 {
@@ -1093,9 +1093,9 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Giant Package",
-            "subtitle": "size: Big",
-            "subtitle": "people: 8 to 12",
-            "subtitle": "cost: 45000Ks per hour + 4 water bottles + fruit + chips",
+            "subtitle1": "size: Big",
+            "subtitle2": "people: 8 to 12",
+            "subtitle3": "cost: 45000Ks per hour + 4 water bottles + fruit + chips",
             "image_url":"https://www.straitstimes.com/sites/default/files/articles/2020/08/16/hzjewel0815.jpg",                       
             "buttons": [
                 {
@@ -1106,9 +1106,9 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "VIP Package",
-            "subtitle": "size: Big",
-            "subtitle": "people: 8 to 12",
-            "subtitle": "cost: 75,000Ks per hour + 4 water bottles + fruit + 5 beer + chips",
+            "subtitle1": "size: Big",
+            "subtitle2": "people: 8 to 12",
+            "subtitle3": "cost: 75,000Ks per hour + 4 water bottles + fruit + 5 beer + chips",
             "image_url":"https://i.pinimg.com/originals/a8/8c/aa/a88caa1cfdad9145ba7c8cd615bdd85b.jpg",                       
             "buttons": [
                 {
@@ -1119,10 +1119,10 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Luxury Package 💎",
-            "subtitle": "size: Big",
-            "subtitle": "people: 10 to 15",
-            "subtitle": "cost: 200,000Ks per hour + 5 water bottles + 2 fruit + 6 beer + chips",
-            "subtitle": "Exclusive: Private Dj, 2 Guitars, Private Bar ",
+            "subtitle1": "size: Big",
+            "subtitle2": "people: 10 to 15",
+            "subtitle3": "cost: 200,000Ks per hour + 5 water bottles + 2 fruit + 6 beer + chips",
+            "subtitle4": "Exclusive: Private Dj, 2 Guitars, Private Bar ",
             "image_url":"https://www.filepicker.io/api/file/Yib3edKSTGChtVmNcGH5/convert?cache=true&crop=0%2C113%2C1999%2C1000",                       
             "buttons": [
                 {
