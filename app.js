@@ -557,9 +557,10 @@ const handlePostback = (sender_psid, received_postback) => {
   
   if(payload.startsWith("packages:")){
     let package_name = payload.slice(9);
-    console.log('SELECTED PACKAGE IS: ', package_name);
+    console.log('SELECTED PACKAGE IS:', package_name);
     userInputs[user_id].package = package_name;
     console.log('TEST', userInputs);
+    current_question = 'q1';
     botQuestions(current_question, sender_psid);
   }else{
 
