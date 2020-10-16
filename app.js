@@ -24,8 +24,8 @@ app.use(body_parser.json());
 app.use(body_parser.urlencoded());
 
 const bot_questions = {
-  "q1": "For which date do you want to reserve? (yyyy-mm-dd)",
-  "q2": "Please enter time you want to sing.(hh:mm)",
+  "q1": "For which date do you want to reserve? (dd-mm-yyyy)",
+  "q2": "Please enter time you want to sing.(hh:mm am/pm)",
   "q3": "Please enter your name",
   "q4": "please enter your phone number",
 }
@@ -665,113 +665,6 @@ function webviewTest(sender_psid){
   callSendAPI(sender_psid, response);
 }
 
-/**************
-start hospital
-**************/
-const hospitalAppointment = (sender_psid) => {
-   let response1 = {"text": ""};
-   let response2 = {
-    "text": "Please select department",
-    "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"General Surgery",
-              "payload":"department:General Surgery",              
-            },{
-              "content_type":"text",
-              "title":"ENT",
-              "payload":"department:ENT",             
-            },{
-              "content_type":"text",
-              "title":"Dermatology",
-              "payload":"department:Dermatology", 
-            }
-
-    ]
-  };
-
-  callSend(sender_psid, response1).then(()=>{
-    return callSend(sender_psid, response2);
-  });
-}
-
-
-const showDoctor = (sender_psid) => {
-    let response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "James Smith",
-            "subtitle": "General Surgeon",
-            "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "James Smith",
-                  "payload": "Doctor:James Smith",
-                },               
-              ],
-          },{
-            "title": "Kenneth Martinez",
-            "subtitle": "General Surgeon",
-            "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Kenneth Martinez",
-                  "payload": "Doctor:Kenneth Martinez",
-                },               
-              ],
-          },{
-            "title": "Barbara Young",
-            "subtitle": "General Surgeon",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Barbara Young",
-                  "payload": "Doctor:Barbara Young",
-                },               
-              ],
-          }
-
-          ]
-        }
-      }
-    }
-
-  
-  callSend(sender_psid, response);
-
-}
-
-const firstOrFollowUp = (sender_psid) => {
-
-  let response = {
-    "text": "First Time Visit or Follow Up",
-    "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"First Time",
-              "payload":"visit:first time",              
-            },{
-              "content_type":"text",
-              "title":"Follow Up",
-              "payload":"visit:follow up",             
-            }
-    ]
-  };
-  callSend(sender_psid, response);
-
-}
-
-
-/**************
-end hospital
-**************/
-
 
 /**************
 start KTV
@@ -1148,7 +1041,7 @@ const saveReservation = (arg, sender_psid) => {
   data.ref = generateRandom(6);
   data.status = "pending";
   data.created_on = new Date();
-  db.collection('reservations').add(data).then((success)=>{
+  db.collection('Reservations').add(data).then((success)=>{
     console.log('SAVED', success);
     let text = "Thank you. We have received your reservation."+ "\u000A";
     text += " We wil call you to confirm soon. Please show the reference code at the reception."+ "\u000A";
