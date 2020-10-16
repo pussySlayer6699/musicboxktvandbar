@@ -820,7 +820,7 @@ const saveReservation = (arg, sender_psid) => {
   db.collection('reservations').add(data).then((success)=>{
     console.log('SAVED', success);
     let text = "Thank you. We have received your reservation."+ "\u000A";
-    text += " We wil call you to confirm soon"+ "\u000A";
+    text += " We wil call you to confirm soon. Please show the reference code at the reception."+ "\u000A";
     text += "Your reservation reference number is:" + data.ref;
     let response = {"text": text};
     callSend(sender_psid, response);
