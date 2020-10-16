@@ -1041,7 +1041,7 @@ const saveReservation = (arg, sender_psid) => {
   data.ref = generateRandom(6);
   data.status = "pending";
   data.created_on = new Date();
-  db.collection('Reservations').add(data).then((success)=>{
+  db.collection('reservations').add(data).then((success)=>{
     console.log('SAVED', success);
     let text = "Thank you. We have received your reservation."+ "\u000A";
     text += " We wil call you to confirm soon. Please show the reference code at the reception."+ "\u000A";
