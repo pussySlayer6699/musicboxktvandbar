@@ -767,68 +767,6 @@ const firstOrFollowUp = (sender_psid) => {
 
 }
 
-const botQuestions = (current_question, sender_psid) => {
-  if(current_question == 'q1'){
-    let response = {"text": bot_questions.q1};
-    callSend(sender_psid, response);
-  }else if(current_question == 'q2'){
-    let response = {"text": bot_questions.q2};
-    callSend(sender_psid, response);
-  }else if(current_question == 'q3'){
-    let response = {"text": bot_questions.q3};
-    callSend(sender_psid, response);
-  }else if(current_question == 'q4'){
-    let response = {"text": bot_questions.q4};
-    callSend(sender_psid, response);
-  }
-}
-
-const confirmReservation = (sender_psid) => {
-  console.log('RESERVATION INFO', userInputs);
-  let summery = "packages:" + userInputs[user_id].package + "\u000A";
-  summery += "date:" + userInputs[user_id].date + "\u000A";
-  summery += "time:" + userInputs[user_id].time + "\u000A";
-  summery += "name:" + userInputs[user_id].name + "\u000A";
-  summery += "phone:" + userInputs[user_id].phone + "\u000A";
-
-  let response1 = {"text": summery};
-
-  let response2 = {
-    "text": "Select your reply",
-    "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"Confirm",
-              "payload":"confirm-reservation",              
-            },{
-              "content_type":"text",
-              "title":"Cancel",
-              "payload":"off",             
-            }
-    ]
-  };
-  
-  callSend(sender_psid, response1).then(()=>{
-    return callSend(sender_psid, response2);
-  });
-}
-
-const saveReservation = (arg, sender_psid) => {
-  let data = arg;
-  data.ref = generateRandom(6);
-  data.status = "pending";
-  data.created_on = new Date();
-  db.collection('reservations').add(data).then((success)=>{
-    console.log('SAVED', success);
-    let text = "Thank you. We have received your reservation."+ "\u000A";
-    text += " We wil call you to confirm soon. Please show the reference code at the reception."+ "\u000A";
-    text += "Your reservation reference number is:" + data.ref;
-    let response = {"text": text};
-    callSend(sender_psid, response);
-  }).catch((err)=>{
-     console.log('Error', err);
-  });
-}
 
 /**************
 end hospital
@@ -1158,6 +1096,70 @@ const showPromotion = (sender_psid) => {
   });
   });
 }
+
+const botQuestions = (current_question, sender_psid) => {
+  if(current_question == 'q1'){
+    let response = {"text": bot_questions.q1};
+    callSend(sender_psid, response);
+  }else if(current_question == 'q2'){
+    let response = {"text": bot_questions.q2};
+    callSend(sender_psid, response);
+  }else if(current_question == 'q3'){
+    let response = {"text": bot_questions.q3};
+    callSend(sender_psid, response);
+  }else if(current_question == 'q4'){
+    let response = {"text": bot_questions.q4};
+    callSend(sender_psid, response);
+  }
+}
+
+const confirmReservation = (sender_psid) => {
+  console.log('RESERVATION INFO', userInputs);
+  let summery = "packages:" + userInputs[user_id].package + "\u000A";
+  summery += "date:" + userInputs[user_id].date + "\u000A";
+  summery += "time:" + userInputs[user_id].time + "\u000A";
+  summery += "name:" + userInputs[user_id].name + "\u000A";
+  summery += "phone:" + userInputs[user_id].phone + "\u000A";
+
+  let response1 = {"text": summery};
+
+  let response2 = {
+    "text": "Select your reply",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Confirm",
+              "payload":"confirm-reservation",              
+            },{
+              "content_type":"text",
+              "title":"Cancel",
+              "payload":"off",             
+            }
+    ]
+  };
+  
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
+}
+
+const saveReservation = (arg, sender_psid) => {
+  let data = arg;
+  data.ref = generateRandom(6);
+  data.status = "pending";
+  data.created_on = new Date();
+  db.collection('reservations').add(data).then((success)=>{
+    console.log('SAVED', success);
+    let text = "Thank you. We have received your reservation."+ "\u000A";
+    text += " We wil call you to confirm soon. Please show the reference code at the reception."+ "\u000A";
+    text += "Your reservation reference number is:" + data.ref;
+    let response = {"text": text};
+    callSend(sender_psid, response);
+  }).catch((err)=>{
+     console.log('Error', err);
+  });
+}
+
 /**************
 end KTV
 **************/
