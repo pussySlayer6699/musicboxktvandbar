@@ -560,7 +560,7 @@ const handlePostback = (sender_psid, received_postback) => {
     console.log('SELECTED PACKAGE IS: ', package_name);
     userInputs[user_id].package = package_name;
     console.log('TEST', userInputs);
-    botQuestions(sender_psid);
+    botQuestions(current_question, sender_psid);
   }else{
 
       switch(payload) {
