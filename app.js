@@ -24,10 +24,10 @@ app.use(body_parser.json());
 app.use(body_parser.urlencoded());
 
 const bot_questions = {
-  "q1": "please enter date (yyyy-mm-dd)",
-  "q2": "please enter time (hh:mm)",
-  "q3": "please enter full name",
-  "q4": "please enter phone number",
+  "q1": "For which date do you want to reserve? (yyyy-mm-dd)",
+  "q2": "Please enter time you want to sing.(hh:mm)",
+  "q3": "Please enter your name",
+  "q4": "please enter your phone number",
 }
 
 let current_question = '';
@@ -397,17 +397,17 @@ function handleQuickReply(sender_psid, received_message) {
 
   received_message = received_message.toLowerCase();
 
-  if(received_message.startsWith("visit:")){
-    let visit = received_message.slice(6);
+  if(received_message.startsWith("reserve:")){
+    let reserve = received_message.slice(8);
     
-    userInputs[user_id].visit = visit;
+    userInputs[user_id].reserve = reserve;
     
     current_question = 'q1';
     botQuestions(current_question, sender_psid);
-  }else if(received_message.startsWith("department:")){
+  }else if(received_message.startsWith("package:")){
     let dept = received_message.slice(11);
-    userInputs[user_id].department = dept;
-    showDoctor(sender_psid);
+    userInputs[user_id].package = dept;
+    showPackages(sender_psid);
   }else{
 
       switch(received_message) {                
@@ -461,7 +461,7 @@ const handleMessage = (sender_psid, received_message) => {
      console.log('PHONE NUMBER ENTERED',received_message.text);
      userInputs[user_id].phone = received_message.text;
      current_question = '';
-     botQuestions(current_question, sender_psid);
+     
      confirmReservation(sender_psid);
   } 
   else {
@@ -555,12 +555,12 @@ const handlePostback = (sender_psid, received_postback) => {
   console.log('BUTTON PAYLOAD', payload);
 
   
-  if(payload.startsWith("Doctor:")){
-    let doctor_name = payload.slice(7);
-    console.log('SELECTED DOCTOR IS: ', doctor_name);
-    userInputs[user_id].doctor = doctor_name;
+  if(payload.startsWith("packages:")){
+    let package_name = payload.slice(9);
+    console.log('SELECTED PACKAGE IS: ', package_name);
+    userInputs[user_id].package = package_name;
     console.log('TEST', userInputs);
-    firstOrFollowUp(sender_psid);
+    botQuestions(sender_psid);
   }else{
 
       switch(payload) {
@@ -578,7 +578,7 @@ const handlePostback = (sender_psid, received_postback) => {
         break; 
       case "offer":
           showPromotion(sender_psid);
-        break; 
+        break;   
 
                       
       default:
@@ -779,21 +779,12 @@ const botQuestions = (current_question, sender_psid) => {
   }else if(current_question == 'q4'){
     let response = {"text": bot_questions.q4};
     callSend(sender_psid, response);
-  }else if(current_question == 'q5'){
-    let response = {"text": bot_questions.q5};
-    callSend(sender_psid, response);
-  }else if(current_question == 'q6'){
-    let response = {"text": bot_questions.q6};
-    callSend(sender_psid, response);
-  }else if(current_question == 'q7'){
-    let response = {"text": bot_questions.q7};
-    callSend(sender_psid, response);
   }
 }
 
 const confirmReservation = (sender_psid) => {
   console.log('RESERVATION INFO', userInputs);
-  let summery = "package:" + userInputs[user_id].package + "\u000A";
+  let summery = "packages:" + userInputs[user_id].package + "\u000A";
   summery += "date:" + userInputs[user_id].date + "\u000A";
   summery += "time:" + userInputs[user_id].time + "\u000A";
   summery += "name:" + userInputs[user_id].name + "\u000A";
@@ -988,7 +979,7 @@ const showBasicInfo = (sender_psid) => {
 }         
 
 const showSongList = (sender_psid) => {
-    let response1 = {"text": "Here is the song list. You can also ask the song you want to sing."};
+    let response1 = {"text": "Here is the song list. You can also request the song you want to sing."};
     let response2 = {
       "attachment": {
         "type": "template",
@@ -1045,7 +1036,7 @@ const showPackages= (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "Reserve Now",                 
-                  "payload": "packages",
+                  "payload": "packages: bronze",
                 }              
               ],
           },{
@@ -1056,7 +1047,7 @@ const showPackages= (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "Reserve Now",                 
-                  "payload": "packages",
+                  "payload": "packages: silver",
                 }              
               ],
           },{
@@ -1067,7 +1058,7 @@ const showPackages= (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "Reserve Now",                 
-                  "payload": "packages",
+                  "payload": "packages: gold",
                 }              
               ],
           },{
@@ -1078,7 +1069,7 @@ const showPackages= (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "Reserve Now",                 
-                  "payload": "packages",
+                  "payload": "packages: platinum",
                 }              
               ],
           },{
@@ -1089,7 +1080,7 @@ const showPackages= (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "Reserve Now",                 
-                  "payload": "packages",
+                  "payload": "packages: diamond",
                 }              
               ],
           },{
