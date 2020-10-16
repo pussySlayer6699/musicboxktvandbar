@@ -666,7 +666,7 @@ function webviewTest(sender_psid){
 }
 
 /**************
-start KTV
+start hospital
 **************/
 const hospitalAppointment = (sender_psid) => {
    let response1 = {"text": ""};
@@ -817,6 +817,7 @@ const saveReservation = (arg, sender_psid) => {
   let data = arg;
   data.ref = generateRandom(6);
   data.status = "pending";
+  data.created_on = new Date();
   db.collection('reservations').add(data).then((success)=>{
     console.log('SAVED', success);
     let text = "Thank you. We have received your reservation."+ "\u000A";
@@ -834,9 +835,9 @@ end hospital
 **************/
 
 
-
-
-
+/**************
+start KTV
+**************/
 const hiReply = (sender_psid) => {
     let response1 = {"text": "Welcome to MusicBox KTV & Bar. Let's create a good time together with friends and MUSIC!"};
      let response2 = {
@@ -1157,7 +1158,9 @@ const showPromotion = (sender_psid) => {
   });
   });
 }
-
+/**************
+end KTV
+**************/
 
 const greetInMyanmar =(sender_psid) => {
   let response = {"text": "Mingalarbar. How may I help"};
