@@ -1092,7 +1092,7 @@ const showQuickReplyOn =(sender_psid) => {
 }
 
 const showQuickReplyOff =(sender_psid) => {
-  let response = { "text": "You sent quick reply OFF" };
+  let response = { "text": "reservation canceled" };
   callSend(sender_psid, response);
 }
 
