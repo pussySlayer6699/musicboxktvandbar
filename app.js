@@ -1126,7 +1126,7 @@ const saveRequest = (arg, sender_psid) => {
         ]
       }
     }
-  };
+  }
     callSend(sender_psid, response);
   }).catch((err)=>{
      console.log('Error', err);
