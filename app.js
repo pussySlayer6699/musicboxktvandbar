@@ -1105,7 +1105,7 @@ const saveRequest = (arg, sender_psid) => {
   db.collection('Song Requests').add(data).then((success)=>{
     console.log('SAVED', success);
     let text = "Thank you for requesting. Would you like to see lounge packages?"+ "\u000A";
-    let response = 
+    let response = {
     "attachment": {
         "type": "template",
         "payload": {
@@ -1122,7 +1122,9 @@ const saveRequest = (arg, sender_psid) => {
                   "payload": "packages", 
                 },               
               ],
-          };
+          }];
+        }
+        
     callSend(sender_psid, response);
   }).catch((err)=>{
      console.log('Error', err);
