@@ -28,6 +28,7 @@ const bot_questions = {
   "q2": "Please enter time you want to sing.(hh:mm am/pm)",
   "q3": "Please enter your name",
   "q4": "please enter your phone number",
+  "q5": "Drop the song name and its artist",
 }
 
 let current_question = '';
@@ -461,6 +462,12 @@ const handleMessage = (sender_psid, received_message) => {
      console.log('PHONE NUMBER ENTERED',received_message.text);
      userInputs[user_id].phone = received_message.text;
      current_question = '';
+  }else if(current_question == 'q5'){
+     console.log('ReqSong',received_message.text);
+     userInputs[user_id].reqsong = received_message.text;
+     current_question = '';
+     botQuestions(current_question, sender_psid);
+  }
      
      confirmReservation(sender_psid);
   } 
@@ -579,6 +586,10 @@ const handlePostback = (sender_psid, received_postback) => {
         break; 
       case "offer":
           showPromotion(sender_psid);
+        break; 
+      case "request":
+      current_question = 'q5';
+       botQuestions(current_question, sender_psid);
         break;   
 
                       
@@ -852,7 +863,9 @@ const showSongList = (sender_psid) => {
         callSend(sender_psid, response1).then(()=>{
         return callSend(sender_psid, response2)
       });
-}   
+} 
+
+     
 
 const showPackages= (sender_psid) => {
     let response1 = {"text": "Explore the best lounge packages we offer. "};
@@ -1002,6 +1015,9 @@ const botQuestions = (current_question, sender_psid) => {
     callSend(sender_psid, response);
   }else if(current_question == 'q4'){
     let response = {"text": bot_questions.q4};
+    callSend(sender_psid, response);
+  }else if(current_question == 'q5'){
+    let response = {"text": bot_questions.q5};
     callSend(sender_psid, response);
   }
 }
