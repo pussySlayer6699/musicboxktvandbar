@@ -1121,10 +1121,10 @@ const saveRequest = (arg, sender_psid) => {
                  
                   "payload": "packages", 
                 },               
-              ],
-          }];
+              ]
+          }]
         }
-        
+
     callSend(sender_psid, response);
   }).catch((err)=>{
      console.log('Error', err);
