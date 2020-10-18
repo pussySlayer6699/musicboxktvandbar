@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Reservations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ </head>
+
+  <body>
+  <h1>Reservations</h1>
+
+ 
+  
+  <table cellspacing="1" cellpadding="5" border="1">
+    <tr>
+    
+    <th>Name</th>
+    <th>Phone</th>
+    <th>EMail</th>
+    <th>Package</th>   
+    <th>Date</th>
+    <th>Time</th>
+    <th>Reference</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+
+
+  <% data.forEach(function(reservation){ %>
+     <tr>
+      
+       <td><%= reservation.name %></td>
+       <td><%= reservation.phone %></td>
+       <td><%= reservation.email %></td>
+       <td><%= reservation.package %></td>
+       <td><%= reservation.date %></td>
+       <td><%= reservation.time %></td>
+       <td><%= reservation.message %></td>
+       <td><%= reservation.ref %></td>
+       <td><%= reservation.status %></td>
+       <td><a href="updatereservation/<%= reservation.doc_id %>">Edit</a> | Delete</td>
+     </tr>
+  <% }); %>
+
+	</table>
+
+ 
+ 
+
+  </body>
+
+</html>
