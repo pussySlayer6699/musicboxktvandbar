@@ -1105,9 +1105,33 @@ const saveRequest = (arg, sender_psid) => {
   db.collection('Song Requests').add(data).then((success)=>{
     console.log('SAVED', success);
     let text = "Thank you for requesting. Would you like to see lounge packages?"+ "\u000A";
-    let response = {"text": text};
+    let response1 = {"text": text};
+    let response2 = {"attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Many Exciting Lounge Packages to Pick.",
+              
+            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Lounge Packages",
+                 
+                  "payload": "packages", 
+                },               
+              ],
+          }
+        ]
+      }
+    }
+  }
       
-    callSend(sender_psid, response);
+    callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
+    
   }).catch((err)=>{
      console.log('Error', err);
   });
@@ -1152,7 +1176,7 @@ const showQuickReplyOn =(sender_psid) => {
 }
 
 const showQuickReplyOff =(sender_psid) => {
-  let response = { "text": "Reservation canceled" };
+  let response = { "text": "Request canceled" };
   callSend(sender_psid, response);
 }
 
