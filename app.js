@@ -145,7 +145,7 @@ app.post('/test',function(req,res){
 
 app.get('/admin/reservations', async function(req,res){
  
-  const reservationsRef = db.collection('reservations');
+  const reservationsRef = db.collection('Reservations');
   const snapshot = await reservationsRef.get();
 
   if (snapshot.empty) {
