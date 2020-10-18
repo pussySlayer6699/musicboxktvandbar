@@ -172,8 +172,8 @@ app.get('/admin/reservations', async function(req,res){
 app.get('/admin/updatereservation/:doc_id', async function(req,res){
   let doc_id = req.params.doc_id; 
   
-  const appoinmentRef = db.collection('reservations').doc(doc_id);
-  const doc = await appoinmentRef.get();
+  const reservationsRef = db.collection('reservations').doc(doc_id);
+  const doc = await reservationsRef.get();
   if (!doc.exists) {
     console.log('No such document!');
   } else {
@@ -1235,7 +1235,7 @@ const uploadImageToStorage = (file) => {
       reject('No image file');
     }
     let newFileName = `${Date.now()}_${file.originalname}`;
-
+ 
     let fileUpload = bucket.file(newFileName);
 
     const blobStream = fileUpload.createWriteStream({
