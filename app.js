@@ -1106,7 +1106,7 @@ const saveRequest = (arg, sender_psid) => {
     console.log('SAVED', success);
     let text = "Thank you for requesting. Would you like to see lounge packages?"+ "\u000A";
     let response = {
-    "attachment": {
+      "attachment": {
         "type": "template",
         "payload": {
           "template_type": "generic",
@@ -1121,10 +1121,12 @@ const saveRequest = (arg, sender_psid) => {
                  
                   "payload": "packages", 
                 },               
-              ]
-          }]
-        }
-
+              ],
+          }
+        ]
+      }
+    }
+  }
     callSend(sender_psid, response);
   }).catch((err)=>{
      console.log('Error', err);
