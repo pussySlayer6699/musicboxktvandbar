@@ -1077,18 +1077,18 @@ const saveReservation = (arg, sender_psid) => {
 
 const confirmRequest = (sender_psid) => {
   console.log('REQUEST SONGS', userInputs);
-  let summery = "request" + userInputs[user_id].reqsong + "\u000A";
+  let summery = "" + userInputs[user_id].reqsong + "\u000A";
   let response1 = {"text": summery};
   let response2 = {
-    "text": "Select your reply",
+    "text": "Is this the song you requested? Tap Yes to Confirm.",
     "quick_replies":[
             {
               "content_type":"text",
-              "title":"Confirm",
+              "title":"Yes",
               "payload":"confirm-request",              
             },{
               "content_type":"text",
-              "title":"Cancel",
+              "title":"No",
               "payload":"off",             
             }
     ]
