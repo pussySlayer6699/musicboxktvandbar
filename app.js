@@ -28,7 +28,7 @@ const bot_questions = {
   "q2": "Please enter time you want to sing.(hh:mm am/pm)",
   "q3": "Please enter your name",
   "q4": "please enter your phone number",
-  "q5": "Drop the song name and its artist",
+  "q5": "Drop the song name and its artist. (Artist - Song Name)",
 }
 
 let current_question = '';
@@ -420,6 +420,9 @@ function handleQuickReply(sender_psid, received_message) {
           break; 
         case "confirm-reservation":
               saveReservation(userInputs[user_id], sender_psid);
+          break;  
+        case "confirm-request":
+              saveRequest(userInputs[user_id], sender_psid);
           break;              
         default:
             defaultReply(sender_psid);
@@ -468,7 +471,7 @@ const handleMessage = (sender_psid, received_message) => {
      console.log('ReqSong',received_message.text);
      userInputs[user_id].reqsong = received_message.text;
      current_question = '';
-     botQuestions(current_question, sender_psid);
+     confirmRequest(sender_psid);
   }
      
      
@@ -1053,6 +1056,8 @@ const confirmReservation = (sender_psid) => {
   });
 }
 
+
+
 const saveReservation = (arg, sender_psid) => {
   let data = arg;
   data.ref = generateRandom(6);
@@ -1063,6 +1068,43 @@ const saveReservation = (arg, sender_psid) => {
     let text = "Thank you. We have received your reservation."+ "\u000A";
     text += " We wil call you to confirm soon. Please show the reference code at the reception."+ "\u000A";
     text += "Your reservation reference number is:" + data.ref;
+    let response = {"text": text};
+    callSend(sender_psid, response);
+  }).catch((err)=>{
+     console.log('Error', err);
+  });
+}
+
+const confirmRequest = (sender_psid) => {
+  console.log('REQUEST SONGS', userInputs);
+  let summery = "request" + userInputs[user_id].reqsong + "\u000A";
+  let response1 = {"text": summery};
+  let response2 = {
+    "text": "Select your reply",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Confirm",
+              "payload":"confirm-request",              
+            },{
+              "content_type":"text",
+              "title":"Cancel",
+              "payload":"off",             
+            }
+    ]
+  };
+  
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
+}
+
+const saveRequest = (arg, sender_psid) => {
+  let data = arg;
+  data.created_on = new Date();
+  db.collection('Song Requests').add(data).then((success)=>{
+    console.log('SAVED', success);
+    let text = "Thank you for requesting."+ "\u000A";
     let response = {"text": text};
     callSend(sender_psid, response);
   }).catch((err)=>{
