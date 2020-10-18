@@ -462,6 +462,8 @@ const handleMessage = (sender_psid, received_message) => {
      console.log('PHONE NUMBER ENTERED',received_message.text);
      userInputs[user_id].phone = received_message.text;
      current_question = '';
+     confirmReservation(sender_psid);
+   
   }else if(current_question == 'q5'){
      console.log('ReqSong',received_message.text);
      userInputs[user_id].reqsong = received_message.text;
@@ -469,8 +471,7 @@ const handleMessage = (sender_psid, received_message) => {
      botQuestions(current_question, sender_psid);
   }
      
-     confirmReservation(sender_psid);
-  } 
+     
   else {
       
       let user_message = received_message.text;      
