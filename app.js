@@ -172,7 +172,7 @@ app.get('/admin/reservations', async function(req,res){
 app.get('/admin/updatereservation/:doc_id', async function(req,res){
   let doc_id = req.params.doc_id; 
   
-  const reservationsRef = db.collection('reservations').doc(doc_id);
+  const reservationsRef = db.collection('Reservations').doc(doc_id);
   const doc = await reservationsRef.get();
   if (!doc.exists) {
     console.log('No such document!');
@@ -205,7 +205,7 @@ app.post('/admin/updatereservation', function(req,res){
     comment:req.body.comment
   }
 
-  db.collection('reservations').doc(req.body.doc_id)
+  db.collection('Reservations').doc(req.body.doc_id)
   .update(data).then(()=>{
       res.redirect('/admin/reservations');
   }).catch((err)=>console.log('ERROR:', error)); 
