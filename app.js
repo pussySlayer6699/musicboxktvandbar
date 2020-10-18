@@ -1104,8 +1104,20 @@ const saveRequest = (arg, sender_psid) => {
   data.created_on = new Date();
   db.collection('Song Requests').add(data).then((success)=>{
     console.log('SAVED', success);
-    let text = "Thank you for requesting."+ "\u000A";
-    let response = {"text": text};
+    let text = "Thank you for requesting. Would you like to see lounge packages?"+ "\u000A";
+    let response = {
+            "title": "Many Exciting Lounge Packages to Pick.",
+              
+            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Lounge Packages",
+                 
+                  "payload": "packages", 
+                },               
+              ],
+          };
     callSend(sender_psid, response);
   }).catch((err)=>{
      console.log('Error', err);
