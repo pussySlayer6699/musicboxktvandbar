@@ -23,6 +23,23 @@ const uuidv4 = uuid();
 app.use(body_parser.json());
 app.use(body_parser.urlencoded());
 
+const bot_questions = {
+  "q1": "please enter date (yyyy-mm-dd)",
+  "q2": "please enter time (hh:mm)",
+  "q3": "please enter full name",
+  "q4": "please enter gender",
+  "q5": "please enter phone number",
+  "q6": "please enter email",
+  "q7": "please leave a message"
+}
+
+let current_question = '';
+
+let user_id = ''; 
+
+let userInputs = [];
+
+
 /*
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -83,6 +100,13 @@ app.post('/webhook', (req, res) => {
       let webhook_event = entry.messaging[0];
       let sender_psid = webhook_event.sender.id; 
 
+      user_id = sender_psid; 
+
+      if(!userInputs[user_id]){
+        userInputs[user_id] = {};
+      }    
+
+
       if (webhook_event.message) {
         if(webhook_event.message.quick_reply){
             handleQuickReply(sender_psid, webhook_event.message.quick_reply.payload);
@@ -120,6 +144,80 @@ app.post('/test',function(req,res){
     const sender_psid = req.body.sender_id;     
     let response = {"text": "You  click delete button"};
     callSend(sender_psid, response);
+});
+
+app.get('/admin/appointments', async function(req,res){
+ 
+  const appointmentsRef = db.collection('appointments');
+  const snapshot = await appointmentsRef.get();
+
+  if (snapshot.empty) {
+    res.send('no data');
+  } 
+
+  let data = []; 
+
+  snapshot.forEach(doc => {
+    let appointment = {};
+    appointment = doc.data();
+    appointment.doc_id = doc.id;
+
+    data.push(appointment);
+    
+  });
+
+  console.log('DATA:', data);
+
+  res.render('appointments.ejs', {data:data});
+  
+});
+
+app.get('/admin/updateappointment/:doc_id', async function(req,res){
+  let doc_id = req.params.doc_id; 
+  
+  const appoinmentRef = db.collection('appointments').doc(doc_id);
+  const doc = await appoinmentRef.get();
+  if (!doc.exists) {
+    console.log('No such document!');
+  } else {
+    console.log('Document data:', doc.data());
+    let data = doc.data();
+    data.doc_id = doc.id;
+
+    console.log('Document data:', data);
+    res.render('editappointment.ejs', {data:data});
+  } 
+
+});
+
+
+app.post('/admin/updateappointment', function(req,res){
+  console.log('REQ:', req.body); 
+
+  
+
+  let data = {
+    name:req.body.name,
+    phone:req.body.phone,
+    email:req.body.email,
+    gender:req.body.gender,
+    doctor:req.body.doctor,
+    department:req.body.department,
+    visit:req.body.visit,
+    date:req.body.date,
+    time:req.body.time,
+    message:req.body.message,
+    status:req.body.status,
+    doc_id:req.body.doc_id,
+    ref:req.body.ref,
+    comment:req.body.comment
+  }
+
+  db.collection('appointments').doc(req.body.doc_id)
+  .update(data).then(()=>{
+      res.redirect('/admin/appointments');
+  }).catch((err)=>console.log('ERROR:', error)); 
+ 
 });
 
 /*********************************************
@@ -302,17 +400,41 @@ Function to Handle when user send quick reply message
 ***********************************************/
 
 function handleQuickReply(sender_psid, received_message) {
-  
-  switch(received_message) {        
+
+  console.log('QUICK REPLY', received_message);
+
+  received_message = received_message.toLowerCase();
+
+  if(received_message.startsWith("visit:")){
+    let visit = received_message.slice(6);
+    
+    userInputs[user_id].visit = visit;
+    
+    current_question = 'q1';
+    botQuestions(current_question, sender_psid);
+  }else if(received_message.startsWith("department:")){
+    let dept = received_message.slice(11);
+    userInputs[user_id].department = dept;
+    showDoctor(sender_psid);
+  }else{
+
+      switch(received_message) {                
         case "on":
             showQuickReplyOn(sender_psid);
           break;
         case "off":
             showQuickReplyOff(sender_psid);
-          break;                
+          break; 
+        case "confirm-appointment":
+              saveAppointment(userInputs[user_id], sender_psid);
+          break;              
         default:
             defaultReply(sender_psid);
-  } 
+    } 
+
+  }
+  
+  
  
 }
 
@@ -321,16 +443,53 @@ Function to Handle when user send text message
 ***********************************************/
 
 const handleMessage = (sender_psid, received_message) => {
+
+  console.log('TEXT REPLY', received_message);
   //let message;
   let response;
 
   if(received_message.attachments){
      handleAttachments(sender_psid, received_message.attachments);
-  } else {
+  }else if(current_question == 'q1'){
+     console.log('DATE ENTERED',received_message.text);
+     userInputs[user_id].date = received_message.text;
+     current_question = 'q2';
+     botQuestions(current_question, sender_psid);
+  }else if(current_question == 'q2'){
+     console.log('TIME ENTERED',received_message.text);
+     userInputs[user_id].time = received_message.text;
+     current_question = 'q3';
+     botQuestions(current_question, sender_psid);
+  }else if(current_question == 'q3'){
+     console.log('FULL NAME ENTERED',received_message.text);
+     userInputs[user_id].name = received_message.text;
+     current_question = 'q4';
+     botQuestions(current_question, sender_psid);
+  }else if(current_question == 'q4'){
+     console.log('GENDER ENTERED',received_message.text);
+     userInputs[user_id].gender = received_message.text;
+     current_question = 'q5';
+     botQuestions(current_question, sender_psid);
+  }else if(current_question == 'q5'){
+     console.log('PHONE NUMBER ENTERED',received_message.text);
+     userInputs[user_id].phone = received_message.text;
+     current_question = 'q6';
+     botQuestions(current_question, sender_psid);
+  }else if(current_question == 'q6'){
+     console.log('EMAIL ENTERED',received_message.text);
+     userInputs[user_id].email = received_message.text;
+     current_question = 'q7';
+     botQuestions(current_question, sender_psid);
+  }else if(current_question == 'q7'){
+     console.log('MESSAGE ENTERED',received_message.text);
+     userInputs[user_id].message = received_message.text;
+     current_question = '';
+     
+     confirmAppointment(sender_psid);
+  }
+  else {
       
-      let user_message = received_message.text;
-
-      console.log('USER MESSAGE', user_message);
+      let user_message = received_message.text;      
      
       user_message = user_message.toLowerCase(); 
 
@@ -338,17 +497,16 @@ const handleMessage = (sender_psid, received_message) => {
       case "hi":
           hiReply(sender_psid);
         break;
-      case "mingalarbar":
-          greetInMyanmar(sender_psid);
-        break;
+      case "hospital":
+          hospitalAppointment(sender_psid);
+        break;                
       case "text":
         textReply(sender_psid);
         break;
       case "quick":
         quickReply(sender_psid);
         break;
-      case "button":
-        console.log('CASE: BUTTON');            
+      case "button":                  
         buttonReply(sender_psid);
         break;
       case "webview":
@@ -369,7 +527,13 @@ const handleMessage = (sender_psid, received_message) => {
 /*********************************************
 Function to handle when user send attachment
 **********************************************/
+
+
 const handleAttachments = (sender_psid, attachments) => {
+  
+  console.log('ATTACHMENT', attachments);
+
+
   let response; 
   let attachment_url = attachments[0].payload.url;
     response = {
@@ -404,9 +568,24 @@ const handleAttachments = (sender_psid, attachments) => {
 /*********************************************
 Function to handle when user click button
 **********************************************/
-const handlePostback = (sender_psid, received_postback) => {
+const handlePostback = (sender_psid, received_postback) => { 
+
+  
+
   let payload = received_postback.payload;
-  switch(payload) {        
+
+  console.log('BUTTON PAYLOAD', payload);
+
+  
+  if(payload.startsWith("Doctor:")){
+    let doctor_name = payload.slice(7);
+    console.log('SELECTED DOCTOR IS: ', doctor_name);
+    userInputs[user_id].doctor = doctor_name;
+    console.log('TEST', userInputs);
+    firstOrFollowUp(sender_psid);
+  }else{
+
+      switch(payload) {        
       case "yes":
           showButtonReplyYes(sender_psid);
         break;
@@ -415,13 +594,18 @@ const handlePostback = (sender_psid, received_postback) => {
         break;                      
       default:
           defaultReply(sender_psid);
-  } 
+    } 
+
+  }
+
+
+  
 }
 
 
 const generateRandom = (length) => {
    var result           = '';
-   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
    var charactersLength = characters.length;
    for ( var i = 0; i < length; i++ ) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -465,10 +649,6 @@ END GALLERY SAMPLE
 **********************************************/
 
 
-
-
-
-
 function webviewTest(sender_psid){
   let response;
   response = {
@@ -494,6 +674,188 @@ function webviewTest(sender_psid){
     }
   callSendAPI(sender_psid, response);
 }
+
+/**************
+start hospital
+**************/
+const hospitalAppointment = (sender_psid) => {
+   let response1 = {"text": "Welcome to ABC Hospital"};
+   let response2 = {
+    "text": "Please select department",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"General Surgery",
+              "payload":"department:General Surgery",              
+            },{
+              "content_type":"text",
+              "title":"ENT",
+              "payload":"department:ENT",             
+            },{
+              "content_type":"text",
+              "title":"Dermatology",
+              "payload":"department:Dermatology", 
+            }
+
+    ]
+  };
+
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
+}
+
+
+const showDoctor = (sender_psid) => {
+    let response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "James Smith",
+            "subtitle": "General Surgeon",
+            "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "James Smith",
+                  "payload": "Doctor:James Smith",
+                },               
+              ],
+          },{
+            "title": "Kenneth Martinez",
+            "subtitle": "General Surgeon",
+            "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Kenneth Martinez",
+                  "payload": "Doctor:Kenneth Martinez",
+                },               
+              ],
+          },{
+            "title": "Barbara Young",
+            "subtitle": "General Surgeon",
+            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Barbara Young",
+                  "payload": "Doctor:Barbara Young",
+                },               
+              ],
+          }
+
+          ]
+        }
+      }
+    }
+
+  
+  callSend(sender_psid, response);
+
+}
+
+const firstOrFollowUp = (sender_psid) => {
+
+  let response = {
+    "text": "First Time Visit or Follow Up",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"First Time",
+              "payload":"visit:first time",              
+            },{
+              "content_type":"text",
+              "title":"Follow Up",
+              "payload":"visit:follow up",             
+            }
+    ]
+  };
+  callSend(sender_psid, response);
+
+}
+
+const botQuestions = (current_question, sender_psid) => {
+  if(current_question == 'q1'){
+    let response = {"text": bot_questions.q1};
+    callSend(sender_psid, response);
+  }else if(current_question == 'q2'){
+    let response = {"text": bot_questions.q2};
+    callSend(sender_psid, response);
+  }else if(current_question == 'q3'){
+    let response = {"text": bot_questions.q3};
+    callSend(sender_psid, response);
+  }else if(current_question == 'q4'){
+    let response = {"text": bot_questions.q4};
+    callSend(sender_psid, response);
+  }else if(current_question == 'q5'){
+    let response = {"text": bot_questions.q5};
+    callSend(sender_psid, response);
+  }else if(current_question == 'q6'){
+    let response = {"text": bot_questions.q6};
+    callSend(sender_psid, response);
+  }else if(current_question == 'q7'){
+    let response = {"text": bot_questions.q7};
+    callSend(sender_psid, response);
+  }
+}
+
+const confirmAppointment = (sender_psid) => {
+  console.log('APPOINTMENT INFO', userInputs);
+  let summery = "department:" + userInputs[user_id].department + "\u000A";
+  summery += "doctor:" + userInputs[user_id].doctor + "\u000A";
+  summery += "visit:" + userInputs[user_id].visit + "\u000A";
+  summery += "date:" + userInputs[user_id].date + "\u000A";
+  summery += "time:" + userInputs[user_id].time + "\u000A";
+  summery += "name:" + userInputs[user_id].name + "\u000A";
+  summery += "gender:" + userInputs[user_id].gender + "\u000A";
+  summery += "phone:" + userInputs[user_id].phone + "\u000A";
+  summery += "email:" + userInputs[user_id].email + "\u000A";
+  summery += "message:" + userInputs[user_id].message + "\u000A";
+
+  let response1 = {"text": summery};
+
+  let response2 = {
+    "text": "Select your reply",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Confirm",
+              "payload":"confirm-appointment",              
+            },{
+              "content_type":"text",
+              "title":"Cancel",
+              "payload":"off",             
+            }
+    ]
+  };
+  
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
+}
+
+const saveAppointment = (arg, sender_psid) => {
+  let data = arg;
+  data.ref = generateRandom(6);
+  data.status = "pending";
+  db.collection('appointments').add(data).then((success)=>{
+    console.log('SAVED', success);
+    let text = "Thank you. We have received your appointment."+ "\u000A";
+    text += " We wil call you to confirm soon"+ "\u000A";
+    text += "Your booking reference number is:" + data.ref;
+    let response = {"text": text};
+    callSend(sender_psid, response);
+  }).catch((err)=>{
+     console.log('Error', err);
+  });
+}
+
+/**************
+end hospital
+**************/
 
 
 
