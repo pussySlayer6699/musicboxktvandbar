@@ -24,13 +24,11 @@ app.use(body_parser.json());
 app.use(body_parser.urlencoded());
 
 const bot_questions = {
-  "q1": "please enter date (yyyy-mm-dd)",
-  "q2": "please enter time (hh:mm)",
-  "q3": "please enter full name",
-  "q4": "please enter gender",
-  "q5": "please enter phone number",
-  "q6": "please enter email",
-  "q7": "please leave a message"
+  "q1": "For which date do you want to reserve? (dd-mm-yyyy)",
+  "q2": "Please enter time you want to sing.(hh:mm am/pm)",
+  "q3": "Please enter your name",
+  "q4": "please enter your phone number",
+  "q5": "Drop the song name and its artist. (Artist Name - Song Name)",
 }
 
 let current_question = '';
@@ -146,10 +144,10 @@ app.post('/test',function(req,res){
     callSend(sender_psid, response);
 });
 
-app.get('/admin/appointments', async function(req,res){
+app.get('/admin/reservations', async function(req,res){
  
-  const appointmentsRef = db.collection('appointments');
-  const snapshot = await appointmentsRef.get();
+  const reservationsRef = db.collection('Reservations');
+  const snapshot = await reservationsRef.get();
 
   if (snapshot.empty) {
     res.send('no data');
@@ -158,25 +156,25 @@ app.get('/admin/appointments', async function(req,res){
   let data = []; 
 
   snapshot.forEach(doc => {
-    let appointment = {};
-    appointment = doc.data();
-    appointment.doc_id = doc.id;
+    let reservation = {};
+    reservation = doc.data();
+    reservation.doc_id = doc.id;
 
-    data.push(appointment);
+    data.push(reservation);
     
   });
 
   console.log('DATA:', data);
 
-  res.render('appointments.ejs', {data:data});
+  res.render('reservations.ejs', {data:data});
   
 });
 
-app.get('/admin/updateappointment/:doc_id', async function(req,res){
+app.get('/admin/updatereservation/:doc_id', async function(req,res){
   let doc_id = req.params.doc_id; 
   
-  const appoinmentRef = db.collection('appointments').doc(doc_id);
-  const doc = await appoinmentRef.get();
+  const reservationsRef = db.collection('Reservations').doc(doc_id);
+  const doc = await reservationsRef.get();
   if (!doc.exists) {
     console.log('No such document!');
   } else {
@@ -185,13 +183,13 @@ app.get('/admin/updateappointment/:doc_id', async function(req,res){
     data.doc_id = doc.id;
 
     console.log('Document data:', data);
-    res.render('editappointment.ejs', {data:data});
+    res.render('editreservation.ejs', {data:data});
   } 
 
 });
 
 
-app.post('/admin/updateappointment', function(req,res){
+app.post('/admin/updatereservation', function(req,res){
   console.log('REQ:', req.body); 
 
   
@@ -199,23 +197,18 @@ app.post('/admin/updateappointment', function(req,res){
   let data = {
     name:req.body.name,
     phone:req.body.phone,
-    email:req.body.email,
-    gender:req.body.gender,
-    doctor:req.body.doctor,
-    department:req.body.department,
-    visit:req.body.visit,
+    package:req.body.package,
     date:req.body.date,
     time:req.body.time,
-    message:req.body.message,
     status:req.body.status,
     doc_id:req.body.doc_id,
     ref:req.body.ref,
     comment:req.body.comment
   }
 
-  db.collection('appointments').doc(req.body.doc_id)
+  db.collection('Reservations').doc(req.body.doc_id)
   .update(data).then(()=>{
-      res.redirect('/admin/appointments');
+      res.redirect('/admin/reservations');
   }).catch((err)=>console.log('ERROR:', error)); 
  
 });
@@ -405,17 +398,17 @@ function handleQuickReply(sender_psid, received_message) {
 
   received_message = received_message.toLowerCase();
 
-  if(received_message.startsWith("visit:")){
-    let visit = received_message.slice(6);
+  if(received_message.startsWith("reserve:")){
+    let reserve = received_message.slice(8);
     
-    userInputs[user_id].visit = visit;
+    userInputs[user_id].reserve = reserve;
     
     current_question = 'q1';
     botQuestions(current_question, sender_psid);
-  }else if(received_message.startsWith("department:")){
+  }else if(received_message.startsWith("package:")){
     let dept = received_message.slice(11);
-    userInputs[user_id].department = dept;
-    showDoctor(sender_psid);
+    userInputs[user_id].package = dept;
+    showPackages(sender_psid);
   }else{
 
       switch(received_message) {                
@@ -425,8 +418,11 @@ function handleQuickReply(sender_psid, received_message) {
         case "off":
             showQuickReplyOff(sender_psid);
           break; 
-        case "confirm-appointment":
-              saveAppointment(userInputs[user_id], sender_psid);
+        case "confirm-reservation":
+              saveReservation(userInputs[user_id], sender_psid);
+          break;  
+        case "confirm-request":
+              saveRequest(userInputs[user_id], sender_psid);
           break;              
         default:
             defaultReply(sender_psid);
@@ -466,27 +462,19 @@ const handleMessage = (sender_psid, received_message) => {
      current_question = 'q4';
      botQuestions(current_question, sender_psid);
   }else if(current_question == 'q4'){
-     console.log('GENDER ENTERED',received_message.text);
-     userInputs[user_id].gender = received_message.text;
-     current_question = 'q5';
-     botQuestions(current_question, sender_psid);
-  }else if(current_question == 'q5'){
      console.log('PHONE NUMBER ENTERED',received_message.text);
      userInputs[user_id].phone = received_message.text;
-     current_question = 'q6';
-     botQuestions(current_question, sender_psid);
-  }else if(current_question == 'q6'){
-     console.log('EMAIL ENTERED',received_message.text);
-     userInputs[user_id].email = received_message.text;
-     current_question = 'q7';
-     botQuestions(current_question, sender_psid);
-  }else if(current_question == 'q7'){
-     console.log('MESSAGE ENTERED',received_message.text);
-     userInputs[user_id].message = received_message.text;
      current_question = '';
-     
-     confirmAppointment(sender_psid);
+     confirmReservation(sender_psid);
+   
+  }else if(current_question == 'q5'){
+     console.log('ReqSong',received_message.text);
+     userInputs[user_id].reqsong = received_message.text;
+     current_question = '';
+     confirmRequest(sender_psid);
   }
+     
+     
   else {
       
       let user_message = received_message.text;      
@@ -497,6 +485,7 @@ const handleMessage = (sender_psid, received_message) => {
       case "hi":
           hiReply(sender_psid);
         break;
+      
       case "hospital":
           hospitalAppointment(sender_psid);
         break;                
@@ -577,21 +566,37 @@ const handlePostback = (sender_psid, received_postback) => {
   console.log('BUTTON PAYLOAD', payload);
 
   
-  if(payload.startsWith("Doctor:")){
-    let doctor_name = payload.slice(7);
-    console.log('SELECTED DOCTOR IS: ', doctor_name);
-    userInputs[user_id].doctor = doctor_name;
+  if(payload.startsWith("packages:")){
+    let package_name = payload.slice(9);
+    console.log('SELECTED PACKAGE IS:', package_name);
+    userInputs[user_id].package = package_name;
     console.log('TEST', userInputs);
-    firstOrFollowUp(sender_psid);
+    current_question = 'q1';
+    botQuestions(current_question, sender_psid);
   }else{
 
-      switch(payload) {        
-      case "yes":
-          showButtonReplyYes(sender_psid);
-        break;
-      case "no":
-          showButtonReplyNo(sender_psid);
-        break;                      
+      switch(payload) {
+      case "start":
+          list(sender_psid);
+        break;         
+      case "info":
+          showBasicInfo(sender_psid);
+        break; 
+      case "list":
+          showSongList(sender_psid);
+        break; 
+      case "packages":
+          showPackages(sender_psid);
+        break; 
+      case "offer":
+          showPromotion(sender_psid);
+        break; 
+      case "request":
+      current_question = 'q5';
+       botQuestions(current_question, sender_psid);
+        break;   
+
+                      
       default:
           defaultReply(sender_psid);
     } 
@@ -675,75 +680,29 @@ function webviewTest(sender_psid){
   callSendAPI(sender_psid, response);
 }
 
+
 /**************
-start hospital
+start KTV
 **************/
-const hospitalAppointment = (sender_psid) => {
-   let response1 = {"text": "Welcome to ABC Hospital"};
-   let response2 = {
-    "text": "Please select department",
-    "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"General Surgery",
-              "payload":"department:General Surgery",              
-            },{
-              "content_type":"text",
-              "title":"ENT",
-              "payload":"department:ENT",             
-            },{
-              "content_type":"text",
-              "title":"Dermatology",
-              "payload":"department:Dermatology", 
-            }
-
-    ]
-  };
-
-  callSend(sender_psid, response1).then(()=>{
-    return callSend(sender_psid, response2);
-  });
-}
-
-
-const showDoctor = (sender_psid) => {
-    let response = {
+const hiReply = (sender_psid) => {
+    let response1 = {"text": "Welcome to MusicBox KTV & Bar. Let's create a good time together with friends and MUSIC!"};
+     let response2 = {
       "attachment": {
         "type": "template",
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "James Smith",
-            "subtitle": "General Surgeon",
-            "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "James Smith",
-                  "payload": "Doctor:James Smith",
-                },               
-              ],
-          },{
-            "title": "Kenneth Martinez",
-            "subtitle": "General Surgeon",
-            "image_url":"https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Kenneth Martinez",
-                  "payload": "Doctor:Kenneth Martinez",
-                },               
-              ],
-          },{
-            "title": "Barbara Young",
-            "subtitle": "General Surgeon",
-            "image_url":"https://cdn.iconscout.com/icon/free/png-512/doctor-567-1118047.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Barbara Young",
-                  "payload": "Doctor:Barbara Young",
-                },               
+            "title":"So, shall we get started? ",
+                  
+            "buttons": [                
+                  {
+                "type": "postback",
+                  "title": "Get Started",
+                 
+                  "payload": "start",          
+              
+                },    
+                          
               ],
           }
 
@@ -751,30 +710,301 @@ const showDoctor = (sender_psid) => {
         }
       }
     }
-
-  
-  callSend(sender_psid, response);
-
+     callSend(sender_psid, response1).then(()=>{
+        return callSend(sender_psid, response2)
+      });
 }
 
-const firstOrFollowUp = (sender_psid) => {
+const list = (sender_psid) => {
+    let response1 = {"text": "How may I help you?"};
+    let response2 = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Show MusicBox KTV & Bar information. ",
+            "image_url":"https://www.gomyanmartours.com/wp-content/uploads/2018/12/Music-Box-Karaoke-In-Yangon-3.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Basic Info",
+                  "payload": "info",
+                },               
+              ],
+          },{
+            "title": "See Song List and Request ",
+              
+            "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Song List",
+                  "payload": "list", 
+                },               
+              ],
+          },
 
-  let response = {
-    "text": "First Time Visit or Follow Up",
-    "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"First Time",
-              "payload":"visit:first time",              
-            },{
-              "content_type":"text",
-              "title":"Follow Up",
-              "payload":"visit:follow up",             
-            }
-    ]
-  };
-  callSend(sender_psid, response);
+          {
+            "title": "Many Exciting Lounge Packages to Pick ",
+              
+            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Lounge Packages",
+                  "payload": "packages", 
+                },               
+              ],
+          },{
+            "title": "See what we offer ",
+              
+            "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Promotion",
+                  "payload": "offer", 
+                },               
+              ],
+          },
 
+          ]
+        }
+      }
+    }
+  
+ callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
+}
+
+const showBasicInfo = (sender_psid) => {
+    let response1 = {"text": "Location: No.334, within Yangon International Hotel Compound, Ahlone Road, Ahlone Township, Yangon. "};
+    let response2 = {"text": "Contact No.: 09453890776"};
+    let response3 = {"text": "Operation Time: Everyday 11:00 AM - 2:00 AM"};
+    let response4 = {"text": "Would you like to see song list and lounge packages?"};
+    let response5 = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "See Song List and Request ",
+            "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Song List",
+                  "payload": "list",
+                },               
+              ],
+          },{
+            "title": "Many Exciting Lounge Packages to Pick ",
+              
+            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Lounge Packages",
+                  "payload": "packages", 
+                },               
+              ],
+          }
+        ]
+      }
+    }
+  }
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2).then(()=>{;
+    return callSend(sender_psid, response3).then(()=>{;
+    return callSend(sender_psid, response4).then(()=>{;
+    return callSend(sender_psid, response5);
+  });
+  });
+  });
+  });
+}         
+
+const showSongList = (sender_psid) => {
+    let response1 = {"text": "Here is the song list. You can also request the song you want to sing."};
+    let response2 = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "See Song List or Request ?",
+            "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Song List",
+                  "payload": "list",
+                },{
+                  "type": "postback",
+                  "title": "Song Request",
+                  "payload": "request",
+                }              
+              ],
+          },{
+            "title": "Many Exciting Lounge Packages to Pick.",
+              
+            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Lounge Packages",
+                 
+                  "payload": "packages", 
+                },               
+              ],
+          }
+        ]
+      }
+    }
+  }
+        callSend(sender_psid, response1).then(()=>{
+        return callSend(sender_psid, response2)
+      });
+} 
+
+     
+
+const showPackages= (sender_psid) => {
+    let response1 = {"text": "Explore the best lounge packages we offer. "};
+    let response2 = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Bronze Package",
+            "subtitle": "small, 4 to 6 people, 15,000Ks per hour+ 2 water bottles ",
+            "image_url":"https://jp-mm.drecomejp.com/uploads/picture/image/49417/14233863_10207382915035233_161325588_o.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve Now",                 
+                  "payload": "packages: bronze",
+                }              
+              ],
+          },{
+            "title": "Silver Package",
+            "subtitle": "Normal, 6 to 9 people, 20,000Ks per hour + 3 water bottles + chips",
+            "image_url":"https://www.yangonbookings.com/timthumb/timthumb.php?src=https://www.yangonbookings.com/assets/uploads/listing/4b61466b91825f579bb3a2645fd7e89f.jpg&h=430&w=860",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve Now",                 
+                  "payload": "packages: silver",
+                }              
+              ],
+          },{
+            "title": "Gold Package",
+            "subtitle": "Big, 8 to 12 people, 45000Ks per hour + 4 water bottles + fruit + chips",
+            "image_url":"https://www.straitstimes.com/sites/default/files/articles/2020/08/16/hzjewel0815.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve Now",                 
+                  "payload": "packages: gold",
+                }              
+              ],
+          },{
+            "title": "Platinum (VIP) Package",
+            "subtitle": "Big, 8 to 12 people, 75,000Ks per hour + 4 water bottles + fruit + 5 beer + chips",
+            "image_url":"https://i.pinimg.com/originals/a8/8c/aa/a88caa1cfdad9145ba7c8cd615bdd85b.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve Now",                 
+                  "payload": "packages: platinum",
+                }              
+              ],
+          },{
+            "title": "Diamond (Luxury) Package with Private Dj & Private Bar ",
+            "subtitle": "Big, 10 to 15 people, 200,000Ks per hour + 5 water bottles + 2 fruit + 6 beer",
+            "image_url":"https://www.filepicker.io/api/file/Yib3edKSTGChtVmNcGH5/convert?cache=true&crop=0%2C113%2C1999%2C1000",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve Now",                 
+                  "payload": "packages: diamond",
+                }              
+              ],
+          },{
+            "title": "See what we offer ",
+            "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Promotion",                 
+                  "payload": "offer", 
+                },               
+              ],
+          }
+        ]
+      }
+    }
+  }
+        callSend(sender_psid, response1).then(()=>{
+        return callSend(sender_psid, response2)
+      });
+}
+
+
+const showPromotion = (sender_psid) => {
+    let response1 = {"text": "Birthday Promotion: 10% off for every packages"};
+    let response2 = {"text": "Silver Room Promotion: One hour free of karaoke for every 25,000Ks spend."};
+    let response3 = {"text": "Gold Room Promotion: One hour free of karaoke for every 50,000Ks spend."};
+    let response4 = {"text": "Buy one Get one Promotion: Buy one Get one by visting us from 1:00pm to 4:00pm for Bronze, Silver and Gold Packages."};
+    let response5 = {"text": "Contact us for more information."};
+    let response6 = {"text": "Would you like to see lounge packages?"};
+    let response7 = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Many Exciting Lounge Packages to Pick ",
+              
+            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Lounge Packages",
+                  "payload": "packages", 
+                },               
+              ],
+          },{
+            "title": "Show MusicBox KTV & Bar information. ",
+            "image_url":"https://www.gomyanmartours.com/wp-content/uploads/2018/12/Music-Box-Karaoke-In-Yangon-3.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Basic Info",
+                  "payload": "info",
+                },               
+              ],
+          }
+        ]
+      }
+    }
+  }
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2).then(()=>{;
+    return callSend(sender_psid, response3).then(()=>{;
+    return callSend(sender_psid, response4).then(()=>{;
+    return callSend(sender_psid, response5).then(()=>{;
+    return callSend(sender_psid, response6).then(()=>{;
+    return callSend(sender_psid, response7);  
+  });  
+  });
+  });
+  });
+  });
+  });
 }
 
 const botQuestions = (current_question, sender_psid) => {
@@ -793,37 +1023,26 @@ const botQuestions = (current_question, sender_psid) => {
   }else if(current_question == 'q5'){
     let response = {"text": bot_questions.q5};
     callSend(sender_psid, response);
-  }else if(current_question == 'q6'){
-    let response = {"text": bot_questions.q6};
-    callSend(sender_psid, response);
-  }else if(current_question == 'q7'){
-    let response = {"text": bot_questions.q7};
-    callSend(sender_psid, response);
   }
 }
 
-const confirmAppointment = (sender_psid) => {
-  console.log('APPOINTMENT INFO', userInputs);
-  let summery = "department:" + userInputs[user_id].department + "\u000A";
-  summery += "doctor:" + userInputs[user_id].doctor + "\u000A";
-  summery += "visit:" + userInputs[user_id].visit + "\u000A";
+const confirmReservation = (sender_psid) => {
+  console.log('RESERVATION INFO', userInputs);
+  let summery = "packages:" + userInputs[user_id].package + "\u000A";
   summery += "date:" + userInputs[user_id].date + "\u000A";
   summery += "time:" + userInputs[user_id].time + "\u000A";
   summery += "name:" + userInputs[user_id].name + "\u000A";
-  summery += "gender:" + userInputs[user_id].gender + "\u000A";
   summery += "phone:" + userInputs[user_id].phone + "\u000A";
-  summery += "email:" + userInputs[user_id].email + "\u000A";
-  summery += "message:" + userInputs[user_id].message + "\u000A";
 
   let response1 = {"text": summery};
 
   let response2 = {
-    "text": "Select your reply",
+    "text": "Is this information correct? Tap Confirm to complete reservation.",
     "quick_replies":[
             {
               "content_type":"text",
               "title":"Confirm",
-              "payload":"confirm-appointment",              
+              "payload":"confirm-reservation",              
             },{
               "content_type":"text",
               "title":"Cancel",
@@ -837,15 +1056,18 @@ const confirmAppointment = (sender_psid) => {
   });
 }
 
-const saveAppointment = (arg, sender_psid) => {
+
+
+const saveReservation = (arg, sender_psid) => {
   let data = arg;
   data.ref = generateRandom(6);
   data.status = "pending";
-  db.collection('appointments').add(data).then((success)=>{
+  data.created_on = new Date();
+  db.collection('Reservations').add(data).then((success)=>{
     console.log('SAVED', success);
-    let text = "Thank you. We have received your appointment."+ "\u000A";
-    text += " We wil call you to confirm soon"+ "\u000A";
-    text += "Your booking reference number is:" + data.ref;
+    let text = "Thank you. We have received your reservation."+ "\u000A";
+    text += " We wil call you to confirm soon. Please show the reference code at the reception."+ "\u000A";
+    text += "Your reservation reference number is:" + data.ref;
     let response = {"text": text};
     callSend(sender_psid, response);
   }).catch((err)=>{
@@ -853,18 +1075,71 @@ const saveAppointment = (arg, sender_psid) => {
   });
 }
 
-/**************
-end hospital
-**************/
-
-
-
-
-const hiReply =(sender_psid) => {
-  let response = {"text": "You sent hi message"};
-  callSend(sender_psid, response);
+const confirmRequest = (sender_psid) => {
+  console.log('REQUEST SONGS', userInputs);
+  let summery = "" + userInputs[user_id].reqsong + "\u000A";
+  let response1 = {"text": summery};
+  let response2 = {
+    "text": "Is this the song you requested? Tap Yes to Confirm.",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Yes",
+              "payload":"confirm-request",              
+            },{
+              "content_type":"text",
+              "title":"No",
+              "payload":"off",             
+            }
+    ]
+  };
+  
+  callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
 }
 
+const saveRequest = (arg, sender_psid) => {
+  let data = arg;
+  data.created_on = new Date();
+  db.collection('Song Requests').add(data).then((success)=>{
+    console.log('SAVED', success);
+    let text = "Thank you for requesting. Would you like to see lounge packages?"+ "\u000A";
+    let response1 = {"text": text};
+    let response2 = {"attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Many Exciting Lounge Packages to Pick.",
+              
+            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Lounge Packages",
+                 
+                  "payload": "packages", 
+                },               
+              ],
+          }
+        ]
+      }
+    }
+  }
+      
+    callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
+    
+  }).catch((err)=>{
+     console.log('Error', err);
+  });
+}
+
+/**************
+end KTV
+**************/
 
 const greetInMyanmar =(sender_psid) => {
   let response = {"text": "Mingalarbar. How may I help"};
@@ -901,7 +1176,7 @@ const showQuickReplyOn =(sender_psid) => {
 }
 
 const showQuickReplyOff =(sender_psid) => {
-  let response = { "text": "You sent quick reply OFF" };
+  let response = { "text": "Request canceled" };
   callSend(sender_psid, response);
 }
 
@@ -1001,18 +1276,10 @@ function testDelete(sender_psid){
 }
 
 const defaultReply = (sender_psid) => {
-  let response1 = {"text": "To test text reply, type 'text'"};
-  let response2 = {"text": "To test quick reply, type 'quick'"};
-  let response3 = {"text": "To test button reply, type 'button'"};   
-  let response4 = {"text": "To test webview, type 'webview'"};
-    callSend(sender_psid, response1).then(()=>{
-      return callSend(sender_psid, response2).then(()=>{
-        return callSend(sender_psid, response3).then(()=>{
-          return callSend(sender_psid, response4);
-        });
-      });
-  });  
+  let response = hiReply(sender_psid);
+ callSend(sender_psid, response)
 }
+
 
 const callSendAPI = (sender_psid, response) => {   
   let request_body = {
@@ -1052,7 +1319,7 @@ const uploadImageToStorage = (file) => {
       reject('No image file');
     }
     let newFileName = `${Date.now()}_${file.originalname}`;
-
+ 
     let fileUpload = bucket.file(newFileName);
 
     const blobStream = fileUpload.createWriteStream({
