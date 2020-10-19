@@ -28,7 +28,7 @@ const bot_questions = {
   "q2": "Please enter time you want to sing.(hh:mm am/pm)",
   "q3": "Please enter your name",
   "q4": "please enter your phone number",
-  "q5": "Drop the song name and its artist. (Artist - Song Name)",
+  "q5": "Drop the song name and its artist. (Artist Name - Song Name)",
 }
 
 let current_question = '';
@@ -1077,7 +1077,7 @@ const saveReservation = (arg, sender_psid) => {
 
 const confirmRequest = (sender_psid) => {
   console.log('REQUEST SONGS', userInputs);
-  
+  let summery = "" + userInputs[user_id].reqsong + "\u000A";
   let response1 = {"text": summery};
   let response2 = {
     "text": "Is this the song you requested? Tap Yes to Confirm.",
