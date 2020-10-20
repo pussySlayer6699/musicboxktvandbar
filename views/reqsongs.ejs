@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Song Requests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ </head>
+
+  <body>
+  <h1>Song Requests</h1>
+
+ 
+  
+  <table cellspacing="1" cellpadding="5" border="1">
+    <tr>
+    <th>Song Name</th>
+    <th>Artist Name</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+
+
+  <% data.forEach(function(reqsong){ %>
+     <tr>
+      
+       <td><%= reqsongs.songname %></td>
+       <td><%= reqsongs.artistname %></td>
+       <td><%= reqsongs.status %></td>
+       <td><a href="editreqsong/<%= reqsong.doc_id %>">Edit</a> | Delete</td>
+     </tr>
+  <% }); %>
+
+	</table>
+
+ 
+ 
+
+  </body>
+
+</html>
