@@ -239,7 +239,7 @@ app.get('/admin/reqsongs', async function(req,res){
     reqsongs = doc.data();
     reqsongs.doc_id = doc.id;
 
-    data.push(reqsong);
+    data.push(reqsongs);
     
   });
 
