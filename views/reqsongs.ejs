@@ -13,18 +13,14 @@
   
   <table cellspacing="1" cellpadding="5" border="1">
     <tr>
-    <th>Song Name</th>
-    <th>Artist Name</th>
-    <th>Status</th>
+    <th>Request Song</th>
     <th>Action</th>
   </tr>
 
 
   <% data.forEach(function(reqsongs){ %>
      <tr>
-       <td><%= reqsongs.songname %></td>
-       <td><%= reqsongs.artistname %></td>
-       <td><%= reqsongs.status %></td>
+       <td><%= reqsongs.reqsong %></td>
        <td><a href="editreqsong/<%= reqsongs.doc_id %>">Edit</a> | Delete</td>
      </tr>
   <% }); %>
