@@ -874,7 +874,7 @@ const showPackages= (sender_psid) => {
           "template_type": "generic",
           "elements": [{
             "title": "Bronze Package",
-            "subtitle": "small, 4 to 6 people, 15,000Ks per hour+ 2 water bottles ",
+            "subtitle": "small, 4 to 6 people, 35,000Ks per hour+ 2 water bottles ",
             "image_url":"https://jp-mm.drecomejp.com/uploads/picture/image/49417/14233863_10207382915035233_161325588_o.jpg",                       
             "buttons": [
                 {
@@ -885,7 +885,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Silver Package",
-            "subtitle": "Normal, 6 to 9 people, 20,000Ks per hour + 3 water bottles + chips",
+            "subtitle": "Normal, 6 to 9 people, 50,000Ks per hour + 3 water bottles + chips",
             "image_url":"https://www.yangonbookings.com/timthumb/timthumb.php?src=https://www.yangonbookings.com/assets/uploads/listing/4b61466b91825f579bb3a2645fd7e89f.jpg&h=430&w=860",                       
             "buttons": [
                 {
@@ -896,7 +896,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Gold Package",
-            "subtitle": "Big, 8 to 12 people, 45000Ks per hour + 4 water bottles + fruit + chips",
+            "subtitle": "Big, 10 to 12 people, 70,000Ks per hour + 4 water bottles + fruit + chips",
             "image_url":"https://www.straitstimes.com/sites/default/files/articles/2020/08/16/hzjewel0815.jpg",                       
             "buttons": [
                 {
@@ -907,7 +907,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Platinum (VIP) Package",
-            "subtitle": "Big, 8 to 12 people, 75,000Ks per hour + 4 water bottles + fruit + 5 beer + chips",
+            "subtitle": "Big, 15 to 20 people, 150,000Ks per hour + 6 water bottles + fruit + 6 beer + chips",
             "image_url":"https://i.pinimg.com/originals/a8/8c/aa/a88caa1cfdad9145ba7c8cd615bdd85b.jpg",                       
             "buttons": [
                 {
@@ -917,8 +917,8 @@ const showPackages= (sender_psid) => {
                 }              
               ],
           },{
-            "title": "Diamond (Luxury) Package with Private Dj & Private Bar ",
-            "subtitle": "Big, 10 to 15 people, 200,000Ks per hour + 5 water bottles + 2 fruit + 6 beer",
+            "title": "PentHouse (Luxury) Package with Private Dj & Private Bar ",
+            "subtitle": "Big, 30 to 35 people, 450,000Ks per hour + 10 water bottles + 4 fruit + 12 beer",
             "image_url":"https://www.filepicker.io/api/file/Yib3edKSTGChtVmNcGH5/convert?cache=true&crop=0%2C113%2C1999%2C1000",                       
             "buttons": [
                 {
@@ -928,7 +928,7 @@ const showPackages= (sender_psid) => {
                 }              
               ],
           },{
-            "title": "See what we offer ",
+            "title": "See what we offer.",
             "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
             "buttons": [
                 {
@@ -949,20 +949,79 @@ const showPackages= (sender_psid) => {
 
 
 const showPromotion = (sender_psid) => {
-    let response1 = {"text": "Birthday Promotion: 10% off for every packages"};
-    let response2 = {"text": "Silver Room Promotion: One hour free of karaoke for every 25,000Ks spend."};
-    let response3 = {"text": "Gold Room Promotion: One hour free of karaoke for every 50,000Ks spend."};
-    let response4 = {"text": "Buy one Get one Promotion: Buy one Get one by visting us from 1:00pm to 4:00pm for Bronze, Silver and Gold Packages."};
-    let response5 = {"text": "Contact us for more information."};
-    let response6 = {"text": "Would you like to see lounge packages?"};
-    let response7 = {
+    let response1 = {"text": "Explore what we offer the best."};
+    let response2 = {
       "attachment": {
         "type": "template",
         "payload": {
           "template_type": "generic",
           "elements": [{
+            "title": "Birthday Promotion: Your Age is Your Discount! Contact us for detail.",
+            "image_url":"https://bq.sg/wp-content/uploads/2017/09/img08844261c9b31d7138a1773e7bb3d4b7.jpeg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve a lounge Now!",
+                  "payload": "packages", 
+                },               
+              ],
+          },{
+            "title": "Silver Package Promotion.",
+            "subtitle": "One hour free of karaoke for every 45,000Ks spend. Contact us for detail.",
+            "image_url":"https://www.yangonbookings.com/timthumb/timthumb.php?src=https://www.yangonbookings.com/assets/uploads/listing/4b61466b91825f579bb3a2645fd7e89f.jpg&h=430&w=860",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve a lounge Now!",
+                  "payload": "packages", 
+                },               
+              ],
+          },{
+            "title": "Gold Package Promotion.",
+            "subtitle": "One hour free of karaoke for every 65,000Ks spend. Contact us for detail.",
+            "image_url":"https://www.straitstimes.com/sites/default/files/articles/2020/08/16/hzjewel0815.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve a lounge Now!",
+                  "payload": "packages", 
+                },               
+              ],
+          },{
+            "title": "Platinum (VIP) Package Promotion.",
+            "subtitle": "One hour free of karaoke for every 120,000Ks spend. Contact us for detail.",
+            "image_url":"https://i.pinimg.com/originals/a8/8c/aa/a88caa1cfdad9145ba7c8cd615bdd85b.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve a lounge Now!",
+                  "payload": "packages", 
+                },               
+              ],
+          },{
+            "title": "PentHouse (Luxury) Package Promotion.",
+            "subtitle": "One hour free of karaoke for every 300,000Ks spend. Contact us for detail.",
+            "image_url":"https://www.filepicker.io/api/file/Yib3edKSTGChtVmNcGH5/convert?cache=true&crop=0%2C113%2C1999%2C1000",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve a lounge Now!",
+                  "payload": "packages", 
+                },               
+              ],
+          },{
+            "title": "Day Promotion.",
+            "subtitle": "Buy two Get four by visting us within 12:00pm to 6:00pm for Bronze, Silver and Gold Packages. Contact us for detail.",
+            "image_url":"https://scontent.fymy1-2.fna.fbcdn.net/v/t1.0-9/p720x720/83896901_1077293602618371_3109857227712757760_o.jpg?_nc_cat=103&_nc_sid=110474&_nc_ohc=ImfV61uCMfoAX_ayJWb&_nc_ht=scontent.fymy1-2.fna&tp=6&oh=05c6b6a2930e7836a018e17bb6d240a9&oe=5FA5481B",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Reserve a lounge Now!",
+                  "payload": "packages", 
+                },               
+              ],
+          },{
             "title": "Many Exciting Lounge Packages to Pick ",
-              
             "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
             "buttons": [
                 {
@@ -971,36 +1030,15 @@ const showPromotion = (sender_psid) => {
                   "payload": "packages", 
                 },               
               ],
-          },{
-            "title": "Show MusicBox KTV & Bar information. ",
-            "image_url":"https://www.gomyanmartours.com/wp-content/uploads/2018/12/Music-Box-Karaoke-In-Yangon-3.jpg",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Basic Info",
-                  "payload": "info",
-                },               
-              ],
-          }
+          },
         ]
       }
     }
   }
   callSend(sender_psid, response1).then(()=>{
-    return callSend(sender_psid, response2).then(()=>{;
-    return callSend(sender_psid, response3).then(()=>{;
-    return callSend(sender_psid, response4).then(()=>{;
-    return callSend(sender_psid, response5).then(()=>{;
-    return callSend(sender_psid, response6).then(()=>{;
-    return callSend(sender_psid, response7);  
+    return callSend(sender_psid, response2);  
   });  
-  });
-  });
-  });
-  });
-  });
 }
-
 const botQuestions = (current_question, sender_psid) => {
   if(current_question == 'q1'){
     let response = {"text": bot_questions.q1};
