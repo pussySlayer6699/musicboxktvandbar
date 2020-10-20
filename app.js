@@ -956,7 +956,8 @@ const showPromotion = (sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Birthday Promotion: Your Age is Your Discount! Contact us for detail.",
+            "title": "Birthday Parties Giant Promotion.",
+            "subtitle": "Your Age is Your Discount! Contact us for detail. Contact us for detail.",
             "image_url":"https://bq.sg/wp-content/uploads/2017/09/img08844261c9b31d7138a1773e7bb3d4b7.jpeg",                       
             "buttons": [
                 {
