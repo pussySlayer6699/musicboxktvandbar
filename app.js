@@ -144,6 +144,10 @@ app.post('/test',function(req,res){
     callSend(sender_psid, response);
 });
 
+
+/*********************************************
+Start Reservation
+**********************************************/
 app.get('/admin/reservations', async function(req,res){
  
   const reservationsRef = db.collection('Reservations');
@@ -212,6 +216,78 @@ app.post('/admin/updatereservation', function(req,res){
   }).catch((err)=>console.log('ERROR:', error)); 
  
 });
+/*********************************************
+End Reservation
+**********************************************/
+
+/*********************************************
+Start Req Songs
+**********************************************/
+app.get('/admin/reqsongs', async function(req,res){
+ 
+  const reqsongsRef = db.collection('Song Requests');
+  const snapshot = await reqsongsRef.get();
+
+  if (snapshot.empty) {
+    res.send('no data');
+  } 
+
+  let data = []; 
+
+  snapshot.forEach(doc => {
+    let reqsong = {};
+    reqsong = doc.data();
+    reqsong.doc_id = doc.id;
+
+    data.push(reqsong);
+    
+  });
+
+  console.log('DATA:', data);
+
+  res.render('reqsongs.ejs', {data:data});
+  
+});
+
+app.get('/admin/editreqsong/:doc_id', async function(req,res){
+  let doc_id = req.params.doc_id; 
+  
+  const reqsongsRef = db.collection('Song Requests').doc(doc_id);
+  const doc = await reqsongsRef.get();
+  if (!doc.exists) {
+    console.log('No such document!');
+  } else {
+    console.log('Document data:', doc.data());
+    let data = doc.data();
+    data.doc_id = doc.id;
+
+    console.log('Document data:', data);
+    res.render('editreqsong.ejs', {data:data});
+  } 
+
+});
+
+
+app.post('/admin/editreqsong', function(req,res){
+  console.log('REQ:', req.body); 
+
+  
+
+  let data = {
+    songname:req.body.songname,
+    artistname:req.body.artistname,
+  }
+
+  db.collection('Song Requests').doc(req.body.doc_id)
+  .update(data).then(()=>{
+      res.redirect('/admin/reqsongs');
+  }).catch((err)=>console.log('ERROR:', error)); 
+ 
+});
+/*********************************************
+End Req Songs
+**********************************************/
+
 
 /*********************************************
 Gallery page
