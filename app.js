@@ -274,7 +274,7 @@ app.post('/admin/editreqsong', function(req,res){
   
 
   let data = {
-    reqsong:req.body.reqsong,
+    reqsongs:req.body.reqsongs,
     status:req.body.status,
   }
 
