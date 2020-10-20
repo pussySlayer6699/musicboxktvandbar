@@ -1210,6 +1210,7 @@ const confirmRequest = (sender_psid) => {
 
 const saveRequest = (arg, sender_psid) => {
   let data = arg;
+  data.status = "";
   data.created_on = new Date();
   db.collection('Song Requests').add(data).then((success)=>{
     console.log('SAVED', success);

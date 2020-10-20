@@ -35,13 +35,10 @@
 
   <form id="form" method="post" action="../editreqsong">
   <div class="form-group">
-    <label for="name">Song Name</label>
-    <input type="text" class="form-control" name="songname" value="<%= data.songname %>">    
+    <label for="name">Request Song</label>
+    <input type="text" class="form-control" name="reqsong" value="<%= data.reqsong %>">    
   </div>
-  <div class="form-group">
-    <label for="name">Artist Name</label>
-    <input type="text" class="form-control" name="artistname" value="<%= data.artistname %>">    
-  </div>
+  
   
   <div class="form-group">
     <label for="status">Status:</label>
@@ -55,12 +52,8 @@
     <%if(data.status == "added"){%>
         <%="selected"%>
     <%}%>
-    >Confirm</option>
-    <option value="cancel"
-    <%if(data.status == "cancel"){%>
-        <%="selected"%>
-    <%}%>
-    >Cancel</option>
+    >Added</option>
+    
    
   </select>   
 
