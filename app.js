@@ -274,8 +274,7 @@ app.post('/admin/editreqsong', function(req,res){
   
 
   let data = {
-    songname:req.body.songname,
-    artistname:req.body.artistname,
+    reqsongs:req.body.reqsong,
   }
 
   db.collection('Song Requests').doc(req.body.doc_id)
