@@ -275,6 +275,7 @@ app.post('/admin/editreqsong', function(req,res){
 
   let data = {
     reqsong:req.body.reqsong,
+    status:req.body.status,
   }
 
   db.collection('Song Requests').doc(req.body.doc_id)
