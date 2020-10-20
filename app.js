@@ -733,32 +733,7 @@ const list = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "See Song List and Request ",
-              
-            "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Song List",
-                  "payload": "list", 
-                },               
-              ],
-          },
-
-          {
-            "title": "Many Exciting Lounge Packages to Pick ",
-              
-            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "See Lounge Packages",
-                  "payload": "packages", 
-                },               
-              ],
-          },{
-            "title": "See what we offer ",
-              
+            "title": "See what we offer ", 
             "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
             "buttons": [
                 {
@@ -767,8 +742,27 @@ const list = (sender_psid) => {
                   "payload": "offer", 
                 },               
               ],
+          },{
+            "title": "See Song List and Request ",
+            "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Song List",
+                  "payload": "list", 
+                },               
+              ],
+          },{
+            "title": "Many Exciting Lounge Packages to Pick ",
+            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Lounge Packages",
+                  "payload": "packages", 
+                },               
+              ],
           },
-
           ]
         }
       }
