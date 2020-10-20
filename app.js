@@ -1088,7 +1088,7 @@ const showPromotion = (sender_psid) => {
               ],
           },{
             "title": "Day Promotion.",
-            "subtitle": "Buy two Get four by visting us within 12:00pm to 6:00pm for Bronze, Silver and Gold Packages. Contact us for detail.",
+            "subtitle": "Buy two Get four by visting 12:00pm to 6:00pm for Bronze, Silver and Gold Packages.",
             "image_url":"https://scontent.fymy1-2.fna.fbcdn.net/v/t1.0-9/p720x720/83896901_1077293602618371_3109857227712757760_o.jpg?_nc_cat=103&_nc_sid=110474&_nc_ohc=ImfV61uCMfoAX_ayJWb&_nc_ht=scontent.fymy1-2.fna&tp=6&oh=05c6b6a2930e7836a018e17bb6d240a9&oe=5FA5481B",                       
             "buttons": [
                 {
@@ -1214,7 +1214,7 @@ const saveRequest = (arg, sender_psid) => {
   data.created_on = new Date();
   db.collection('Song Requests').add(data).then((success)=>{
     console.log('SAVED', success);
-    let text = "Thank you for requesting. Would you like to see lounge packages?"+ "\u000A";
+    let text = "Thank you for requesting. Your song will be added soon. Would you like to see lounge packages?"+ "\u000A";
     let response1 = {"text": text};
     let response2 = {"attachment": {
         "type": "template",
