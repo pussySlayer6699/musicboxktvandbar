@@ -22,6 +22,7 @@
   <% data.forEach(function(reqsongs){ %>
      <tr>
        <td><%= reqsongs.reqsong %></td>
+       <td><%= reqsongs.status %></td>
        <td><a href="editreqsong/<%= reqsongs.doc_id %>">Edit</a> | Delete</td>
      </tr>
   <% }); %>
