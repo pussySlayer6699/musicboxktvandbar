@@ -22,11 +22,10 @@
 
   <% data.forEach(function(reqsong){ %>
      <tr>
-      
-       <td><%= reqsong.songname %></td>
-       <td><%= reqsong.artistname %></td>
-       <td><%= reqsong.status %></td>
-       <td><a href="editreqsong/<%= reqsong.doc_id %>">Edit</a> | Delete</td>
+       <td><%= reqsongs.songname %></td>
+       <td><%= reqsongs.artistname %></td>
+       <td><%= reqsongs.status %></td>
+       <td><a href="editreqsong/<%= reqsongs.doc_id %>">Edit</a> | Delete</td>
      </tr>
   <% }); %>
 

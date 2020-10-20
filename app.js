@@ -235,9 +235,9 @@ app.get('/admin/reqsongs', async function(req,res){
   let data = []; 
 
   snapshot.forEach(doc => {
-    let reqsong = {};
-    reqsong = doc.data();
-    reqsong.doc_id = doc.id;
+    let reqsongs = {};
+    reqsongs = doc.data();
+    reqsongs.doc_id = doc.id;
 
     data.push(reqsong);
     
