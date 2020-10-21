@@ -1185,9 +1185,9 @@ const saveReservation = (arg, sender_psid) => {
   db.collection('Reservations').add(data).then((success)=>{
     console.log('SAVED', success);
     let text = "Thank you. We have received your reservation."+ "\u000A";
-    text += "We wil call you to confirm soon. Please show the reference code at the reception."+ "\u000A";
+    text += "We wil call you to confirm soon. Please show the REFERENCE CODE at the reception."+ "\u000A";
+    text += "CONTACT US if you want to CANCEL your reservation."+ "\u000A";
     text += "Your reservation reference number is:" + data.ref;
-    text += "Contact us if you want to cancel your reservation."+ "\u000A";
     let response = {"text": text};
     callSend(sender_psid, response);
   }).catch((err)=>{
