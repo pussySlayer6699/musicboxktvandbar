@@ -1137,7 +1137,7 @@ const botQuestions = (current_question, sender_psid) => {
   }else if(current_question == 'q5'){
     let response = {"text": bot_questions.q5};
     callSend(sender_psid, response);
-  }  else if(current_question == 'q6'){
+  }else if(current_question == 'q6'){
     let response = {"text": bot_questions.q6};
     callSend(sender_psid, response);
   }
@@ -1184,8 +1184,9 @@ const saveReservation = (arg, sender_psid) => {
   db.collection('Reservations').add(data).then((success)=>{
     console.log('SAVED', success);
     let text = "Thank you. We have received your reservation."+ "\u000A";
-    text += " We wil call you to confirm soon. Please show the reference code at the reception."+ "\u000A";
+    text += "We wil call you to confirm soon. Please show the reference code at the reception."+ "\u000A";
     text += "Your reservation reference number is:" + data.ref;
+    text += "Contact us if you want to cancel your reservation.";
     let response = {"text": text};
     callSend(sender_psid, response);
   }).catch((err)=>{
