@@ -261,7 +261,6 @@ app.get('/admin/editreqsong/:doc_id', async function(req,res){
     let data = doc.data();
     data.doc_id = doc.id;
 
-    console.log('Document data:', data);
     res.render('editreqsong.ejs', {data:data});
   } 
 
@@ -269,12 +268,11 @@ app.get('/admin/editreqsong/:doc_id', async function(req,res){
 
 
 app.post('/admin/editreqsong', function(req,res){
-  console.log('REQ:', req.body); 
 
   
 
   let data = {
-    reqsongs:req.body.reqsong,
+    reqsong:req.body.reqsong,
     status:req.body.status,
   }
 
