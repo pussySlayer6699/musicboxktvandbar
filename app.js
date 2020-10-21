@@ -27,8 +27,10 @@ const bot_questions = {
   "q1": "For which date do you want to reserve? (dd-mm-yyyy)",
   "q2": "Please enter time you want to sing.(hh:mm am/pm)",
   "q3": "Please enter your name",
-  "q4": "please enter your phone number",
-  "q5": "Drop the song name and its artist. (Artist Name - Song Name)",
+  "q4": "Please enter your phone number",
+  "q5": "Please leave a message if you have something to tell us. ",
+  "q6": "Drop the song name and its artist. (Artist Name - Song Name)",
+  
 }
 
 let current_question = '';
@@ -204,6 +206,7 @@ app.post('/admin/updatereservation', function(req,res){
     package:req.body.package,
     date:req.body.date,
     time:req.body.time,
+    message:req.body.message,
     status:req.body.status,
     doc_id:req.body.doc_id,
     ref:req.body.ref,
@@ -538,10 +541,14 @@ const handleMessage = (sender_psid, received_message) => {
   }else if(current_question == 'q4'){
      console.log('PHONE NUMBER ENTERED',received_message.text);
      userInputs[user_id].phone = received_message.text;
-     current_question = '';
-     confirmReservation(sender_psid);
-   
+     current_question = 'q5';
   }else if(current_question == 'q5'){
+     console.log('MESSAGE ENTERED',received_message.text);
+     userInputs[user_id].message = received_message.text;
+     current_question = '';    
+     confirmReservation(sender_psid);
+  
+  }else if(current_question == 'q6'){
      console.log('ReqSong',received_message.text);
      userInputs[user_id].reqsong = received_message.text;
      current_question = '';
@@ -666,7 +673,7 @@ const handlePostback = (sender_psid, received_postback) => {
           showPromotion(sender_psid);
         break; 
       case "request":
-      current_question = 'q5';
+      current_question = 'q6';
        botQuestions(current_question, sender_psid);
         break;   
 
@@ -1130,6 +1137,9 @@ const botQuestions = (current_question, sender_psid) => {
   }else if(current_question == 'q5'){
     let response = {"text": bot_questions.q5};
     callSend(sender_psid, response);
+  }  else if(current_question == 'q6'){
+    let response = {"text": bot_questions.q6};
+    callSend(sender_psid, response);
   }
 }
 
@@ -1140,6 +1150,7 @@ const confirmReservation = (sender_psid) => {
   summery += "time:" + userInputs[user_id].time + "\u000A";
   summery += "name:" + userInputs[user_id].name + "\u000A";
   summery += "phone:" + userInputs[user_id].phone + "\u000A";
+  summery += "message:" + userInputs[user_id].message + "\u000A";
 
   let response1 = {"text": summery};
 
