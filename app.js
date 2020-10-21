@@ -28,7 +28,7 @@ const bot_questions = {
   "q2": "Please enter time you want to sing.(hh:mm am/pm)",
   "q3": "Please enter your name",
   "q4": "Please enter your phone number",
-  "q5": "Please leave a message if you have something to tell us. ",
+  "q5": "Please leave a message if you have something to tell us.",
   "q6": "Drop the song name and its artist. (Artist Name - Song Name)",
   
 }
@@ -542,6 +542,7 @@ const handleMessage = (sender_psid, received_message) => {
      console.log('PHONE NUMBER ENTERED',received_message.text);
      userInputs[user_id].phone = received_message.text;
      current_question = 'q5';
+     botQuestions(current_question, sender_psid);
   }else if(current_question == 'q5'){
      console.log('MESSAGE ENTERED',received_message.text);
      userInputs[user_id].message = received_message.text;
@@ -1186,7 +1187,7 @@ const saveReservation = (arg, sender_psid) => {
     let text = "Thank you. We have received your reservation."+ "\u000A";
     text += "We wil call you to confirm soon. Please show the reference code at the reception."+ "\u000A";
     text += "Your reservation reference number is:" + data.ref;
-    text += "Contact us if you want to cancel your reservation.";
+    text += "Contact us if you want to cancel your reservation."+ "\u000A";
     let response = {"text": text};
     callSend(sender_psid, response);
   }).catch((err)=>{
