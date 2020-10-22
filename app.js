@@ -1219,8 +1219,8 @@ const confirmRequest = (sender_psid) => {
   });
 }
 
-const saveRequest = (arg, sender_psid) => {
-  let data = arg;
+const saveRequest = (argg, sender_psid) => {
+  let data = argg;
   data.status = "pending";
   data.created_on = new Date();
   db.collection('Song Requests').add(data).then((success)=>{
