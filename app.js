@@ -558,10 +558,9 @@ const handleMessage = (sender_psid, received_message) => {
 
   }else if(current_question == 'q7'){
      let reservation_ref = received_message.text; 
-
      console.log('reservation_ref: ', reservation_ref);    
      current_question = '';     
-     showOrder(sender_psid, reservation_ref);
+     showReservations(sender_psid, reservation_ref);
   }
      
      
