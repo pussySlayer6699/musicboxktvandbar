@@ -30,6 +30,7 @@ const bot_questions = {
   "q4": "Please enter your phone number",
   "q5": "Please leave a message if you have something to tell us.",
   "q6": "Drop the song name and its artist. (Artist Name - Song Name)",
+  "q7": "Please enter your reservation code.",
   
 }
 
@@ -554,6 +555,13 @@ const handleMessage = (sender_psid, received_message) => {
      userInputs[user_id].reqsong = received_message.text;
      current_question = '';
      confirmRequest(sender_psid);
+
+  }else if(current_question == 'q7'){
+     let reservation_ref = received_message.text; 
+
+     console.log('reservation_ref: ', reservation_ref);    
+     current_question = '';     
+     showOrder(sender_psid, reservation_ref);
   }
      
      
@@ -672,13 +680,18 @@ const handlePostback = (sender_psid, received_postback) => {
         break; 
       case "offer":
           showPromotion(sender_psid);
-        break; 
+        break;
+
       case "request":
       current_question = 'q6';
-       botQuestions(current_question, sender_psid);
+      botQuestions(current_question, sender_psid);
         break;   
 
-                      
+      case "track":         
+          current_question = "q7";
+          botQuestions(current_question, sender_psid);
+        break;
+
       default:
           defaultReply(sender_psid);
     } 
@@ -815,7 +828,7 @@ const list = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "See what we offer ", 
+            "title": "See our Giant Promotions.", 
             "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
             "buttons": [
                 {
@@ -825,7 +838,7 @@ const list = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "See Song List and Request ",
+            "title": "See Song List and Request.",
             "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
             "buttons": [
                 {
@@ -835,13 +848,24 @@ const list = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "Many Exciting Lounge Packages to Pick ",
+            "title": "Many Exciting Lounge Packages to Pick. ",
             "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
             "buttons": [
                 {
                   "type": "postback",
                   "title": "See Lounge Packages",
                   "payload": "packages", 
+                },               
+              ],
+          },{
+            "title": "Track my reservations.",
+            "subtitle": "Show reservation info you have made.",
+            "image_url":"https://static.vecteezy.com/system/resources/thumbnails/000/627/453/small/illust58-5815-01.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Track Reservation",
+                  "payload": "track", 
                 },               
               ],
           },
@@ -924,8 +948,7 @@ const showSongList = (sender_psid) => {
                 }              
               ],
           },{
-            "title": "Many Exciting Lounge Packages to Pick.",
-              
+            "title": "Many Exciting Lounge Packages to Pick.", 
             "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
             "buttons": [
                 {
@@ -1010,7 +1033,7 @@ const showPackages= (sender_psid) => {
                 }              
               ],
           },{
-            "title": "See what we offer.",
+            "title": "See our Giant Promotions.",
             "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
             "buttons": [
                 {
@@ -1256,6 +1279,39 @@ const saveRequest = (arg, sender_psid) => {
   }).catch((err)=>{
      console.log('Error', err);
   });
+}
+
+const showReservations = async(sender_psid, reservation_ref) => {
+
+    const ordersRef = db.collection('Reservations').where("ref", "==", reservation_ref).limit(1);
+    const snapshot = await reservationsRef.get();
+
+    if (snapshot.empty) {
+      let response = { "text": "Incorrect reservation number. Please try again." };
+      callSend(sender_psid, response).then(()=>{
+        return startGreeting(sender_psid);
+      });
+    }else{
+          let reservation = {}
+
+          snapshot.forEach(doc => {      
+              reservation.ref = doc.data().ref;
+              reservation.status = doc.data().status;
+              reservation.comment = doc.data().comment;  
+          });
+
+
+          let response1 = { "text": `Your Reservation ${reservation.ref} is ${reservation.status}.` };
+          let response2 = { "text": `Admin's Comment: ${reservation.comment}.` };
+
+            callSend(sender_psid, response1).then(()=>{
+              return callSend(sender_psid, response2)
+          });
+
+    }
+
+    
+
 }
 
 /**************
