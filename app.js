@@ -1289,7 +1289,7 @@ const showReservations = async(sender_psid, reservation_ref) => {
     if (snapshot.empty) {
       let response = { "text": "Incorrect reservation number. Please try again." };
       callSend(sender_psid, response).then(()=>{
-        return startGreeting(sender_psid);
+        return botQuestions(sender_psid);
       });
     }else{
           let reservation = {}
