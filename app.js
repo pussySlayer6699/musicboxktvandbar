@@ -1032,7 +1032,7 @@ const showPackages= (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "Reserve Now",                 
-                  "payload": "packages: diamond",
+                  "payload": "packages: penthouse",
                 }              
               ],
           },{
@@ -1309,16 +1309,14 @@ const showReservations = async(sender_psid, reservation_ref) => {
 
 
           let response1 = { "text": `Your Reservation ${reservation.ref} is ${reservation.status}.` };
-          let response2 = { "text": `Admin's Comment: ${reservation.comment}.` };
-
+          let response2 = { "text": `Your reserved package: ${reservation.package}.` };
+          let response3 = { "text": `Admin's Comment: ${reservation.comment}.` };
             callSend(sender_psid, response1).then(()=>{
-              return callSend(sender_psid, response2)
+              return callSend(sender_psid, response2).then(()=>{
+                return callSend(sender_psid, response3)
+              });
           });
-
     }
-
-    
-
 }
 
 /**************
