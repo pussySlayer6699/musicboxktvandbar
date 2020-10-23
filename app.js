@@ -1326,6 +1326,8 @@ const showReservations = async(sender_psid, reservation_ref) => {
   });
   });
 }
+}
+
 
 /**************
 end KTV
