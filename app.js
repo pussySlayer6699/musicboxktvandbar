@@ -1304,6 +1304,7 @@ const showReservations = async(sender_psid, reservation_ref) => {
           snapshot.forEach(doc => {      
               reservation.ref = doc.data().ref;
               reservation.status = doc.data().status;
+              reservation.package = doc.data().package;
               reservation.comment = doc.data().comment;  
           });
 
