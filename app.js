@@ -1305,19 +1305,26 @@ const showReservations = async(sender_psid, reservation_ref) => {
               reservation.ref = doc.data().ref;
               reservation.status = doc.data().status;
               reservation.package = doc.data().package;
+              reservation.date = doc.data().date;
+              reservation.time = doc.data().time;
               reservation.comment = doc.data().comment;  
           });
 
 
           let response1 = { "text": `Your Reservation ${reservation.ref} is ${reservation.status}.` };
           let response2 = { "text": `Your reserved package: ${reservation.package}.` };
-          let response3 = { "text": `Admin's Comment: ${reservation.comment}.` };
+          let response3 = { "text": `Your reserved date: ${reservation.date}.` };
+          let response4 = { "text": `Your reserved time: ${reservation.time}.` };
+          let response5 = { "text": `Admin's Comment: ${reservation.comment}.` };
             callSend(sender_psid, response1).then(()=>{
-              return callSend(sender_psid, response2).then(()=>{
-                return callSend(sender_psid, response3)
-              });
-          });
-    }
+    return callSend(sender_psid, response2).then(()=>{;
+    return callSend(sender_psid, response3).then(()=>{;
+    return callSend(sender_psid, response4).then(()=>{;
+    return callSend(sender_psid, response5);
+  });
+  });
+  });
+  });
 }
 
 /**************
