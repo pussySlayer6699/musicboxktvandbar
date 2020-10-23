@@ -501,7 +501,11 @@ function handleQuickReply(sender_psid, received_message) {
           break;  
         case "confirm-request":
               saveRequest(userInputs[user_id], sender_psid);
-          break;              
+          break;
+        case "track":         
+      current_question = 'q7';
+      botQuestions(current_question, sender_psid);
+        break;                
         default:
             defaultReply(sender_psid);
     } 
@@ -687,8 +691,8 @@ const handlePostback = (sender_psid, received_postback) => {
         break;   
 
       case "track":         
-          current_question = 'q7';
-          botQuestions(current_question, sender_psid);
+      current_question = 'q7';
+      botQuestions(current_question, sender_psid);
         break;
 
       default:
