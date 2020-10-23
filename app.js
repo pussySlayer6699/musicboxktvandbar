@@ -30,7 +30,7 @@ const bot_questions = {
   "q4": "Please enter your phone number",
   "q5": "Please leave a message if you have something to tell us.",
   "q6": "Drop the song name and its artist. (Artist Name - Song Name)",
-  "q7": "Please enter your reservation code.",
+  "q7": "Please enter your reservation code."
   
 }
 
@@ -1167,7 +1167,10 @@ const botQuestions = (current_question, sender_psid) => {
   }else if(current_question == 'q6'){
     let response = {"text": bot_questions.q6};
     callSend(sender_psid, response);
-  }
+  }else if(current_question == 'q7'){
+    let response = {"text": bot_questions.q7};
+    callSend(sender_psid, response);
+  }  
 }
 
 const confirmReservation = (sender_psid) => {
