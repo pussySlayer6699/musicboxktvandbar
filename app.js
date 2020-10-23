@@ -1286,7 +1286,7 @@ const saveRequest = (arg, sender_psid) => {
 
 const showReservations = async(sender_psid, reservation_ref) => {
 
-    const ordersRef = db.collection('Reservations').where("ref", "==", reservation_ref).limit(1);
+    const reservationsRef = db.collection('Reservations').where("ref", "==", reservation_ref).limit(1);
     const snapshot = await reservationsRef.get();
 
     if (snapshot.empty) {
