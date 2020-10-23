@@ -30,7 +30,7 @@ const bot_questions = {
   "q4": "Please enter your phone number",
   "q5": "Please leave a message if you have something to tell us.",
   "q6": "Drop the song name and its artist. (Artist Name - Song Name)",
-  "q7": "Please enter your reservation code."
+  "q7": "Please enter your REFERENCE CODE."
   
 }
 
@@ -1214,9 +1214,10 @@ const saveReservation = (arg, sender_psid) => {
   db.collection('Reservations').add(data).then((success)=>{
     console.log('SAVED', success);
     let text = "Thank you. We have received your reservation."+ "\u000A";
-    text += "We wil call you to confirm soon. Please show the REFERENCE CODE at the reception."+ "\u000A";
+    text += "Please show the REFERENCE CODE at the reception."+ "\u000A";
+    text += "We wil call you to confirm soon. You can also track your reservation."+ "\u000A";
     text += "CONTACT US if you want to CANCEL your reservation."+ "\u000A";
-    text += "Your reservation reference number is:" + data.ref; 
+    text += "Your reservation reference code is:" + data.ref; 
     let response = {"text": text};
     callSend(sender_psid, response);
   }).catch((err)=>{
@@ -1293,7 +1294,7 @@ const showReservations = async(sender_psid, reservation_ref) => {
     const snapshot = await reservationsRef.get();
 
     if (snapshot.empty) {
-      let response = { "text": "Incorrect reservation number. Please try again." };
+      let response = { "text": "Incorrect reference code. Please try again." };
       callSend(sender_psid, response).then(()=>{
         return botQuestions(sender_psid);
       });
