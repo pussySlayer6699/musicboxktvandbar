@@ -21,6 +21,7 @@
     <th>Message</th>
     <th>Reference</th>
     <th>Status</th>
+    <th>Comments</th>
     <th>Action</th>
   </tr>
 
@@ -35,6 +36,7 @@
        <td><%= reservation.message %></td>
        <td><%= reservation.ref %></td>
        <td><%= reservation.status %></td>
+       <td><%= reservation.comments %></td>
        <td><a href="updatereservation/<%= reservation.doc_id %>">Edit</a> | Delete</td>
      </tr>
   <% }); %>
