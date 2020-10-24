@@ -13,6 +13,7 @@
   
   <table cellspacing="1" cellpadding="5" border="1">
     <tr>
+    <th>No.</th>
     <th>Name</th>
     <th>Phone</th>
     <th>Package</th>   
@@ -27,7 +28,8 @@
 
 
   <% data.forEach(function(reservation){ %>
-     <tr>     
+     <tr>
+       <td><%= reservation.no %></td>     
        <td><%= reservation.name %></td>
        <td><%= reservation.phone %></td>
        <td><%= reservation.package %></td>
