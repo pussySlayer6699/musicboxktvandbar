@@ -220,6 +220,17 @@ app.post('/admin/updatereservation', function(req,res){
   }).catch((err)=>console.log('ERROR:', error)); 
  
 });
+app.get('/admin/delete_reservation/:doc_id', function(req,res){
+  
+  let doc_id = req.params.doc_id; 
+
+    db.collection("Reservations").doc(doc_id).delete().then(()=>{
+      
+        res.redirect('/admin/reservations');
+        
+    }).catch((err)=>console.log('ERROR:', error));   
+
+});
 /*********************************************
 End Reservation
 **********************************************/
@@ -286,6 +297,19 @@ app.post('/admin/editreqsong', function(req,res){
   }).catch((err)=>console.log('ERROR:', error)); 
  
 });
+
+app.get('/admin/delete_songreq/:doc_id', function(req,res){
+  
+  let doc_id = req.params.doc_id; 
+
+    db.collection("Song Requests").doc(doc_id).delete().then(()=>{
+      
+        res.redirect('/admin/reqsongs');
+        
+    }).catch((err)=>console.log('ERROR:', error));   
+
+});
+
 /*********************************************
 End Req Songs
 **********************************************/
