@@ -37,7 +37,9 @@
        <td><%= reservation.ref %></td>
        <td><%= reservation.status %></td>
        <td><%= reservation.comment %></td>
-       <td><a href="updatereservation/<%= reservation.doc_id %>">Edit</a> | <a href="#">Delete</a></td>
+       <td><a href="updatereservation/<%= reservation.doc_id %>">Edit</a> | <form method="DELETE" action="/:id">
+      <button type="submit">Delete</button>
+</form></td>
      </tr>
   <% }); %>
 
