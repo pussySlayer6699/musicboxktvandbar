@@ -45,22 +45,7 @@
 
 	</table>
 
-<p>Click the button to display the array values after the split.</p>
-<button onclick="myFunction()">Try it</button>
-<p id="demo"></p>
-<script>
-function myFunction() {
-var str2="MFA/2017/";
-var str = "MFA/2017/0001";
-var res = str.split('/');
-var Number=res[2];
-// coerce the previous variable as a number and add 1
-var incrementvalue = (+Number) + 1;
-// insert leading zeroes with a negative slice
-incrementvalue = ("0000" + incrementvalue).slice(-4); // -> result: "0002"
-document.getElementById("demo").innerHTML = str2 + incrementvalue;
-}
-</script>
+
  
  
 
