@@ -1333,8 +1333,7 @@ const showReservations = async(sender_psid, reservation_ref) => {
 end KTV
 **************/
 
-function autoId(table, colNo) {
-    table.addEventListener("input", function(e) {
+/*    table.addEventListener("input", function(e) {
         const tr = e.target.closest("tr");
         const idInput = tr.cells[colNo].querySelector("input");
         for (const input of tr.querySelectorAll("input")) {
@@ -1351,6 +1350,7 @@ function autoId(table, colNo) {
         }
     });
 }
+*/
 
 
 
