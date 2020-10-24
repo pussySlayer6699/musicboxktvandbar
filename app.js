@@ -1081,8 +1081,8 @@ const showPromotion = (sender_psid) => {
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Reserve a lounge Now!",
-                  "payload": "packages", 
+                  "title": "Reserve this lounge!",
+                  "payload": "packages: silver", 
                 },               
               ],
           },{
@@ -1092,8 +1092,8 @@ const showPromotion = (sender_psid) => {
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Reserve a lounge Now!",
-                  "payload": "packages", 
+                  "title": "Reserve this lounge!",
+                  "payload": "packages: gold", 
                 },               
               ],
           },{
@@ -1103,8 +1103,8 @@ const showPromotion = (sender_psid) => {
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Reserve a lounge Now!",
-                  "payload": "packages", 
+                  "title": "Reserve this lounge!",
+                  "payload": "packages: platinum", 
                 },               
               ],
           },{
@@ -1114,8 +1114,8 @@ const showPromotion = (sender_psid) => {
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Reserve a lounge Now!",
-                  "payload": "packages", 
+                  "title": "Reserve this lounge!",
+                  "payload": "packages: penthouse" 
                 },               
               ],
           },{
