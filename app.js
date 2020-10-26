@@ -1480,10 +1480,7 @@ const showQuickReplyOff2 =(sender_psid) => {
   });
 } 
 
-const showQuickReplyOn =(sender_psid) => {
-  let response = { "text": "You sent quick reply ON" };
-  callSend(sender_psid, response);
-}
+
 
 
 /**************
