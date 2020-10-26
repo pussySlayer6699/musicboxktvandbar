@@ -1255,7 +1255,19 @@ const saveReservation = (arg, sender_psid) => {
     text += "We wil call you to confirm soon. You can also track your reservation."+ "\u000A";
     text += "CONTACT US if you want to CANCEL your reservation."+ "\u000A";
     text += "Your reservation reference code is:" + data.ref; 
-    let response = {"text": text};
+    let response = {"text": "Would you like to preorder food and drink?",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Yes please.",
+              "payload":"",              
+            },{
+              "content_type":"text",
+              "title":"No thanks.",
+              "payload":"",             
+            }
+    ]
+  };
     callSend(sender_psid, response);
   }).catch((err)=>{
      console.log('Error', err);
@@ -1369,66 +1381,6 @@ const showReservations = async(sender_psid, reservation_ref) => {
 }
 }
 
-
-/**************
-end KTV
-**************/
-
-/*    table.addEventListener("input", function(e) {
-        const tr = e.target.closest("tr");
-        const idInput = tr.cells[colNo].querySelector("input");
-        for (const input of tr.querySelectorAll("input")) {
-            hasData = input.value.trim() !== "" && input !== idInput;
-            if (hasData) break;
-        }
-        if (hasData && idInput.value.trim() === "") {
-            idInput.value = (Math.max(...Array.from(
-                table.querySelectorAll("td:nth-child(" + (colNo+1) + ") input"), 
-                input => +input.value
-            ).filter(v => !isNaN(v))) || 0) + 1;
-        } else if (!hasData && idInput.value.trim() !== "") {
-            idInput.value = "";
-        }
-    });
-}
-*/
-
-
-
-const greetInMyanmar =(sender_psid) => {
-  let response = {"text": "Mingalarbar. How may I help"};
-  callSend(sender_psid, response);
-}
-
-const textReply =(sender_psid) => {
-  let response = {"text": "You sent text message"};
-  callSend(sender_psid, response);
-}
-
-
-const quickReply =(sender_psid) => {
-  let response = {
-    "text": "Select your reply",
-    "quick_replies":[
-            {
-              "content_type":"text",
-              "title":"On",
-              "payload":"on",              
-            },{
-              "content_type":"text",
-              "title":"Off",
-              "payload":"off",             
-            }
-    ]
-  };
-  callSend(sender_psid, response);
-}
-
-const showQuickReplyOn =(sender_psid) => {
-  let response = { "text": "You sent quick reply ON" };
-  callSend(sender_psid, response);
-}
-
 const showQuickReplyOff1 =(sender_psid) => {
   let response1 = { "text": "Request canceled" };
   let response2 = { "text": "Explore the best lounge packages we offer." };
@@ -1527,6 +1479,73 @@ const showQuickReplyOff2 =(sender_psid) => {
     return callSend(sender_psid, response2);
   });
 } 
+
+const showQuickReplyOn =(sender_psid) => {
+  let response = { "text": "You sent quick reply ON" };
+  callSend(sender_psid, response);
+}
+
+
+/**************
+end KTV
+**************/
+
+/*    table.addEventListener("input", function(e) {
+        const tr = e.target.closest("tr");
+        const idInput = tr.cells[colNo].querySelector("input");
+        for (const input of tr.querySelectorAll("input")) {
+            hasData = input.value.trim() !== "" && input !== idInput;
+            if (hasData) break;
+        }
+        if (hasData && idInput.value.trim() === "") {
+            idInput.value = (Math.max(...Array.from(
+                table.querySelectorAll("td:nth-child(" + (colNo+1) + ") input"), 
+                input => +input.value
+            ).filter(v => !isNaN(v))) || 0) + 1;
+        } else if (!hasData && idInput.value.trim() !== "") {
+            idInput.value = "";
+        }
+    });
+}
+*/
+
+
+
+const greetInMyanmar =(sender_psid) => {
+  let response = {"text": "Mingalarbar. How may I help"};
+  callSend(sender_psid, response);
+}
+
+const textReply =(sender_psid) => {
+  let response = {"text": "You sent text message"};
+  callSend(sender_psid, response);
+}
+
+
+const quickReply =(sender_psid) => {
+  let response = {
+    "text": "Select your reply",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"On",
+              "payload":"on",              
+            },{
+              "content_type":"text",
+              "title":"Off",
+              "payload":"off",             
+            }
+    ]
+  };
+  callSend(sender_psid, response);
+}
+
+const showQuickReplyOn =(sender_psid) => {
+  let response = { "text": "You sent quick reply ON" };
+  callSend(sender_psid, response);
+}
+
+
   
 const buttonReply =(sender_psid) => {
 
