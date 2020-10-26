@@ -517,9 +517,12 @@ function handleQuickReply(sender_psid, received_message) {
         case "on":
             showQuickReplyOn(sender_psid);
           break;
-        case "off":
-            showQuickReplyOff(sender_psid);
-          break; 
+        case "off1":
+            showQuickReplyOff1(sender_psid);
+          break;
+        case "off2":
+            showQuickReplyOff2(sender_psid);
+          break;   
         case "confirm-reservation":
               saveReservation(userInputs[user_id], sender_psid);
           break;  
@@ -1217,7 +1220,7 @@ const confirmReservation = (sender_psid) => {
             },{
               "content_type":"text",
               "title":"Cancel",
-              "payload":"off",             
+              "payload":"off2",             
             }
     ]
   };
@@ -1262,7 +1265,7 @@ const confirmRequest = (sender_psid) => {
             },{
               "content_type":"text",
               "title":"No",
-              "payload":"off",             
+              "payload":"off1",             
             }
     ]
   };
@@ -1411,7 +1414,7 @@ const showQuickReplyOn =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
-const showQuickReplyOff =(sender_psid) => {
+const showQuickReplyOff1 =(sender_psid) => {
   let response1 = { "text": "Request canceled" };
   let response2 = { "text": "Explore the best lounge packages we offer." };
   let response3 = {
@@ -1440,6 +1443,74 @@ const showQuickReplyOff =(sender_psid) => {
         return callSend(sender_psid, response3);  
         });
       });
+} 
+
+const showQuickReplyOff2 =(sender_psid) => {
+  let response1 = { "text": "Reservation canceled" };
+  let response2 = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Show MusicBox KTV & Bar information. ",
+            "image_url":"https://www.gomyanmartours.com/wp-content/uploads/2018/12/Music-Box-Karaoke-In-Yangon-3.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Basic Info",
+                  "payload": "info",
+                },               
+              ],
+          },{
+            "title": "See our Giant Promotions.", 
+            "image_url":"https://www.musicboxmn.com/wp-content/uploads/2019/04/mbpromoflyer.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Promotion",
+                  "payload": "offer", 
+                },               
+              ],
+          },{
+            "title": "See Song List and Request.",
+            "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Song List",
+                  "payload": "list", 
+                },               
+              ],
+          },{
+            "title": "Many Exciting Lounge Packages to Pick. ",
+            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Lounge Packages",
+                  "payload": "packages", 
+                },               
+              ],
+          },{
+            "title": "Track my reservations.",
+            "subtitle": "Show reservation info you have made.",
+            "image_url":"https://static.vecteezy.com/system/resources/thumbnails/000/627/453/small/illust58-5815-01.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Track Reservation",
+                  "payload": "track", 
+                },               
+              ],
+          },
+          ]
+        }
+      }
+    }
+        callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
 } 
   
 const buttonReply =(sender_psid) => {
