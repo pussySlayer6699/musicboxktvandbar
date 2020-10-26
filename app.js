@@ -1207,7 +1207,6 @@ const confirmReservation = (sender_psid) => {
   summery += "message:" + userInputs[user_id].message + "\u000A";
 
   let response1 = {"text": summery};
-
   let response2 = {
     "text": "Is this information correct? Tap Confirm to complete reservation.",
     "quick_replies":[
@@ -1413,10 +1412,33 @@ const showQuickReplyOn =(sender_psid) => {
 }
 
 const showQuickReplyOff =(sender_psid) => {
-  let response = { "text": "Request canceled" };
-  callSend(sender_psid, response);
-}
-
+  let response1 = { "text": "Request canceled" };
+  let response2 = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Many Exciting Lounge Packages to Pick.", 
+            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "See Lounge Packages",
+                 
+                  "payload": "packages", 
+                },               
+              ],
+          }
+        ]
+      }
+    }
+  }
+        callSend(sender_psid, response1).then(()=>{
+        return callSend(sender_psid, response2)
+      });
+} 
+  
 const buttonReply =(sender_psid) => {
 
   let response = {
