@@ -569,7 +569,7 @@ const handleMessage = (sender_psid, received_message) => {
      botQuestions(current_question, sender_psid);
   }else if(current_question == 'q8'){
      console.log('SECTION ENTER',received_message.text);
-     userInputs[user_id].time = received_message.text;
+     userInputs[user_id].sections = received_message.text;
      current_question = 'q3';
      botQuestions(current_question, sender_psid);   
   }else if(current_question == 'q3'){
