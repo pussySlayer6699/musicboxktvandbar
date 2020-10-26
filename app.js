@@ -31,7 +31,7 @@ const bot_questions = {
   "q5": "Please leave a message if you have something to tell us.",
   "q6": "Drop the song name and its artist. (Artist Name - Song Name)",
   "q7": "Please enter your REFERENCE CODE.",
-  "q8": "How many sections do you want to take?."
+  "q8": "How many sections do you want to take?"
   
 }
 
@@ -1255,7 +1255,8 @@ const saveReservation = (arg, sender_psid) => {
     text += "We wil call you to confirm soon. You can also track your reservation."+ "\u000A";
     text += "CONTACT US if you want to CANCEL your reservation."+ "\u000A";
     text += "Your reservation reference code is:" + data.ref; 
-    let response = {"text": "Would you like to preorder food and drink?",
+    let response1 = {"text": text}; 
+    let response2 = {"text": "Would you like to preorder food and drink?",
     "quick_replies":[
             {
               "content_type":"text",
@@ -1268,9 +1269,8 @@ const saveReservation = (arg, sender_psid) => {
             }
     ]
   };
-    callSend(sender_psid, response);
-  }).catch((err)=>{
-     console.log('Error', err);
+    callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
   });
 }
 
