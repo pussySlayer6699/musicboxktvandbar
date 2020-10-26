@@ -1273,6 +1273,7 @@ const saveReservation = (arg, sender_psid) => {
     return callSend(sender_psid, response2);
   });
 }
+}
 
 const confirmRequest = (sender_psid) => {
   console.log('REQUEST SONGS', userInputs);
