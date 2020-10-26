@@ -31,6 +31,7 @@ const bot_questions = {
   "q5": "Please leave a message if you have something to tell us.",
   "q6": "Drop the song name and its artist. (Artist Name - Song Name)",
   "q7": "Please enter your REFERENCE CODE."
+  "q8": "How many sections do you want to take?."
   
 }
 
@@ -207,6 +208,7 @@ app.post('/admin/updatereservation', function(req,res){
     package:req.body.package,
     date:req.body.date,
     time:req.body.time,
+    sections:req.body.sections,
     message:req.body.message,
     status:req.body.status,
     doc_id:req.body.doc_id,
@@ -563,8 +565,13 @@ const handleMessage = (sender_psid, received_message) => {
   }else if(current_question == 'q2'){
      console.log('TIME ENTERED',received_message.text);
      userInputs[user_id].time = received_message.text;
-     current_question = 'q3';
+     current_question = 'q8';
      botQuestions(current_question, sender_psid);
+  }else if(current_question == 'q8'){
+     console.log('SECTION ENTER',received_message.text);
+     userInputs[user_id].time = received_message.text;
+     current_question = 'q3';
+     botQuestions(current_question, sender_psid);   
   }else if(current_question == 'q3'){
      console.log('FULL NAME ENTERED',received_message.text);
      userInputs[user_id].name = received_message.text;
@@ -1197,6 +1204,9 @@ const botQuestions = (current_question, sender_psid) => {
   }else if(current_question == 'q7'){
     let response = {"text": bot_questions.q7};
     callSend(sender_psid, response);
+  }else if(current_question == 'q8'){
+    let response = {"text": bot_questions.q8};
+    callSend(sender_psid, response);
   }  
 }
 
@@ -1333,6 +1343,7 @@ const showReservations = async(sender_psid, reservation_ref) => {
               reservation.package = doc.data().package;
               reservation.date = doc.data().date;
               reservation.time = doc.data().time;
+              reservation.sections = doc.data().sections;
               reservation.comment = doc.data().comment;  
           });
 
@@ -1341,16 +1352,19 @@ const showReservations = async(sender_psid, reservation_ref) => {
           let response2 = { "text": `Your reserved package: ${reservation.package}.` };
           let response3 = { "text": `Your reserved date: ${reservation.date}.` };
           let response4 = { "text": `Your reserved time: ${reservation.time}.` };
-          let response5 = { "text": `Admin's Comment: ${reservation.comment}.` };
+          let response5 = { "text": `Your reserved sections: ${reservation.sections}.` };
+          let response6 = { "text": `Admin's Comment: ${reservation.comment}.` };
             callSend(sender_psid, response1).then(()=>{
     return callSend(sender_psid, response2).then(()=>{;
     return callSend(sender_psid, response3).then(()=>{;
     return callSend(sender_psid, response4).then(()=>{;
-    return callSend(sender_psid, response5);
+    return callSend(sender_psid, response5).then(()=>{;
+    return callSend(sender_psid, response6);  
   });
   });
   });
   });
+  });  
 }
 }
 
