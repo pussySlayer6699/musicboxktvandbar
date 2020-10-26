@@ -1514,7 +1514,7 @@ const showMenu =(sender_psid) => {
               {
                 "type": "web_url",
                 "title": "Preoder Now.",
-                "url":APP_URL+"shop/",
+                "url":APP_URL+"food/",
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
               },
