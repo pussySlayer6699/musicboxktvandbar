@@ -1272,7 +1272,10 @@ const saveReservation = (arg, sender_psid) => {
     callSend(sender_psid, response1).then(()=>{
     return callSend(sender_psid, response2);
   });
-}
+    
+  }).catch((err)=>{
+     console.log('Error', err);
+  });
 }
 
 const confirmRequest = (sender_psid) => {
