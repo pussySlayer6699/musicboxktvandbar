@@ -998,7 +998,7 @@ const showSongList = (sender_psid) => {
      
 
 const showPackages= (sender_psid) => {
-    let response1 = {"text": "Explore the best lounge packages we offer. "};
+    let response1 = {"text": "Explore the best lounge packages we offer."};
     let response2 = {
       "attachment": {
         "type": "template",
@@ -1413,7 +1413,8 @@ const showQuickReplyOn =(sender_psid) => {
 
 const showQuickReplyOff =(sender_psid) => {
   let response1 = { "text": "Request canceled" };
-  let response2 = {
+  let response2 = { "text": "Explore the best lounge packages we offer." };
+  let response3 = {
       "attachment": {
         "type": "template",
         "payload": {
@@ -1434,8 +1435,10 @@ const showQuickReplyOff =(sender_psid) => {
       }
     }
   }
-        callSend(sender_psid, response1).then(()=>{
-        return callSend(sender_psid, response2)
+        callSend(sender_psid, response1).then(()=>{;
+        return callSend(sender_psid, response2).then(()=>{;
+        return callSend(sender_psid, response3);  
+        });
       });
 } 
   
