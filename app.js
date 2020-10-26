@@ -30,7 +30,7 @@ const bot_questions = {
   "q4": "Please enter your phone number",
   "q5": "Please leave a message if you have something to tell us.",
   "q6": "Drop the song name and its artist. (Artist Name - Song Name)",
-  "q7": "Please enter your REFERENCE CODE."
+  "q7": "Please enter your REFERENCE CODE.",
   "q8": "How many sections do you want to take?."
   
 }
@@ -1215,6 +1215,7 @@ const confirmReservation = (sender_psid) => {
   let summery = "packages:" + userInputs[user_id].package + "\u000A";
   summery += "date:" + userInputs[user_id].date + "\u000A";
   summery += "time:" + userInputs[user_id].time + "\u000A";
+  summery += "sections:" + userInputs[user_id].sections + "\u000A";
   summery += "name:" + userInputs[user_id].name + "\u000A";
   summery += "phone:" + userInputs[user_id].phone + "\u000A";
   summery += "message:" + userInputs[user_id].message + "\u000A";
