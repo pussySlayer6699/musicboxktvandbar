@@ -1189,13 +1189,13 @@ const botQuestions = (current_question, sender_psid) => {
   }else if(current_question == 'q2'){
     let response = {"text": bot_questions.q2};
     callSend(sender_psid, response);
-  }else if(current_question == 'q3'){
+  }else if(current_question == 'q8'){
     let response = {"text": bot_questions.q3};
     callSend(sender_psid, response);
-  }else if(current_question == 'q4'){
+  }else if(current_question == 'q3'){
     let response = {"text": bot_questions.q4};
     callSend(sender_psid, response);
-  }else if(current_question == 'q5'){
+  }else if(current_question == 'q4'){
     let response = {"text": bot_questions.q5};
     callSend(sender_psid, response);
   }else if(current_question == 'q6'){
@@ -1204,7 +1204,7 @@ const botQuestions = (current_question, sender_psid) => {
   }else if(current_question == 'q7'){
     let response = {"text": bot_questions.q7};
     callSend(sender_psid, response);
-  }else if(current_question == 'q8'){
+  }else if(current_question == 'q2'){
     let response = {"text": bot_questions.q8};
     callSend(sender_psid, response);
   }  
