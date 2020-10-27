@@ -944,7 +944,7 @@ const list = (sender_psid) => {
                 {
                   "type": "postback",
                   "title": "Song Request",
-                  "payload": "list", 
+                  "payload": "request", 
                 },               
               ],
           },{
@@ -1026,7 +1026,7 @@ const showBasicInfo = (sender_psid) => {
   });
 }         
 
-const showSongList = (sender_psid) => {
+/*const showSongList = (sender_psid) => {
     let response1 = {"text": "You can request the song you want to sing."};
     let response2 = {
       "attachment": {
@@ -1062,7 +1062,7 @@ const showSongList = (sender_psid) => {
         callSend(sender_psid, response1).then(()=>{
         return callSend(sender_psid, response2)
       });
-} 
+} */
 
      
 
