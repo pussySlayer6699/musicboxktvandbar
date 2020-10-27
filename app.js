@@ -938,12 +938,12 @@ const list = (sender_psid) => {
                 },               
               ],
           },{
-            "title": "See Song List and Request.",
+            "title": "Song Request.",
             "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Song List",
+                  "title": "Song Request",
                   "payload": "list", 
                 },               
               ],
@@ -1027,21 +1027,17 @@ const showBasicInfo = (sender_psid) => {
 }         
 
 const showSongList = (sender_psid) => {
-    let response1 = {"text": "Here is the song list. You can also request the song you want to sing."};
+    let response1 = {"text": "You can request the song you want to sing."};
     let response2 = {
       "attachment": {
         "type": "template",
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "See Song List or Request ?",
+            "title": "Request Song",
             "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
             "buttons": [
                 {
-                  "type": "postback",
-                  "title": "See Song List",
-                  "payload": "list",
-                },{
                   "type": "postback",
                   "title": "Song Request",
                   "payload": "request",
