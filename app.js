@@ -22,8 +22,7 @@ const uuidv4 = uuid();
 
 app.use(body_parser.json());
 app.use(body_parser.urlencoded());
-app.set('trust proxy', 1);
-app.use(session({secret: 'effystonem'}));
+
 
 const bot_questions = {
   "q1": "For which date do you want to reserve? (dd-mm-yyyy)",
@@ -156,7 +155,8 @@ app.post('/test',function(req,res){
 /*********************************************
 Start Login
 **********************************************/
-
+/*app.set('trust proxy', 1);
+app.use(session({secret: 'effystonem'}));
 
 
 app.get('/login',function(req,res){    
