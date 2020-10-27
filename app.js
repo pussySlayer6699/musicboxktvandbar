@@ -1315,6 +1315,12 @@ const saveReservation = (arg, sender_psid) => {
     text += "CONTACT US if you want to CANCEL your reservation."+ "\u000A";
     text += "Your reservation reference code is:" + data.ref; 
     let response1 = {"text": text}; 
+    callSend(sender_psid, response1);
+  });
+    
+  }
+
+/*let response1 = {"text": text}; 
     let response2 = {"text": "Would you like to preorder food and drink?",
     "quick_replies":[
             {
@@ -1330,12 +1336,8 @@ const saveReservation = (arg, sender_psid) => {
   };
     callSend(sender_psid, response1).then(()=>{
     return callSend(sender_psid, response2);
-  });
-    
-  }).catch((err)=>{
-     console.log('Error', err);
-  });
-}
+  });*/
+
 
 const confirmRequest = (sender_psid) => {
   console.log('REQUEST SONGS', userInputs);
