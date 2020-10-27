@@ -157,6 +157,8 @@ Start Login
 app.set('trust proxy', 1);
 app.use(session({secret: 'effystonem'}));
 
+
+
 app.get('/login',function(req,res){    
     sess = req.session;
 
@@ -181,7 +183,7 @@ app.post('/login',function(req,res){
     let username = req.body.username;
     let password = req.body.password;
 
-    if(username == 'admin' && password == 'testing123'){
+    if(username == 'admin' && password == 'test123'){
       sess.username = 'admin';
       sess.login = true;
       res.send('login successful');
@@ -190,14 +192,13 @@ app.post('/login',function(req,res){
     }   
 });
 
-app.get('/reservations',function(req,res){    
-    res.render('reservations.ejs');
+app.get('/publicpage',function(req,res){    
+    res.render('publicpage.ejs');
 });
 
 /*********************************************
 End Login
 **********************************************/
-
 
 
 /*********************************************
