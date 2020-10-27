@@ -1311,7 +1311,7 @@ const saveReservation = (arg, sender_psid) => {
     console.log('SAVED', success);
     let text = "Thank you. We have received your reservation."+ "\u000A";
     text += "Please show the REFERENCE CODE at the reception."+ "\u000A";
-    text += "We wil call you to confirm soon. You can also track your reservation."+ "\u000A";
+    text += "We wil contact you to confirm your reservation. You can also track your reservation."+ "\u000A";
     text += "CONTACT US if you want to CANCEL your reservation."+ "\u000A";
     text += "Your reservation reference code is:" + data.ref; 
     let response1 = {"text": text}; 
