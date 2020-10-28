@@ -155,7 +155,7 @@ app.post('/test',function(req,res){
 /*********************************************
 Start Login
 **********************************************/
-app.set('trust proxy', 1);
+/*app.set('trust proxy', 1);
 app.use(session({secret: 'effystonem'}));
 
 
@@ -194,7 +194,7 @@ app.post('/login',function(req,res){
 
 app.get('/publicpage',function(req,res){    
     res.render('publicpage.ejs');
-});
+});*/
 
 /*********************************************
 End Login
