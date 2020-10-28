@@ -18,10 +18,12 @@ const
   app = express(); 
 
 const uuidv4 = uuid();
-
+const session = require('express-session');
 
 app.use(body_parser.json());
 app.use(body_parser.urlencoded());
+app.set('trust proxy', 1);
+app.use(session({secret: 'effystonem'}));
 
 
 const bot_questions = {
@@ -35,7 +37,7 @@ const bot_questions = {
   "q8": "How many sections do you want to take?"
   
 }
-
+let sess; 
 let current_question = '';
 
 let user_id = ''; 
@@ -155,10 +157,6 @@ app.post('/test',function(req,res){
 /*********************************************
 Start Login
 **********************************************/
-app.set('trust proxy', 1);
-app.use(session({secret: 'effystonem'}));
-
-
 app.get('/login',function(req,res){    
     sess = req.session;
 
