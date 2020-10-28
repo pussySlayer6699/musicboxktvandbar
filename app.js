@@ -990,13 +990,13 @@ const showBasicInfo = (sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "See Song List and Request ",
+            "title": "Song Request.",
             "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Song List",
-                  "payload": "list",
+                  "title": "Song Request",
+                  "payload": "request", 
                 },               
               ],
           },{
