@@ -155,7 +155,7 @@ app.post('/test',function(req,res){
 /*********************************************
 Start Login
 **********************************************/
-/*app.set('trust proxy', 1);
+app.set('trust proxy', 1);
 app.use(session({secret: 'effystonem'}));
 
 
