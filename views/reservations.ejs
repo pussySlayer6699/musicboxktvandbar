@@ -16,7 +16,7 @@
   <h1 style="text-align:center;
 ">Reservations</h1>
 
- 
+ <p> <a href="reqsongs" class="btn btn-primary">Song Requests</a> </p>
   
   <table cellspacing="1" cellpadding="5" border="1" class="table table-dark table-striped"
 >
@@ -49,7 +49,7 @@
        <td><%= reservation.ref %></td>
        <td><%= reservation.status %></td>
        <td><%= reservation.comment %></td>
-       <td><a href="updatereservation/<%= reservation.doc_id %>">Edit</a> | <a href="delete_reservation/<%= reservation.doc_id %>">Delete</a></td>
+       <td><a href="updatereservation/<%= reservation.doc_id %>" class="btn btn-primary">Edit</a> | <a href="delete_reservation/<%= reservation.doc_id %>" class="btn btn-primary">Delete</a></td>
      </tr>
   <% }); %>
 
