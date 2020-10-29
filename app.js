@@ -194,7 +194,7 @@ app.get('/publicpage',function(req,res){
     res.render('publicpage.ejs');
 });
 
-app.get('admin/reservations',function(req,res){ 
+app.get('/admin/reservations',function(req,res){ 
     sess = req.session;
     console.log('SESS:', sess);
     if(sess.login){
@@ -204,7 +204,7 @@ app.get('admin/reservations',function(req,res){
     }  
     
 });
-app.get('admin/reqsongs',function(req,res){ 
+app.get('/admin/reqsongs',function(req,res){ 
     sess = req.session;
     console.log('SESS:', sess);
     if(sess.login){
