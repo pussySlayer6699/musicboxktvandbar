@@ -204,7 +204,7 @@ app.get('/admin/reservations',function(req,res){
     }  
     
 });
-app.get('/admin/reqsongs',function(req,res){ 
+/*app.get('/admin/reqsongs',function(req,res){ 
     sess = req.session;
     console.log('SESS:', sess);
     if(sess.login){
@@ -214,6 +214,7 @@ app.get('/admin/reqsongs',function(req,res){
     }  
     
 });
+*/
 
 /*********************************************
 End Login
