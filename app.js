@@ -164,7 +164,7 @@ app.get('/login',function(req,res){
        res.send('You are already login. <a href="logout">logout</a>');
     }else{
       res.render('login.ejs');
-    } 
+    }  
     
 });
 
@@ -194,6 +194,16 @@ app.get('/publicpage',function(req,res){
     res.render('publicpage.ejs');
 });
 
+app.get('/privatepage',function(req,res){ 
+    sess = req.session;
+    console.log('SESS:', sess);
+    if(sess.login){
+       res.render('privatepage.ejs');
+    }else{
+      res.send('You are not authorized to view this page.');
+    }  
+    
+});
 /*********************************************
 End Login
 **********************************************/
