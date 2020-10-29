@@ -1868,9 +1868,10 @@ const setupPersistentMenu = (res) => {
   };
         
   request({
-      url: 'https://graph.facebook.com/v2.6/me/musicboxktvandbar?access_token='+ PAGE_ACCESS_TOKEN,
+      url: 'https://graph.facebook.com/v2.6/me/musicboxktvandbar?psid=<PSID>&access_token='+ PAGE_ACCESS_TOKEN,
       method: 'POST',
       headers: {'Content-Type': 'musicboxktvandbar/app.js'},
+      "psid": "<PSID>",
       form: messageData
   },
   function (error, response, body) {
