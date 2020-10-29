@@ -1575,6 +1575,10 @@ const showMenu =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
+
+
+
+
 /**************
 end KTV
 **************/
@@ -1845,19 +1849,15 @@ const setupPersistentMenu = (res) => {
             "call_to_actions":[
                 {
                   "type":"postback",
-                  "title":"View My Tasks",
-                  "payload":"view-tasks"
+                  "title":"Start over",
+                  "payload":"start"
                 },
                 {
                   "type":"postback",
-                  "title":"Add New Task",
-                  "payload":"add-task"
+                  "title":"Reserve Now",
+                  "payload":"packages"
                 },
-                {
-                  "type":"postback",
-                  "title":"Cancel",
-                  "payload":"cancel"
-                }
+                
           ]
       },
       {
@@ -1870,7 +1870,7 @@ const setupPersistentMenu = (res) => {
   request({
       url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'musicboxktvandbar/app.js'},
       form: messageData
   },
   function (error, response, body) {
