@@ -29,25 +29,19 @@
   top:1px;
 }
 
-.button1 {
+.nav {
   background-color:#3D3D3D ;
-  border:1px solid #566573 ;
   display:inline-block;
+  text-align: center;
   cursor:pointer;
   color:#ffffff;
   font-family:Arial;
   font-size:15px;
   padding:20px 40px;
   text-decoration:none;
-  text-shadow:0px 1px 0px #2f6627;
+  text-shadow:0px 1px 0px #ffffff;
 }
-.button1:hover {
-  background-color:#606060;
-}
-.button1:active {
-  position:relative;
-  top:1px;
-}
+
 </style>
  </head>
 
@@ -56,7 +50,12 @@
   <h1 style="text-align:center;
 ">Reservations</h1>
 
- <p  style="text-align:center;"> <a href="reqsongs" class="button1">Song Requests</a> </p>
+<ul class="nav">
+  <li><a href="reqsongs">Song Requests</a></li>
+</ul>
+
+
+ 
   
   <table cellspacing="1" cellpadding="5" border="1" class="table table-dark table-striped"
 >
@@ -71,9 +70,8 @@
     <th>Message</th>
     <th style="width:60px;">Reference</th>
     <th>Status</th>
-    <th style="width:270px;"
->Comment</th>
-    <th>Action</th>
+    <th style="width:270px;">Comment</th>
+    <th style="width:90px;">Action</th>
   </tr>
 
 
