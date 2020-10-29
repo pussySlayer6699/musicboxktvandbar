@@ -1860,10 +1860,7 @@ const setupPersistentMenu = (res) => {
                 
           ]
       },
-      {
-        "locale":"default",
-        "composer_input_disabled":false
-      }
+      
     ]          
   };
         
