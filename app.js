@@ -194,11 +194,21 @@ app.get('/publicpage',function(req,res){
     res.render('publicpage.ejs');
 });
 
-app.get('/reservations',function(req,res){ 
+app.get('admin/reservations',function(req,res){ 
     sess = req.session;
     console.log('SESS:', sess);
     if(sess.login){
        res.render('reservations.ejs');
+    }else{
+      res.send('Access Denied. You are not authorized.');
+    }  
+    
+});
+app.get('admin/reqsongs',function(req,res){ 
+    sess = req.session;
+    console.log('SESS:', sess);
+    if(sess.login){
+       res.render('reqsongs.ejs');
     }else{
       res.send('Access Denied. You are not authorized.');
     }  
