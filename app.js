@@ -1837,10 +1837,40 @@ const setupGetStartedButton = (res) => {
 /**********************************
 FUNCTION TO SET UP PERSISTENT MENU
 ***********************************/
+function persistentMenu(sender){
+ request({
+    url: 'https://graph.facebook.com/v2.6/me/thread_settings',
+    qs: {access_token:token},
+    method: 'POST',
+    json:{
+        setting_type : "call_to_actions",
+        thread_state : "existing_thread",
+        call_to_actions:[
+            {
+                  "type":"postback",
+                  "title":"Start over",
+                  "payload":"start"
+                },
+                {
+                  "type":"postback",
+                  "title":"Reserve Now",
+                  "payload":"packages"
+                }
+                
+          ]
+    }
+
+}, function(error, response, body) {
+    console.log(response)
+    if (error) {
+        console.log('Error sending messages: ', error)
+    } else if (response.body.error) {
+        console.log('Error: ', response.body.error)
+    }
+})
 
 
-
-const setupPersistentMenu = (res) => {
+/*const setupPersistentMenu = (res) => {
   var messageData = { 
       "persistent_menu":[
           {
@@ -1856,7 +1886,7 @@ const setupPersistentMenu = (res) => {
                   "type":"postback",
                   "title":"Reserve Now",
                   "payload":"packages"
-                },
+                }
                 
           ]
       },
