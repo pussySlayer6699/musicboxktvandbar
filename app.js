@@ -204,16 +204,7 @@ app.get('/reservations',function(req,res){
     }  
     
 });
-app.get('/reqsongs',function(req,res){ 
-    sess = req.session;
-    console.log('SESS:', sess);
-    if(sess.login){
-       res.render('reqsongs.ejs');
-    }else{
-      res.send('Access Denied. You are not authorized.');
-    }  
-    
-});
+
 /*********************************************
 End Login
 **********************************************/
