@@ -4,6 +4,58 @@
     <meta charset="UTF-8">
     <title>Edit Reservation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <style>
+html,body{
+background-image: url('https://wallpaperaccess.com/full/2035085.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+*[role="form"] {
+    max-width: 530px;
+    padding: 15px;
+    margin: 0 auto;
+    border-radius: 0.3em;
+    background-color: #f2f2f2;
+}
+
+*[role="form"] h1 { 
+    font-family: 'Open Sans' , sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: #000000;
+    margin-top: 5%;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+  
+  .button {
+  background-color:#566573 ;
+  border:1px solid #566573 ;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:15px;
+  padding:5px 8px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #2f6627;
+}
+.button:hover {
+  background-color:#959089;
+}
+.button:active {
+  position:relative;
+  top:1px;
+}
+
+</style>
  </head>
 
   <body>
@@ -32,40 +84,70 @@
   </script>
   
  
+  <div class="container">
+  <form class="form-horizontal" role="form" id="form" method="post" action="../updatereservation">
+  <h1 style="text-align:center; color:white;">Edit Reservation</h1>
 
-  <form id="form" method="post" action="../updatereservation"> 
   <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" name="name" value="<%= data.name %>">    
+    <label for="name" class="col-sm-3 control-label">Name:</label>
+    <div class="col-sm-9">
+    <input type="text" class="form-control" name="name" value="<%= data.name %>" autofocus>    
   </div>
+
   <div class="form-group">
-    <label for="name">Phone</label>
-    <input type="text" class="form-control" name="phone" value="<%= data.phone %>">    
+    <label for="name" class="col-sm-3 control-label">Phone:</label>
+    <div class="col-sm-9">
+    <input type="number" class="form-control" name="phone" value="<%= data.phone %>"> 
+    </div>   
   </div>
-  <div class="form-group">
-    <label for="name">Package</label>
-    <input type="text" class="form-control" id="package" name="package" value="<%= data.package %>">    
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+    <label class="input-group-text" for="package">Package:</label>
+    </div>
+    <select class="custom-select" name="package" id="package" value="<%= data.package %>">
+    <option selected>Choose...</option>
+    <option value="1">bronze</option>
+    <option value="2">silver</option>
+    <option value="3">gold</option>
+    <option value="4">platinum</option>
+    <option value="5">penthouse</option>
+    </select>   
   </div>
+
   <div class="form-group">
-    <label for="name">Date</label>
-    <input type="text" class="form-control" name="date" value="<%= data.date %>">    
+    <label for="name" class="col-sm-3 control-label">Date:</label>
+    <div class="col-sm-9">
+    <input type="date" class="form-control" name="date" value="<%= data.date %>"> 
+    </div>   
   </div>
+
   <div class="form-group">
-    <label for="name">Time</label>
-    <input type="text" class="form-control" name="time" value="<%= data.time %>">    
+    <label for="name" class="col-sm-3 control-label">Time:</label>
+    <div class="col-sm-9">
+    <input type="text" class="form-control" name="time" value="<%= data.time %>">
+    </div>
   </div>
+
   <div class="form-group">
-    <label for="name">Sections</label>
-    <input type="text" class="form-control" name="sections" value="<%= data.sections %>">    
+    <label for="name" class="col-sm-3 control-label">Sections:</label>
+    <div class="col-sm-9">
+    <input type="text" class="form-control" name="sections" value="<%= data.sections %>">
+    </div>    
   </div>
+
   <div class="form-group">
-    <label for="name">Message</label>
-    <textarea name="message" rows="4" cols="50"><%= data.message %></textarea> 
+    <label for="name" class="col-sm-3 control-label">Message:</label>
+    <div class="col-sm-9">
+    <textarea name="message" rows="4" cols="50"><%= data.message %></textarea>
+    </div> 
   </div>
   
-  <div class="form-group">
-    <label for="status">Status:</label>
-  <select name="status" id="status">    
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+    <label for="status" class="input-group-text">Status:</label>
+    </div>
+    <select class="custom-select" name="status" id="status">    
     <option value="pending"
     <%if(data.status == "pending"){%>
         <%="selected"%>
@@ -85,18 +167,20 @@
   </select>   
   </div>
   <div class="form-group">
-    <label for="name">Comment</label>
+    <label for="name" class="col-sm-3 control-label">Comment:</label>
+    <div class="col-sm-9">
     <textarea name="comment" rows="4" cols="50"></textarea>      
   </div>
 
   
   <input type="hidden"  name="doc_id" value="<%= data.doc_id %>">
   <input type="hidden"  name="ref" value="<%= data.ref %>">
-  <input type="submit" value="Submit"> 
+
+  <div class="form-group">
+  <input type="submit" value="Submit" class="btn btn-primary btn-block">
+  </div> 
   </form>
 
-
-  
   <script>
       
    
