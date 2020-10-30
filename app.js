@@ -184,7 +184,7 @@ app.post('/login',function(req,res){
     if(username == 'admin' && password == 'test123'){
       sess.username = 'admin';
       sess.login = true;
-      res.send('login successful');
+      res.redirect('/admin/reservations');
     }else{
       res.send('login failed');
     }   
@@ -194,16 +194,7 @@ app.get('/publicpage',function(req,res){
     res.render('publicpage.ejs');
 });
 
-app.get('/admin/reservations',function(req,res){ 
-    sess = req.session;
-    console.log('SESS:', sess);
-    if(sess.login){
-       res.render('reservations.ejs');
-    }else{
-      res.send('Access Denied. You are not authorized.');
-    }  
-    
-});
+
 /*app.get('/admin/reqsongs',function(req,res){ 
     sess = req.session;
     console.log('SESS:', sess);
@@ -226,6 +217,10 @@ Start Reservation
 **********************************************/
 app.get('/admin/reservations', async function(req,res){
  
+sess = req.session;
+
+    if(sess.login){
+
   const reservationsRef = db.collection('Reservations');
   const snapshot = await reservationsRef.get();
 
@@ -247,6 +242,13 @@ app.get('/admin/reservations', async function(req,res){
   console.log('DATA:', data);
 
   res.render('reservations.ejs', {data:data});
+
+    }else{
+      res.send('Access Denied. Please login to get access this page.')
+      
+    } 
+
+  
   
 });
 
