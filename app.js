@@ -190,23 +190,6 @@ app.post('/login',function(req,res){
     }   
 });
 
-app.get('/publicpage',function(req,res){    
-    res.render('publicpage.ejs');
-});
-
-
-/*app.get('/admin/reqsongs',function(req,res){ 
-    sess = req.session;
-    console.log('SESS:', sess);
-    if(sess.login){
-       res.render('reqsongs.ejs');
-    }else{
-      res.send('Access Denied. You are not authorized.');
-    }  
-    
-});
-*/
-
 /*********************************************
 End Login
 **********************************************/
@@ -315,7 +298,11 @@ End Reservation
 Start Req Songs
 **********************************************/
 app.get('/admin/reqsongs', async function(req,res){
- 
+
+ sess = req.session;
+
+  if(sess.login){
+
   const reqsongsRef = db.collection('Song Requests');
   const snapshot = await reqsongsRef.get();
 
@@ -337,6 +324,11 @@ app.get('/admin/reqsongs', async function(req,res){
   console.log('DATA:', data);
 
   res.render('reqsongs.ejs', {data:data});
+
+   }else{
+      res.send('Access Denied. Please login to get access this page.')
+      
+    }
   
 });
 
