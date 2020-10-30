@@ -227,7 +227,7 @@ sess = req.session;
   res.render('reservations.ejs', {data:data});
 
     }else{
-      res.send('Access Denied. Please login to get access this page. <a href="login.ejs">login</a>')
+      res.send('Access Denied. Please login to get access this page. <a href="/login">login</a>')
       
     } 
 
@@ -326,7 +326,7 @@ app.get('/admin/reqsongs', async function(req,res){
   res.render('reqsongs.ejs', {data:data});
 
    }else{
-      res.send('Access Denied. Please login to get access this page.<a href="login.ejs">login</a>')
+      res.send('Access Denied. Please login to get access this page.<a href="/login">login</a>')
       
     }
   
