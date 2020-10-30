@@ -186,7 +186,7 @@ app.post('/login',function(req,res){
       sess.login = true;
       res.redirect('/admin/reservations');
     }else{
-      res.send('login failed');
+      res.send('login failed. Please <a href="/login">try again</a>');
     }   
 });
 
