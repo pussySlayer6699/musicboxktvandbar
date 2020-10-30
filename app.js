@@ -236,6 +236,10 @@ sess = req.session;
 });
 
 app.get('/admin/updatereservation/:doc_id', async function(req,res){
+  sess = req.session;
+
+    if(sess.login){
+
   let doc_id = req.params.doc_id; 
   
   const reservationsRef = db.collection('Reservations').doc(doc_id);
@@ -249,7 +253,11 @@ app.get('/admin/updatereservation/:doc_id', async function(req,res){
 
     console.log('Document data:', data);
     res.render('editreservation.ejs', {data:data});
-  } 
+  }
+  }else{
+      res.send('Access Denied. Please login to get access this page. <a href="/login">login</a>')
+      
+    }  
 
 });
 
@@ -333,6 +341,9 @@ app.get('/admin/reqsongs', async function(req,res){
 });
 
 app.get('/admin/editreqsong/:doc_id', async function(req,res){
+  sess = req.session;
+
+  if(sess.login){
   let doc_id = req.params.doc_id; 
   
   const reqsongsRef = db.collection('Song Requests').doc(doc_id);
@@ -345,7 +356,11 @@ app.get('/admin/editreqsong/:doc_id', async function(req,res){
     data.doc_id = doc.id;
 
     res.render('editreqsong.ejs', {data:data});
-  } 
+  }
+  }else{
+      res.send('Access Denied. Please login to get access this page.<a href="/login">login</a>')
+      
+    } 
 
 });
 
