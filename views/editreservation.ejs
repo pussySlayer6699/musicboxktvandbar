@@ -82,9 +82,7 @@ font-family: 'Numans', sans-serif;
   </div>
 
   <div class="input-group mb-3">
-    <div class="input-group-prepend">
-    <label class="input-group-text" for="package">Package:</label>
-    </div>
+    <label class="col-sm-3 control-label" for="package">Package:</label>
     <select class="custom-select" name="package" id="package" value="<%= data.package %>">
     <option value="1">bronze</option>
     <option value="2">silver</option>
@@ -123,9 +121,7 @@ font-family: 'Numans', sans-serif;
   </div>
   
   <div class="input-group mb-3">
-    <div class="input-group-prepend">
-    <label for="status" class="input-group-text">Status:</label>
-    </div>
+    <label for="status" class="col-sm-3 control-label">Status:</label>
     <select class="custom-select" name="status" id="status">    
     <option value="pending"
     <%if(data.status == "pending"){%>
