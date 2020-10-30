@@ -17,7 +17,7 @@ height: 100%;
 font-family: 'Numans', sans-serif;
 }
 *[role="form"] {
-    max-width: 530px;
+    max-width: 570px;
     padding: 15px;
     margin: 0 auto;
     border-radius: 0.3em;
@@ -97,7 +97,7 @@ font-family: 'Numans', sans-serif;
   <div class="form-group">
     <label for="name" class="col-sm-3 control-label">Phone:</label>
     <div class="col-sm-9">
-    <input type="number" class="form-control" name="phone" value="<%= data.phone %>"> 
+    <input type="text" class="form-control" name="phone" value="<%= data.phone %>"> 
     </div>   
   </div>
 
@@ -106,7 +106,6 @@ font-family: 'Numans', sans-serif;
     <label class="input-group-text" for="package">Package:</label>
     </div>
     <select class="custom-select" name="package" id="package" value="<%= data.package %>">
-    <option selected>Choose...</option>
     <option value="1">bronze</option>
     <option value="2">silver</option>
     <option value="3">gold</option>
@@ -118,7 +117,7 @@ font-family: 'Numans', sans-serif;
   <div class="form-group">
     <label for="name" class="col-sm-3 control-label">Date:</label>
     <div class="col-sm-9">
-    <input type="date" class="form-control" name="date" value="<%= data.date %>"> 
+    <input type="text" class="form-control" name="date" value="<%= data.date %>"> 
     </div>   
   </div>
 
@@ -139,7 +138,7 @@ font-family: 'Numans', sans-serif;
   <div class="form-group">
     <label for="name" class="col-sm-3 control-label">Message:</label>
     <div class="col-sm-9">
-    <textarea name="message" rows="4" cols="50"><%= data.message %></textarea>
+    <textarea name="message" rows="3" cols="50"><%= data.message %></textarea>
     </div> 
   </div>
   
@@ -169,7 +168,7 @@ font-family: 'Numans', sans-serif;
   <div class="form-group">
     <label for="name" class="col-sm-3 control-label">Comment:</label>
     <div class="col-sm-9">
-    <textarea name="comment" rows="4" cols="50"></textarea>      
+    <textarea name="comment" rows="3" cols="50"></textarea>      
   </div>
 
   
