@@ -4,6 +4,40 @@
     <meta charset="UTF-8">
     <title>Edit Request Songs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <style>
+html,body{
+background-image: url('https://wallpaperaccess.com/full/2035085.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+*[role="form"] {
+    max-width: 530px;
+    padding: 15px;
+    margin: 0 auto;
+    border-radius: 0.3em;
+    background-color: #f2f2f2;
+}
+
+*[role="form"] h1 { 
+    font-family: 'Open Sans' , sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: #000000;
+    margin-top: 5%;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+</style>
  </head>
 
   <body>
@@ -32,16 +66,21 @@
   </script>
   
  
+  <div class="container">
+  <form class="form-horizontal" role="form" id="form" method="post" action="../editreqsong">
+    <h1 style="text-align:center; color:black;">Edit Requested Songs</h1>
 
-  <form id="form" method="post" action="../editreqsong">
   <div class="form-group">
-    <label for="name">Request Song</label>
-    <input type="text" class="form-control" name="reqsong" value="<%= data.reqsong %>">    
+    <label for="name" class="col-sm-2 col-form-label">Request Song</label>
+    <div class="col-sm-9">
+    <input type="text" class="form-control" name="reqsong" value="<%= data.reqsong %>">
+    </div>    
   </div>
   
-  <div class="form-group">
-    <label for="status">Status:</label>
-  <select name="status" id="status">    
+  <div class="input-group mb-3">
+    <label for="status" class="col-sm-2 col-form-label">Status</label>
+    <div class="col-sm-9">
+    <select class="custom-select" name="status" id="status">    
     <option value="pending"
     <%if(data.status == "pending"){%>
         <%="selected"%>
@@ -52,13 +91,14 @@
         <%="selected"%>
     <%}%>
     >Added</option>
-  </select>   
+    </select>   
+    </div>
   </div>
     
 
   
   <input type="hidden"  name="doc_id" value="<%= data.doc_id %>">
-  <input type="submit" value="Submit"> 
+  <input type="submit" value="Submit" class="btn btn-primary btn-block"> 
   </form>
 
 
