@@ -11,30 +11,199 @@
 
 
     <style>
-html,body{
-background-image: url('https://wallpaperaccess.com/full/2035085.jpg');
-background-size: cover;
-background-repeat: no-repeat;
-height: 100%;
-font-family: 'Numans', sans-serif;
-}
-*[role="form"] {
-    max-width: 530px;
-    padding: 15px;
-    margin: 0 auto;
-    border-radius: 0.3em;
-    background-color: #f2f2f2;
+
+$body-bg: #c1bdba;
+$background-image: url('https://wallpaperaccess.com/full/2035085.jpg');
+$form-bg: #13232f;
+$white: #ffffff;
+
+$main: #1ab188;
+$main-light: lighten($main,5%);
+$main-dark: darken($main,5%);
+
+$gray-light: #a0b3b0;
+$gray: #ddd;
+
+$thin: 300;
+$normal: 400;
+$bold: 600;
+$br: 4px;
+
+*, *:before, *:after {
+  box-sizing: border-box;
 }
 
-*[role="form"] h1 { 
-    font-family: 'Open Sans' , sans-serif;
-    font-size: 40px;
-    font-weight: 600;
-    color: #000000;
-    margin-top: 5%;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 4px;
+html {
+  overflow-y: scroll; 
+}
+
+body {
+  background-image:$background-image;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+a {
+  text-decoration:none;
+  color:$main;
+  transition:.5s ease;
+  &:hover {
+    color:$main-dark;
+  }
+}
+
+.form {
+  background:rgba($form-bg,.9);
+  padding: 40px;
+  max-width:600px;
+  margin:40px auto;
+  border-radius:$br;
+  box-shadow:0 4px 10px 4px rgba($form-bg,.3);
+}
+
+.tab-group {
+  list-style:none;
+  padding:0;
+  margin:0 0 40px 0;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  li a {
+    display:block;
+    text-decoration:none;
+    padding:15px;
+    background:rgba($gray-light,.25);
+    color:$gray-light;
+    font-size:20px;
+    float:left;
+    width:50%;
+    text-align:center;
+    cursor:pointer;
+    transition:.5s ease;
+    &:hover {
+      background:$main-dark;
+      color:$white;
+    }
+  }
+  .active a {
+    background:$main;
+    color:$white;
+  }
+}
+
+.tab-content > div:last-child {
+  display:none;
+}
+
+
+h1 {
+  text-align:center;
+  color:$white;
+  font-weight:$thin;
+  margin:0 0 40px;
+}
+
+label {
+  position:absolute;
+  transform:translateY(6px);
+  left:13px;
+  color:rgba($white,.5);
+  transition:all 0.25s ease;
+  -webkit-backface-visibility: hidden;
+  pointer-events: none;
+  font-size:22px;
+  .req {
+    margin:2px;
+    color:$main;
+  }
+}
+
+label.active {
+  transform:translateY(50px);
+  left:2px;
+  font-size:14px;
+  .req {
+    opacity:0;
+  }
+}
+
+label.highlight {
+  color:$white;
+}
+
+input, textarea {
+  font-size:22px;
+  display:block;
+  width:100%;
+  height:100%;
+  padding:5px 10px;
+  background:none;
+  background-image:none;
+  border:1px solid $gray-light;
+  color:$white;
+  border-radius:0;
+  transition:border-color .25s ease, box-shadow .25s ease;
+  &:focus {
+    outline:0;
+    border-color:$main;
+  }
+}
+
+textarea {
+  border:2px solid $gray-light;
+  resize: vertical;
+}
+
+.field-wrap {
+  position:relative;
+  margin-bottom:40px;
+}
+
+.top-row {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  > div {
+    float:left;
+    width:48%;
+    margin-right:4%;
+    &:last-child { 
+      margin:0;
+    }
+  }
+}
+
+.button {
+  border:0;
+  outline:none;
+  border-radius:0;
+  padding:15px 0;
+  font-size:22px;
+  font-weight:$bold;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  background:$main;
+  color:$white;
+  transition:all.5s ease;
+  -webkit-appearance: none;
+  &:hover, &:focus {
+    background:$main-dark;
+  }
+}
+
+.button-block {
+ display:block;
+  width:100%;
+  height:40px;
+}
+
+.forgot {
+  margin-top:-20px;
+  text-align:right;
 }
 
 </style>
@@ -66,28 +235,25 @@ font-family: 'Numans', sans-serif;
   </script>
   
  
-  <div class="container">
+  <div class="form">
+    <div class="tab-content"> 
+  <h1 style="text-align:center; color:white;">Edit Reservation</h1>
   <form class="form-horizontal" role="form" id="form" method="post" action="../updatereservation">
-  <h1 style="text-align:center; color:black;">Edit Reservation</h1>
 
-  <div class="form-group">
-    <label for="name" class="col-sm-2 col-form-label">Name</label> 
-    <div class="col-sm-9">
-    <input type="text" class="form-control" name="name" value="<%= data.name %>" autofocus>
-    </div>    
-  </div>
+    <div class="field-wrap">
+    <label for="name">Name</label> 
+    <input type="text" name="name" value="<%= data.name %>" autofocus></div>
 
-  <div class="form-group">
-    <label for="name" class="col-sm-2 col-form-label">Phone</label>
-    <div class="col-sm-9">
-    <input type="text" class="form-control" name="phone" value="<%= data.phone %>"> 
+    <div class="field-wrap">
+    <label for="name">Phone</label>
+    <input type="text" name="phone" value="<%= data.phone %>"> 
     </div>   
-  </div>
 
-  <div class="input-group mb-3">
-    <label class="col-sm-2 col-form-label" for="name">Package</label>
-    <div class="col-sm-9">
-    <select class="custom-select" id="package" name="package">
+  <div class="field-wrap" >
+    <p style="color:grey; font-size: 25px;  font-weight: bold;
+"> Package</p> 
+    <select id="package" name="package" style="width:520px; height:48px
+">
     <option value="<%= data.package %>"><%= data.package %></option> 
     <option value="1">bronze</option>
     <option value="2">silver</option>
@@ -95,41 +261,32 @@ font-family: 'Numans', sans-serif;
     <option value="4">platinum</option>
     <option value="5">penthouse</option>
     </select>  
-    </div> 
   </div>
 
-  <div class="form-group">
-    <label for="name" class="col-sm-2 col-form-label">Date</label>
-    <div class="col-sm-9">
-    <input type="text" class="form-control" name="date" value="<%= data.date %>"> 
-    </div>   
+  <div class="field-wrap">
+    <label for="name">Date</label>
+    <input type="text" class="form-control" name="date" value="<%= data.date %>">  
   </div>
 
-  <div class="form-group">
-    <label for="name" class="col-sm-2 col-form-label">Time</label>
-    <div class="col-sm-9">
+  <div class="field-wrap">
+    <label for="name">Time</label>
     <input type="text" class="form-control" name="time" value="<%= data.time %>">
-    </div>
   </div>
 
-  <div class="form-group">
-    <label for="name" class="col-sm-2 col-form-label">Sections</label>
-    <div class="col-sm-9">
-    <input type="text" class="form-control" name="sections" value="<%= data.sections %>">
-    </div>    
+  <div class="field-wrap">
+    <label for="name">Sections</label>
+    <input type="text" class="form-control" name="sections" value="<%= data.sections %>">    
   </div>
 
-  <div class="form-group">
-    <label for="name" class="col-sm-2 col-form-label">Message</label>
-    <div class="col-sm-9">
-    <textarea name="message" rows="1" cols="50"><%= data.message %></textarea>
-    </div> 
+  <div class="field-wrap">
+    <label for="name">Message</label>
+    <textarea name="message" rows="1" cols="50"><%= data.message %></textarea> 
   </div>
   
-  <div class="input-group mb-3">
-    <label for="status" class="col-sm-2 col-form-label">Status</label>
-    <div class="col-sm-9">
-    <select class="custom-select" name="status" id="status">    
+  <div class="field-wrap">
+    <p style="color:grey; font-size: 25px;  font-weight: bold;
+"> Status</p>
+    <select class="custom-select" name="status" id="status" style="width:520px; height:48px">    
     <option value="pending"
     <%if(data.status == "pending"){%>
         <%="selected"%>
@@ -148,26 +305,23 @@ font-family: 'Numans', sans-serif;
    
   </select>
   </div>   
-  </div>
-  <div class="form-group">
-    <label for="name" class="col-sm-2 col-form-label">Comment</label>
-    <div class="col-sm-9">
-    <textarea name="comment" rows="1" cols="50"></textarea>
-    </div>      
+  <div class="field-wrap">
+    <label for="name">Comment</label>
+    <textarea name="comment" rows="1" cols="50"></textarea>      
   </div>
 
-  
   <input type="hidden"  name="doc_id" value="<%= data.doc_id %>">
   <input type="hidden"  name="ref" value="<%= data.ref %>">
 
-  <div class="form-group">
-  <input type="submit" value="Submit" class="btn btn-primary btn-block">
-  </div> 
+  <button type="submit" class="button button-block"/>Submit</button>
+
   </form>
+  </div>
+  </div><!-- tab-content -->     
+  </div> <!-- /form -->
+
 
   <script>
-      
-   
       const windowShut = () => {
    
           MessengerExtensions.requestCloseBrowser(function success() {
