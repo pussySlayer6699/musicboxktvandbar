@@ -12,22 +12,7 @@
 
     <style>
 
-$body-bg: #c1bdba;
-$background-image: url('https://wallpaperaccess.com/full/2035085.jpg');
-$form-bg: #13232f;
-$white: #ffffff;
 
-$main: #1ab188;
-$main-light: lighten($main,5%);
-$main-dark: darken($main,5%);
-
-$gray-light: #a0b3b0;
-$gray: #ddd;
-
-$thin: 300;
-$normal: 400;
-$bold: 600;
-$br: 4px;
 
 *, *:before, *:after {
   box-sizing: border-box;
@@ -38,26 +23,26 @@ html {
 }
 
 body {
-  background-image:$background-image;
+  background-image:url('https://wallpaperaccess.com/full/2035085.jpg');
   font-family: 'Titillium Web', sans-serif;
 }
 
 a {
   text-decoration:none;
-  color:$main;
+  color:#1ab188;
   transition:.5s ease;
   &:hover {
-    color:$main-dark;
+    color:darken(#1ab188,5%);
   }
 }
 
 .form {
-  background:rgba($form-bg,.9);
+  background:rgba(#13232f,.9);
   padding: 40px;
   max-width:600px;
   margin:40px auto;
-  border-radius:$br;
-  box-shadow:0 4px 10px 4px rgba($form-bg,.3);
+  border-radius:4px;
+  box-shadow:0 4px 10px 4px rgba(#13232f,.3);
 }
 
 .tab-group {
@@ -73,8 +58,8 @@ a {
     display:block;
     text-decoration:none;
     padding:15px;
-    background:rgba($gray-light,.25);
-    color:$gray-light;
+    background:rgba(#a0b3b0,.25);
+    color:#a0b3b0;
     font-size:20px;
     float:left;
     width:50%;
@@ -82,13 +67,13 @@ a {
     cursor:pointer;
     transition:.5s ease;
     &:hover {
-      background:$main-dark;
-      color:$white;
+      background:darken(#1ab188,5%);
+      color:#ffffff;
     }
   }
   .active a {
-    background:$main;
-    color:$white;
+    background:#1ab188;
+    color:#ffffff;
   }
 }
 
@@ -99,8 +84,8 @@ a {
 
 h1 {
   text-align:center;
-  color:$white;
-  font-weight:$thin;
+  color:#ffffff;
+  font-weight:300;
   margin:0 0 40px;
 }
 
@@ -108,14 +93,14 @@ label {
   position:absolute;
   transform:translateY(6px);
   left:13px;
-  color:rgba($white,.5);
+  color:rgba(#ffffff,.5);
   transition:all 0.25s ease;
   -webkit-backface-visibility: hidden;
   pointer-events: none;
   font-size:22px;
   .req {
     margin:2px;
-    color:$main;
+    color:#1ab188;
   }
 }
 
@@ -129,7 +114,7 @@ label.active {
 }
 
 label.highlight {
-  color:$white;
+  color:#ffffff;
 }
 
 input, textarea {
@@ -140,18 +125,18 @@ input, textarea {
   padding:5px 10px;
   background:none;
   background-image:none;
-  border:1px solid $gray-light;
-  color:$white;
+  border:1px solid #a0b3b0;
+  color:#ffffff;
   border-radius:0;
   transition:border-color .25s ease, box-shadow .25s ease;
   &:focus {
     outline:0;
-    border-color:$main;
+    border-color:#1ab188;
   }
 }
 
 textarea {
-  border:2px solid $gray-light;
+  border:2px solid #a0b3b0;
   resize: vertical;
 }
 
@@ -183,15 +168,15 @@ textarea {
   border-radius:0;
   padding:15px 0;
   font-size:22px;
-  font-weight:$bold;
+  font-weight:600;
   text-transform:uppercase;
   letter-spacing:.1em;
-  background:$main;
-  color:$white;
+  background:#1ab188;
+  color:#ffffff;
   transition:all.5s ease;
   -webkit-appearance: none;
   &:hover, &:focus {
-    background:$main-dark;
+    background:darken(#1ab188,5%);
   }
 }
 
