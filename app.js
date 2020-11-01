@@ -181,7 +181,7 @@ app.post('/login',function(req,res){
     let username = req.body.username;
     let password = req.body.password;
 
-    if(username == 'admin' && password == 'test123'){
+    if(username == 'admin' && password == 'aelal321'){
       sess.username = 'admin';
       sess.login = true;
       res.redirect('/admin/reservations');
