@@ -7,34 +7,56 @@
 
 
 
-    <style>
+<style type="text/css">
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "compass/css3";
 
+$body-bg: #c1bdba;
+$background-image: url('https://wallpaperaccess.com/full/2035085.jpg');
+$form-bg: #13232f;
+$white: #ffffff;
+
+$main: #1ab188;
+$main-light: lighten($main,5%);
+$main-dark: darken($main,5%);
+
+$gray-light: #a0b3b0;
+$gray: #ddd;
+
+$thin: 300;
+$normal: 400;
+$bold: 600;
+$br: 4px;
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
 
 html {
   overflow-y: scroll; 
 }
 
 body {
-  background-image: url('https://wallpaperaccess.com/full/2035085.jpg');
+  background-image:$background-image;
   font-family: 'Titillium Web', sans-serif;
 }
 
 a {
   text-decoration:none;
-  color:#1ab188;
+  color:$main;
   transition:.5s ease;
   &:hover {
-    color:darken(#1ab188,5%);
+    color:$main-dark;
   }
 }
 
 .form {
-  background:#13232f;
+  background:rgba($form-bg,.9);
   padding: 40px;
   max-width:600px;
   margin:40px auto;
-  border-radius:4px;
-  box-shadow:0 4px 10px 4px #13232f;
+  border-radius:$br;
+  box-shadow:0 4px 10px 4px rgba($form-bg,.3);
 }
 
 .tab-group {
@@ -50,8 +72,8 @@ a {
     display:block;
     text-decoration:none;
     padding:15px;
-    background:#a0b3b0;
-    color:#a0b3b0;
+    background:rgba($gray-light,.25);
+    color:$gray-light;
     font-size:20px;
     float:left;
     width:50%;
@@ -59,13 +81,13 @@ a {
     cursor:pointer;
     transition:.5s ease;
     &:hover {
-      background:darken(#1ab188,5%);
-      color:#ffffff;
+      background:$main-dark;
+      color:$white;
     }
   }
   .active a {
-    background:#1ab188;
-    color:#ffffff;
+    background:$main;
+    color:$white;
   }
 }
 
@@ -76,8 +98,8 @@ a {
 
 h1 {
   text-align:center;
-  color:#ffffff;
-  font-weight:300;
+  color:$white;
+  font-weight:$thin;
   margin:0 0 40px;
 }
 
@@ -85,14 +107,14 @@ label {
   position:absolute;
   transform:translateY(6px);
   left:13px;
-  color:#ffffff;
+  color:rgba($white,.5);
   transition:all 0.25s ease;
   -webkit-backface-visibility: hidden;
   pointer-events: none;
   font-size:22px;
   .req {
     margin:2px;
-    color:#1ab188;
+    color:$main;
   }
 }
 
@@ -106,7 +128,7 @@ label.active {
 }
 
 label.highlight {
-  color:#ffffff;
+  color:$white;
 }
 
 input, textarea {
@@ -117,18 +139,18 @@ input, textarea {
   padding:5px 10px;
   background:none;
   background-image:none;
-  border:1px solid #a0b3b0;
-  color:#ffffff;
+  border:1px solid $gray-light;
+  color:$white;
   border-radius:0;
   transition:border-color .25s ease, box-shadow .25s ease;
   &:focus {
     outline:0;
-    border-color:#1ab188;
+    border-color:$main;
   }
 }
 
 textarea {
-  border:2px solid #a0b3b0;
+  border:2px solid $gray-light;
   resize: vertical;
 }
 
@@ -160,15 +182,15 @@ textarea {
   border-radius:0;
   padding:15px 0;
   font-size:22px;
-  font-weight:600;
+  font-weight:$bold;
   text-transform:uppercase;
   letter-spacing:.1em;
-  background:#1ab188;
-  color:#ffffff;
+  background:$main;
+  color:$white;
   transition:all.5s ease;
   -webkit-appearance: none;
   &:hover, &:focus {
-    background:darken(#1ab188,5%);
+    background:$main-dark;
   }
 }
 
@@ -182,6 +204,8 @@ textarea {
   margin-top:-20px;
   text-align:right;
 }
+
+
   </style>
    </head>
 
