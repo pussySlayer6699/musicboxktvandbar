@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <title>Edit Reservation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 
     <style>
@@ -178,7 +175,7 @@ textarea {
 .button-block {
  display:block;
   width:100%;
-  height:40px;
+  height:45px;
 }
 
 .forgot {
@@ -208,11 +205,11 @@ textarea {
     <p style="color:grey; font-size: 25px;  font-weight: bold;"> Package</p> 
     <select id="package" name="package" style="width:520px; height:48px">
     <option value="<%= data.package %>"><%= data.package %></option> 
-    <option value="1">bronze</option>
-    <option value="2">silver</option>
-    <option value="3">gold</option>
-    <option value="4">platinum</option>
-    <option value="5">penthouse</option>
+    <option value="bronze">bronze</option>
+    <option value="silver">silver</option>
+    <option value="gold">gold</option>
+    <option value="platinum">platinum</option>
+    <option value="penthouse">penthouse</option>
     </select>  
   </div>
 
@@ -230,6 +227,7 @@ textarea {
     <label for="name">Sections</label>
     <input type="text" class="form-control" name="sections" value="<%= data.sections %>">    
   </div>
+
 
   <div class="field-wrap">
     <label for="name">Message</label>
