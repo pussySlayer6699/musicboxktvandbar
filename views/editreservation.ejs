@@ -203,6 +203,9 @@ margin-left: 4px;
             <p><label for="name" style="color:white;">Comment</label>
                <textarea name="comment" style="width:359px;" placeholder="comment" class="form-control" rows="1" cols="50"></textarea>
           </div>
+
+            <input type="hidden"  name="doc_id" value="<%= data.doc_id %>">
+            <input type="hidden"  name="ref" value="<%= data.ref %>">
           
           <div class="form-group">
             <input type="submit" value="Submit" class="btn center submit_btn">
