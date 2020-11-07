@@ -1335,6 +1335,7 @@ const saveReservation = (arg, sender_psid) => {
   let data = arg;
   data.ref = generateRandom(6);
   data.status = "pending";
+  data.preorder = "";
   data.created_on = new Date();
   db.collection('Reservations').add(data).then((success)=>{
     console.log('SAVED', success);
@@ -1456,7 +1457,7 @@ const showReservations = async(sender_psid, reservation_ref) => {
   });
   });
   });
- let abc = {status: "confirmed"};
+                let abc = {status: "confirmed"};
                 const preorder = db.collection('Reservations').where("status", "==", abc);
                 const preorder1 = await preorder.get();
 
