@@ -1417,33 +1417,7 @@ const saveRequest = (arg, sender_psid) => {
 
 const showReservations = async(sender_psid, reservation_ref) => {
 
-  
-                const preorder = db.collection('Reservations').where("status", "==", "confirmed").limit(1);
-                const preorder1 = await preorder.get();
-
-                if (preorder1.empty) {
-                  console.log("CANCEL HAHAHA");
-                  let response = { "text": "Incorrect reference code. Please try again." };
-                  callSend(sender_psid, response)
-                }else{ 
-                  console.log("PREORDER LOLOLOL");
-                  let response = {"text": "Would you like to preorder food and drink?",
-                "quick_replies":[
-                        {
-                          "content_type":"text",
-                          "title":"Yes please.",
-                          "payload":"preorder",              
-                        },{
-                          "content_type":"text",
-                          "title":"No thanks.",
-                          "payload":"thankyou",             
-                        }
-                ]
-              };
-                callSend(sender_psid, response);
-                    
-}
-    const reservationsRef = db.collection('Reservations').where("ref", "==", reservation_ref).limit(1);
+    const reservationsRef = db.collection('Reservations').where("ref", "==", reservation_ref);
     const snapshot = await reservationsRef.get();
 
     if (snapshot.empty) {
@@ -1482,7 +1456,31 @@ const showReservations = async(sender_psid, reservation_ref) => {
   });
   });
   });
-                   
+                const preorder = db.collection('Reservations').where("status", "==", "confirmed");
+                const preorder1 = await preorder.get();
+
+                if (preorder1.empty) {
+                  console.log("CANCEL HAHAHA");
+                  let response = { "text": "Incorrect reference code. Please try again." };
+                  callSend(sender_psid, response)
+                }else{ 
+                  console.log("PREORDER LOLOLOL");
+                  let response = {"text": "Would you like to preorder food and drink?",
+                "quick_replies":[
+                        {
+                          "content_type":"text",
+                          "title":"Yes please.",
+                          "payload":"preorder",              
+                        },{
+                          "content_type":"text",
+                          "title":"No thanks.",
+                          "payload":"thankyou",             
+                        }
+                ]
+              };
+                callSend(sender_psid, response);
+                    
+}   
 }
 
 }
