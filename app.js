@@ -1456,17 +1456,15 @@ const showReservations = async(sender_psid, reservation_ref) => {
   });
   });
   });
-     
-}
                 const preorder = db.collection('Reservations').where("status", "==", "confirmed").limit(1);
                 const preorder1 = await preorder.get();
 
                 if (preorder1.empty) {
-                  console.log("CANCEL");
+                  console.log("CANCEL HAHAHA");
                   let response = { "text": "Incorrect reference code. Please try again." };
                   callSend(sender_psid, response)
                 }else{ 
-                  console.log("PREORDER");
+                  console.log("PREORDER LOLOLOL");
                   let response1 = {"text": "Would you like to preorder food and drink?",
                 "quick_replies":[
                         {
@@ -1482,7 +1480,9 @@ const showReservations = async(sender_psid, reservation_ref) => {
               };
                 callSend(sender_psid, response1);
                     
-} 
+}   
+}
+
 }
 
 
