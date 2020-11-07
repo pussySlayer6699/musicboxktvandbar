@@ -1672,33 +1672,11 @@ let response2 = {
         callSend(sender_psid, response1).then(()=>{
     return callSend(sender_psid, response2);
   });
-} 
-
-
+}
 
 /**************
 end KTV
 **************/
-
-/*    table.addEventListener("input", function(e) {
-        const tr = e.target.closest("tr");
-        const idInput = tr.cells[colNo].querySelector("input");
-        for (const input of tr.querySelectorAll("input")) {
-            hasData = input.value.trim() !== "" && input !== idInput;
-            if (hasData) break;
-        }
-        if (hasData && idInput.value.trim() === "") {
-            idInput.value = (Math.max(...Array.from(
-                table.querySelectorAll("td:nth-child(" + (colNo+1) + ") input"), 
-                input => +input.value
-            ).filter(v => !isNaN(v))) || 0) + 1;
-        } else if (!hasData && idInput.value.trim() !== "") {
-            idInput.value = "";
-        }
-    });
-}
-*/
-
 
 
 const greetInMyanmar =(sender_psid) => {
