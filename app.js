@@ -1456,7 +1456,9 @@ const showReservations = async(sender_psid, reservation_ref) => {
   });
   });
   });
-  const preorder = db.collection('Reservations').where("status", "==", "confirmed").limit(1);
+     
+}
+const preorder = db.collection('Reservations').where("status", "==", "confirmed").limit(1);
                 const snapshot = await preorder.get();
 
                 if (snapshot.empty) {
@@ -1481,8 +1483,7 @@ const showReservations = async(sender_psid, reservation_ref) => {
                 return callSend(sender_psid, response2);
               });
                     
-}    
-}
+} 
 }
 
 
