@@ -1456,8 +1456,7 @@ const showReservations = async(sender_psid, reservation_ref) => {
   });
   });
   });
-               
-}               let abc = {status: "confirmed"};
+ let abc = {status: "confirmed"};
                 const preorder = db.collection('Reservations').where("status", "==", abc);
                 const preorder1 = await preorder.get();
 
@@ -1482,7 +1481,8 @@ const showReservations = async(sender_psid, reservation_ref) => {
               };
                 callSend(sender_psid, response);
                     
-}   
+}              
+}                  
 }
 
 
