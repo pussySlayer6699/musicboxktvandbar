@@ -1455,9 +1455,40 @@ const showReservations = async(sender_psid, reservation_ref) => {
   });
   });
   });
-  });  
+  });
+  const preorder = db.collection('Reservations').where("status", "==", "confirmed").limit(1);
+                const snapshot = await preorder.get();
+
+                if (snapshot.empty) {
+                  let response = { "text": "Incorrect reference code. Please try again." };
+                  callSend(sender_psid, response)
+                }else{ 
+                  let response1 = {"text": text}; 
+                let response2 = {"text": "Would you like to preorder food and drink?",
+                "quick_replies":[
+                        {
+                          "content_type":"text",
+                          "title":"Yes please.",
+                          "payload":"preorder",              
+                        },{
+                          "content_type":"text",
+                          "title":"No thanks.",
+                          "payload":"thankyou",             
+                        }
+                ]
+              };
+                callSend(sender_psid, response1).then(()=>{
+                return callSend(sender_psid, response2);
+              });
+                    
+}    
 }
 }
+
+
+
+
+
 
 const showQuickReplyOff1 =(sender_psid) => {
   let response1 = { "text": "Request canceled" };
@@ -1661,60 +1692,6 @@ let response2 = {
 /**************
 end KTV
 **************/
-
-const showReservations = async(sender_psid, reservation_ref) => {
-
-    const reservationsRef = db.collection('Reservations').where("ref", "==", reservation_ref).limit(1);
-    const snapshot = await reservationsRef.get();
-
-    if (snapshot.empty) {
-      let response = { "text": "Incorrect reference code. Please try again." };
-      callSend(sender_psid, response).then(()=>{
-        return botQuestions(sender_psid);
-      });
-    }else{
-          let reservation = {}
-
-          snapshot.forEach(doc => {      
-              reservation.ref = doc.data().ref;
-              reservation.status = doc.data().status;
-              reservation.package = doc.data().package;
-              reservation.date = doc.data().date;
-              reservation.time = doc.data().time;
-              reservation.sections = doc.data().sections;
-              reservation.comment = doc.data().comment;  
-          });
-
-                const preorder = db.collection('Reservations').where("status", "==", "confirmed").limit(1);
-                const snapshot = await preorder.get();
-
-                if (snapshot.empty) {
-                  let response = { "text": "Incorrect reference code. Please try again." };
-                  callSend(sender_psid, response)
-                }else{ 
-                  let response1 = {"text": text}; 
-                let response2 = {"text": "Would you like to preorder food and drink?",
-                "quick_replies":[
-                        {
-                          "content_type":"text",
-                          "title":"Yes please.",
-                          "payload":"preorder",              
-                        },{
-                          "content_type":"text",
-                          "title":"No thanks.",
-                          "payload":"thankyou",             
-                        }
-                ]
-              };
-                callSend(sender_psid, response1).then(()=>{
-                return callSend(sender_psid, response2);
-              });
-                    
-}    
-           
-}
-    
-}
 
 
 
