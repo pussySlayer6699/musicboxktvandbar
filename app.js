@@ -1465,7 +1465,7 @@ const showReservations = async(sender_psid, reservation_ref) => {
                   callSend(sender_psid, response)
                 }else{ 
                   console.log("PREORDER LOLOLOL");
-                  let response1 = {"text": "Would you like to preorder food and drink?",
+                  let response = {"text": "Would you like to preorder food and drink?",
                 "quick_replies":[
                         {
                           "content_type":"text",
@@ -1478,7 +1478,7 @@ const showReservations = async(sender_psid, reservation_ref) => {
                         }
                 ]
               };
-                callSend(sender_psid, response1);
+                callSend(sender_psid, response);
                     
 }   
 }
