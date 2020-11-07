@@ -1581,32 +1581,98 @@ const showThanks =(sender_psid) => {
 
 
 const showMenu =(sender_psid) => {
-  let response = {
+let response1 = { "text": "Here is the menu." };
+let response2 = {
       "attachment": {
         "type": "template",
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "MENU",
-            "image_url":"https://images.cdn3.stockunlimited.net/preview1300/restaurant-menu-logo-icon_1710137.jpg",                       
-            "buttons": [              
-              {
-                "type": "web_url",
-                "title": "Preoder Now.",
-                "url":APP_URL+"food/",
-                 "webview_height_ratio": "full",
-                "messenger_extensions": true,          
-              },
-              
-            ],
-          }]
+            "title": "Crispy Pork Rib",
+            "subtitle": "4500Ks",
+            "image_url":"https://www.yangonbookings.com/timthumb/timthumb.php?src=https://www.yangonbookings.com/assets/uploads/listing/2e6ae8fa5f6a927351d6873dfed609ce.jpg&h=430&w=860",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Preoder this",
+                  "payload": "item: crispy pork rib",
+                },               
+              ],
+          },{
+            "title": "Sour Shrimp Salad.",
+            "subtitle": "3500Ks", 
+            "image_url":"https://www.yangonbookings.com/timthumb/timthumb.php?src=https://www.yangonbookings.com/assets/uploads/listing/5fea168662d6b37c0f6549675c175d54.jpg&h=430&w=860",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Preoder this",
+                  "payload": "item: sour shrimp salad", 
+                },               
+              ],
+          },{
+            "title": "Fried noodle with seafood.",
+            "subtitle": "3500Ks",
+            "image_url":"https://i.ytimg.com/vi/PkyF1gH7Sck/maxresdefault.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Preoder this",
+                  "payload": "item: fried noodle with seafood", 
+                },               
+              ],
+          },{
+            "title": "Mojito Cocktail",
+            "subtitle": "3000Ks",
+            "image_url":"https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/53/2012/05/Mojito-recipe.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Preoder this",
+                  "payload": "item: mojito cocktail", 
+                },               
+              ],
+          },{
+            "title": "Tequila Sunrise Cocktail",
+            "subtitle": "3500Ks",
+            "image_url":"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMeu12IKCMYbHSC9FGL_v_bZWsW-DtwYeqQg&usqp=CAU",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Preoder this",
+                  "payload": "item: tequila sunrise cocktail", 
+                },               
+              ],
+          },{
+            "title": "Gold Label 1L",
+            "subtitle": "95,000Ks.",
+            "image_url":"https://static-01.shop.com.mm/p/177b4a945661285c3507744e8824764c.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Preoder this",
+                  "payload": "item: gold label 1l", 
+                },               
+              ],
+          },{
+            "title": "Jose Cuervo Gold 1L",
+            "subtitle": "55,000Ks.",
+            "image_url":"https://media-verticommnetwork1.netdna-ssl.com/wines/jose-cuervo-especial-reposado-443249.jpg",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Preoder this",
+                  "payload": "item: jose cuervo gold 1l", 
+                },               
+              ],
+          }
+          ]
         }
       }
-    }  
-  callSend(sender_psid, response);
-}
-
-
+    }
+        callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2);
+  });
+} 
 
 
 
