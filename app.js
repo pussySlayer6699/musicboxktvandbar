@@ -1462,11 +1462,12 @@ const showReservations = async(sender_psid, reservation_ref) => {
                 const preorder1 = await preorder.get();
 
                 if (preorder1.empty) {
+                  console.log("CANCEL");
                   let response = { "text": "Incorrect reference code. Please try again." };
                   callSend(sender_psid, response)
                 }else{ 
-                  let response1 = {"text": text}; 
-                let response2 = {"text": "Would you like to preorder food and drink?",
+                  console.log("PREORDER");
+                  let response1 = {"text": "Would you like to preorder food and drink?",
                 "quick_replies":[
                         {
                           "content_type":"text",
@@ -1479,9 +1480,7 @@ const showReservations = async(sender_psid, reservation_ref) => {
                         }
                 ]
               };
-                callSend(sender_psid, response1).then(()=>{
-                return callSend(sender_psid, response2);
-              });
+                callSend(sender_psid, response1);
                     
 } 
 }
