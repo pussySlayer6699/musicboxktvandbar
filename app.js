@@ -34,8 +34,8 @@ const bot_questions = {
   "q5": "Please leave a message if you have something to tell us.",
   "q6": "Drop the song name and its artist. (Artist Name - Song Name)",
   "q7": "Please enter your REFERENCE CODE.",
-  "q8": "How many sections do you want to take?"
-  "q9": "Please enter your REFERENCE CODE.",
+  "q8": "How many sections do you want to take?",
+  "q9": "Please enter your REFERENCE CODE."
   
 }
 let sess; 
