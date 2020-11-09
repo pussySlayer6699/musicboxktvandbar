@@ -35,6 +35,7 @@ const bot_questions = {
   "q6": "Drop the song name and its artist. (Artist Name - Song Name)",
   "q7": "Please enter your REFERENCE CODE.",
   "q8": "How many sections do you want to take?"
+  "q9": "Please enter your REFERENCE CODE.",
   
 }
 let sess; 
@@ -626,7 +627,13 @@ function handleQuickReply(sender_psid, received_message) {
         case "track":         
       current_question = 'q7';
       botQuestions(current_question, sender_psid);
-        break;                
+        break;
+
+        case "no":         
+      current_question = 'q9';
+      botQuestions(current_question, sender_psid);
+        break; 
+
         default:
             defaultReply(sender_psid);
     } 
@@ -691,6 +698,12 @@ const handleMessage = (sender_psid, received_message) => {
      console.log('reservation_ref: ', reservation_ref);    
      current_question = '';     
      showReservations(sender_psid, reservation_ref);
+  
+  }else if(current_question == 'q9'){
+     let reservation_ref = received_message.text; 
+     console.log('reservation_ref: ', reservation_ref);    
+     current_question = '';     
+     showPreorder(sender_psid, reservation_ref);
   }
      
      
@@ -819,7 +832,7 @@ const handlePostback = (sender_psid, received_postback) => {
       case "track":         
       current_question = 'q7';
       botQuestions(current_question, sender_psid);
-        break;
+        break; 
 
       default:
           defaultReply(sender_psid);
@@ -1295,6 +1308,9 @@ const botQuestions = (current_question, sender_psid) => {
   }else if(current_question == 'q8'){
     let response = {"text": bot_questions.q8};
     callSend(sender_psid, response);
+  }else if(current_question == 'q9'){
+    let response = {"text": bot_questions.q8};
+    callSend(sender_psid, response);
   }  
 }
 
@@ -1445,7 +1461,7 @@ const showReservations = async(sender_psid, reservation_ref) => {
           let response3 = { "text": `Your reserved date: ${reservation.date}.` };
           let response4 = { "text": `Your reserved time: ${reservation.time}.` };
           let response5 = { "text": `Your reserved sections: ${reservation.sections}.` };
-          let response6 = { "text": `Admin's Comment: ${reservation.comment}.` };
+          let response6 = { "text": `Admin's Comment: ${reservation.comment}` };
             callSend(sender_psid, response1).then(()=>{
     return callSend(sender_psid, response2).then(()=>{;
     return callSend(sender_psid, response3).then(()=>{;
@@ -1462,11 +1478,11 @@ const showReservations = async(sender_psid, reservation_ref) => {
                 const preorder1 = await preorder.get();
 
                 if (preorder1.empty) {
-                  console.log("CANCEL HAHAHA");
+                  console.log("CANCEL HHHHH");
                   let response = { "text": "Incorrect reference code. Please try again." };
                   callSend(sender_psid, response)
                 }else{ 
-                  console.log("PREORDER LOLOLOL");
+                  console.log("PREORDER MMMMM");
                   let response = {"text": "Would you like to preorder food and drink?",
                 "quick_replies":[
                         {
@@ -1689,6 +1705,70 @@ let response2 = {
     return callSend(sender_psid, response2);
   });
 }
+
+const continueOrder =(sender_psid) => {
+  let response = {
+    "text": "Would you like to continue preorder?",
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"Yes",
+              "payload":"preorder",              
+            },{
+              "content_type":"text",
+              "title":"No",
+              "payload":"off",             
+            }
+    ]
+  };
+  callSend(sender_psid, response);
+}
+
+const showPreorder = async(sender_psid, reservation_ref) => {
+
+    const reservationsRef = db.collection('Reservations').where("ref", "==", reservation_ref).limit(1);
+    const snapshot = await reservationsRef.get();
+
+    if (snapshot.empty) {
+      let response = { "text": "Incorrect reference code. Please try again." };
+      callSend(sender_psid, response).then(()=>{
+        return botQuestions(sender_psid);
+      });
+    }else{
+          let reservation = {}
+ 
+          snapshot.forEach(doc => {      
+              reservation.ref = doc.data().ref;
+              reservation.status = doc.data().status;
+              reservation.package = doc.data().package;
+              reservation.date = doc.data().date;
+              reservation.time = doc.data().time;
+              reservation.sections = doc.data().sections;
+                
+          });
+
+
+          let response1 = { "text": `Your Reservation ${reservation.ref} is ${reservation.status}.` };
+          let response2 = { "text": `Your reserved package: ${reservation.package}.` };
+          let response3 = { "text": `Your reserved date: ${reservation.date}.` };
+          let response4 = { "text": `Your reserved time: ${reservation.time}.` };
+          let response5 = { "text": `Your reserved sections: ${reservation.sections}.` };
+          let response6 = { "text": `Preorder done. Thank you.` };
+            callSend(sender_psid, response1).then(()=>{
+    return callSend(sender_psid, response2).then(()=>{;
+    return callSend(sender_psid, response3).then(()=>{;
+    return callSend(sender_psid, response4).then(()=>{;
+    return callSend(sender_psid, response5).then(()=>{;
+    return callSend(sender_psid, response6);  
+  });
+  });
+  });
+  });
+  });  
+}
+}
+
+
 
 /**************
 end KTV
