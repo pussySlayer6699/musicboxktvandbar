@@ -614,7 +614,7 @@ function handleQuickReply(sender_psid, received_message) {
         case "preorder":
             let itemArray = userInputs[user_id].preorder;
            
-           = db.collection('Reservations') = update(itemArray);
+            db.collection('Reservations') = update(itemArray);
           showMenu(sender_psid);
           break;
         case "thankyou":
