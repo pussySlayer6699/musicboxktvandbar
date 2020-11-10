@@ -595,6 +595,14 @@ function handleQuickReply(sender_psid, received_message) {
     let dept = received_message.slice(11);
     userInputs[user_id].package = dept;
     showPackages(sender_psid);
+
+  }else if(received_message.startsWith("item:")){
+    let dept = received_message.slice(5);
+    userInputs[user_id].item = itemArray;
+    = db.collection('Reservations') = update(
+    {preorder: userInputs[user_id].item});
+    showMenu(sender_psid);
+    
   }else{
 
       switch(received_message) {                
@@ -807,6 +815,8 @@ const handlePostback = (sender_psid, received_postback) => {
     botQuestions(current_question, sender_psid);
   } else if(payload.startsWith("item:")){
     let item_name = payload.slice(5);
+    itemArray push (item_name)
+    continueOrder[]
     console.log('SELECTED ITEM IS:', item_name);
     userInputs[user_id].item = item_name;
     console.log('TEST', userInputs);
@@ -1678,9 +1688,9 @@ let response2 = {
                 },               
               ],
           },{
-            "title": "Tequila Sunrise Cocktail",
-            "subtitle": "3500Ks",
-            "image_url":"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMeu12IKCMYbHSC9FGL_v_bZWsW-DtwYeqQg&usqp=CAU",                       
+            "title": "Martini",
+            "subtitle": "4000Ks",
+            "image_url":"https://images.immediate.co.uk/production/volatile/sites/30/2020/08/dirty-martini-3e964eb.jpg?quality=90&resize=960,872",                       
             "buttons": [
                 {
                   "type": "postback",
@@ -1739,6 +1749,7 @@ const continueOrder =(sender_psid) => {
 }
 
 
+const itemArray = ['']; 
 
 /**************
 end KTV
