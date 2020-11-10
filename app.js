@@ -1464,18 +1464,19 @@ const showReservations = async(sender_psid, reservation_ref) => {
           let response5 = { "text": `Your reserved sections: ${reservation.sections}.` };
           let response6 = { "text": `Admin's Comment: ${reservation.comment}` };
             callSend(sender_psid, response1).then(()=>{
-    return callSend(sender_psid, response2).then(()=>{;
-    return callSend(sender_psid, response3).then(()=>{;
-    return callSend(sender_psid, response4).then(()=>{;
-    return callSend(sender_psid, response5).then(()=>{;
-    return callSend(sender_psid, response6);  
-  });
-  });
-  });
-  });
-  });
-                let abc = {status: "confirmed"};
-                const preorder = db.collection('Reservations').where("status", "==", abc);
+                return callSend(sender_psid, response2).then(()=>{;
+                    return callSend(sender_psid, response3).then(()=>{;
+                        return callSend(sender_psid, response4).then(()=>{;
+                            return callSend(sender_psid, response5).then(()=>{;
+                                return callSend(sender_psid, response6);  
+                              });
+                            });
+                        });
+                    });
+                });
+
+                
+                const preorder = db.collection('Reservations').where("status", "==", confirmed);
                 const preorder1 = await preorder.get();
 
                 if (preorder1.empty) {
