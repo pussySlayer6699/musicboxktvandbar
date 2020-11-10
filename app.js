@@ -805,6 +805,11 @@ const handlePostback = (sender_psid, received_postback) => {
     console.log('TEST', userInputs);
     current_question = 'q1';
     botQuestions(current_question, sender_psid);
+  } else if(payload.startsWith("item:")){
+    let item_name = payload.slice(5);
+    console.log('SELECTED ITEM IS:', item_name);
+    userInputs[user_id].item = item_name;
+    console.log('TEST', userInputs);
   }else{
 
       switch(payload) {
@@ -1515,7 +1520,10 @@ const showItem = async(sender_psid, reservation_ref) => {
                     }
 }
 
-
+const showThanks =(sender_psid) => {
+  let response = {"text": "Thank you for reservation. Please enjoy singing with us."};
+  callSend(sender_psid, response);
+}
 
 
 const showQuickReplyOff1 =(sender_psid) => {
@@ -1616,11 +1624,6 @@ const showQuickReplyOff2 =(sender_psid) => {
     return callSend(sender_psid, response2);
   });
 } 
-
-const showThanks =(sender_psid) => {
-  let response = {"text": "Thank you for reservation. Please enjoy singing with us."};
-  callSend(sender_psid, response);
-}
 
 
 const showMenu =(sender_psid) => {
@@ -1733,50 +1736,6 @@ const continueOrder =(sender_psid) => {
     ]
   };
   callSend(sender_psid, response);
-}
-
-const showPreorder = async(sender_psid, reservation_ref) => {
-
-    const reservationsRef = db.collection('Reservations').where("ref", "==", reservation_ref).limit(1);
-    const snapshot = await reservationsRef.get();
-
-    if (snapshot.empty) {
-      let response = { "text": "Incorrect reference code. Please try again." };
-      callSend(sender_psid, response).then(()=>{
-        return botQuestions(sender_psid);
-      });
-    }else{
-          let reservation = {}
- 
-          snapshot.forEach(doc => {      
-              reservation.ref = doc.data().ref;
-              reservation.status = doc.data().status;
-              reservation.package = doc.data().package;
-              reservation.date = doc.data().date;
-              reservation.time = doc.data().time;
-              reservation.sections = doc.data().sections;
-                
-          });
-
-
-          let response1 = { "text": `Your Reservation ${reservation.ref} is ${reservation.status}.` };
-          let response2 = { "text": `Your reserved package: ${reservation.package}.` };
-          let response3 = { "text": `Your reserved date: ${reservation.date}.` };
-          let response4 = { "text": `Your reserved time: ${reservation.time}.` };
-          let response5 = { "text": `Your reserved sections: ${reservation.sections}.` };
-          let response6 = { "text": `Preorder done. Thank you.` };
-            callSend(sender_psid, response1).then(()=>{
-    return callSend(sender_psid, response2).then(()=>{;
-    return callSend(sender_psid, response3).then(()=>{;
-    return callSend(sender_psid, response4).then(()=>{;
-    return callSend(sender_psid, response5).then(()=>{;
-    return callSend(sender_psid, response6);  
-  });
-  });
-  });
-  });
-  });  
-}
 }
 
 
