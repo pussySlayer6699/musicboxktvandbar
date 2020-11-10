@@ -1493,7 +1493,7 @@ const showItem = async(sender_psid, reservation_ref) => {
 
                 if (preorder1.empty) {
                   console.log("CANCEL HHHHH");
-                  let response = { "text": "Incorrect reference code. Please try again." };
+                  let response = { "text": "Your reservation need to be confirmed before preorder food." };
                   callSend(sender_psid, response)
                 }else{ 
                   console.log("PREORDER MMMMM");
