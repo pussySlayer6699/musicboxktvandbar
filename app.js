@@ -1438,6 +1438,7 @@ const showReservations = async(sender_psid, reservation_ref) => {
     const snapshot = await reservationsRef.get();
 
     if (snapshot.empty) {
+      console.log("SHOW RESERVATION HHHHH");
       let response = { "text": "Incorrect reference code. Please try again." };
       callSend(sender_psid, response).then(()=>{
         return botQuestions(sender_psid);
