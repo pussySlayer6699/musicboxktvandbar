@@ -596,11 +596,11 @@ function handleQuickReply(sender_psid, received_message) {
     userInputs[user_id].package = dept;
     showPackages(sender_psid);
 
-  }else if(received_message.startsWith("item:")){
-    let itemArray = received_message.slice(5);
-    userInputs[user_id].item = itemArray
+  }else if(received_message.startsWith("preorder:")){
+    let itemArray = received_message.slice(9);
+    userInputs[user_id].preorder = itemArray
     = db.collection('Reservations') = update(
-    {preorder: userInputs[user_id].item});
+    {preorder: userInputs[user_id].preorder});
     showMenu(sender_psid);
     
   }else{
@@ -813,12 +813,12 @@ const handlePostback = (sender_psid, received_postback) => {
     console.log('TEST', userInputs);
     current_question = 'q1';
     botQuestions(current_question, sender_psid);
-  } else if(payload.startsWith("item:")){
-    let item_name = payload.slice(5);
-    console.log('SELECTED ITEM IS:', item_name);
-    userInputs[user_id].item = item_name;
+  } else if(payload.startsWith("preorder:")){
+    let preorder_name = payload.slice(9);
+    console.log('SELECTED ITEM IS:', preorder_name);
+    userInputs[user_id].preorder = preorder_name;
     console.log('TEST', userInputs);
-    itemArray.push (item_name);
+    itemArray.push (preorder_name);
     continueOrder(sender_psid);
     
   }else{
@@ -1652,7 +1652,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "item: crispy pork rib",
+                  "payload": "preorder: crispy pork rib",
                 },               
               ],
           },{
@@ -1663,7 +1663,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "item: sour shrimp salad", 
+                  "payload": "preorder: sour shrimp salad", 
                 },               
               ],
           },{
@@ -1674,7 +1674,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "item: fried noodle with seafood", 
+                  "payload": "preorder: fried noodle with seafood", 
                 },               
               ],
           },{
@@ -1685,7 +1685,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "item: mojito cocktail", 
+                  "payload": "preorder: mojito cocktail", 
                 },               
               ],
           },{
@@ -1696,7 +1696,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "item: tequila sunrise cocktail", 
+                  "payload": "preorder: tequila sunrise cocktail", 
                 },               
               ],
           },{
@@ -1707,7 +1707,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "item: gold label 1l", 
+                  "payload": "preorder: gold label 1l", 
                 },               
               ],
           },{
@@ -1718,7 +1718,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "item: jose cuervo gold 1l", 
+                  "payload": "preorder: jose cuervo gold 1l", 
                 },               
               ],
           }
@@ -1738,7 +1738,7 @@ const continueOrder =(sender_psid) => {
             {
               "content_type":"text",
               "title":"Yes",
-              "payload":"preorder",              
+              "payload":"preorder:",              
             },{
               "content_type":"text",
               "title":"No",
