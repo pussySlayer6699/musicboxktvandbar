@@ -819,7 +819,7 @@ const handlePostback = (sender_psid, received_postback) => {
     userInputs[user_id].item = item_name;
     console.log('TEST', userInputs);
     itemArray.push (item_name);
-    continueOrder()
+    continueOrder(sender_psid);
     
   }else{
 
