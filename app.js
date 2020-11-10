@@ -34,8 +34,7 @@ const bot_questions = {
   "q5": "Please leave a message if you have something to tell us.",
   "q6": "Drop the song name and its artist. (Artist Name - Song Name)",
   "q7": "Please enter your REFERENCE CODE.",
-  "q8": "How many sections do you want to take?",
-  "q9": "Please enter your REFERENCE CODE."
+  "q8": "How many sections do you want to take?"
   
 }
 let sess; 
@@ -598,8 +597,8 @@ function handleQuickReply(sender_psid, received_message) {
     showPackages(sender_psid);
 
   }else if(received_message.startsWith("preorder:")){
-    let itemArray = received_message.slice(9);
-    userInputs[user_id].preorder = itemArray
+    let preorderArray = received_message.slice(9);
+    userInputs[user_id].preorder = preorderArray
     = db.collection('Reservations') = update(
     {preorder: userInputs[user_id].preorder});
     showMenu(sender_psid);
@@ -617,7 +616,11 @@ function handleQuickReply(sender_psid, received_message) {
           break;
         case "thankyou":
             showThanks(sender_psid);
-          break;    
+          break;  
+
+        case "stop":
+            showThanks1(sender_psid);
+          break;      
 
 
 
@@ -637,11 +640,6 @@ function handleQuickReply(sender_psid, received_message) {
       current_question = 'q7';
       botQuestions(current_question, sender_psid);
         break;
-
-        case "no":         
-      current_question = 'q9';
-      botQuestions(current_question, sender_psid);
-        break; 
 
         default:
             defaultReply(sender_psid);
@@ -708,11 +706,6 @@ const handleMessage = (sender_psid, received_message) => {
      current_question = '';     
      showReservations(sender_psid, reservation_ref);
   
-  }else if(current_question == 'q9'){
-     let reservation_ref = received_message.text; 
-     console.log('reservation_ref: ', reservation_ref);    
-     current_question = '';     
-     showPreorder(sender_psid, reservation_ref);
   }
      
      
@@ -816,10 +809,10 @@ const handlePostback = (sender_psid, received_postback) => {
     botQuestions(current_question, sender_psid);
   } else if(payload.startsWith("preorder:")){
     let preorder_name = payload.slice(9);
-    console.log('SELECTED ITEM IS:', preorder_name);
+    console.log('SELECTED PREORDER IS:', preorder_name);
     userInputs[user_id].preorder = preorder_name;
     console.log('TEST', userInputs);
-    itemArray.push (preorder_name);
+    preorderArray.push (preorder_name);
     continueOrder(sender_psid);
     
   }else{
@@ -1084,45 +1077,6 @@ const showBasicInfo = (sender_psid) => {
   });
   });
 }         
-
-/*const showSongList = (sender_psid) => {
-    let response1 = {"text": "You can request the song you want to sing."};
-    let response2 = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Request Song",
-            "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Song Request",
-                  "payload": "request",
-                }              
-              ],
-          },{
-            "title": "Many Exciting Lounge Packages to Pick.", 
-            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "See Lounge Packages",
-                 
-                  "payload": "packages", 
-                },               
-              ],
-          }
-        ]
-      }
-    }
-  }
-        callSend(sender_psid, response1).then(()=>{
-        return callSend(sender_psid, response2)
-      });
-} */
-
      
 
 const showPackages= (sender_psid) => {
@@ -1323,9 +1277,6 @@ const botQuestions = (current_question, sender_psid) => {
     let response = {"text": bot_questions.q7};
     callSend(sender_psid, response);
   }else if(current_question == 'q8'){
-    let response = {"text": bot_questions.q8};
-    callSend(sender_psid, response);
-  }else if(current_question == 'q9'){
     let response = {"text": bot_questions.q8};
     callSend(sender_psid, response);
   }  
@@ -1732,6 +1683,7 @@ let response2 = {
   });
 }
 
+
 const continueOrder =(sender_psid) => {
   let response = {
     "text": "Would you like to continue preorder?",
@@ -1743,45 +1695,23 @@ const continueOrder =(sender_psid) => {
             },{
               "content_type":"text",
               "title":"No",
-              "payload":"off",             
+              "payload":"stop",             
             }
     ]
   };
   callSend(sender_psid, response);
 }
 
+const showThanks1 =(sender_psid) => {
+  let response = {"text": "Food preorder success. Thank you."};
+  callSend(sender_psid, response);
+}
 
-const itemArray = ['']; 
+const preorderArray = [''];
 
 /**************
 end KTV
 **************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
