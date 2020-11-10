@@ -275,6 +275,7 @@ app.post('/admin/updatereservation', function(req,res){
     date:req.body.date,
     time:req.body.time,
     sections:req.body.sections,
+    preorder:req.body.preorder,
     message:req.body.message,
     status:req.body.status,
     doc_id:req.body.doc_id,
@@ -596,14 +597,14 @@ function handleQuickReply(sender_psid, received_message) {
     userInputs[user_id].package = dept;
     showPackages(sender_psid);
 
-  }/*else if(received_message.startsWith("preorder:")){
+  }else if(received_message.startsWith("preorder:")){
     let itemArray = received_message.slice(9);
     userInputs[user_id].preorder = itemArray
     = db.collection('Reservations') = update(
     {preorder: userInputs[user_id].preorder});
     showMenu(sender_psid);
     
-  }*/else{
+  }else{
 
       switch(received_message) {                
         case "on":
@@ -612,10 +613,7 @@ function handleQuickReply(sender_psid, received_message) {
 
 
         case "preorder":
-            let itemArray = userInputs[user_id].preorder;
-           
-            db.collection('Reservations') = update(itemArray);
-          showMenu(sender_psid);
+            showMenu(sender_psid);
           break;
         case "thankyou":
             showThanks(sender_psid);
