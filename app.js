@@ -596,14 +596,14 @@ function handleQuickReply(sender_psid, received_message) {
     userInputs[user_id].package = dept;
     showPackages(sender_psid);
 
-  }else if(received_message.startsWith("preorder:")){
+  }/*else if(received_message.startsWith("preorder:")){
     let itemArray = received_message.slice(9);
     userInputs[user_id].preorder = itemArray
     = db.collection('Reservations') = update(
     {preorder: userInputs[user_id].preorder});
     showMenu(sender_psid);
     
-  }else{
+  }*/else{
 
       switch(received_message) {                
         case "on":
@@ -612,7 +612,10 @@ function handleQuickReply(sender_psid, received_message) {
 
 
         case "preorder":
-            showMenu(sender_psid);
+            let itemArray = userInputs[user_id].preorder;
+           
+           = db.collection('Reservations') = update(itemArray);
+          showMenu(sender_psid);
           break;
         case "thankyou":
             showThanks(sender_psid);
@@ -1738,7 +1741,7 @@ const continueOrder =(sender_psid) => {
             {
               "content_type":"text",
               "title":"Yes",
-              "payload":"preorder:",              
+              "payload":"preorder",              
             },{
               "content_type":"text",
               "title":"No",
