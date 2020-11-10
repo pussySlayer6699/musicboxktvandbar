@@ -1468,16 +1468,10 @@ const showReservations = async(sender_psid, reservation_ref) => {
                     return callSend(sender_psid, response3).then(()=>{;
                         return callSend(sender_psid, response4).then(()=>{;
                             return callSend(sender_psid, response5).then(()=>{;
-                                return callSend(sender_psid, response6);  
-                              });
-                            });
-                        });
-                    });
-                });
+                                return callSend(sender_psid, response6).then(()=>{
 
-                
-                const preorder = db.collection('Reservations').where("status", "==", "confirmed");
-                const preorder1 = await preorder.get();
+                 const preorder = db.collection('Reservations').where("status", "==", "confirmed");
+                 const preorder1 = await preorder.get();
 
                 if (preorder1.empty) {
                   console.log("CANCEL HHHHH");
@@ -1500,7 +1494,18 @@ const showReservations = async(sender_psid, reservation_ref) => {
               };
                 callSend(sender_psid, response);
                     
-}              
+                    }
+
+
+                                });  
+                              });
+                            });
+                        });
+                    });
+                });
+
+                
+                              
 }                  
 }
 
