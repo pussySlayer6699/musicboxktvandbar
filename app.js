@@ -597,7 +597,7 @@ function handleQuickReply(sender_psid, received_message) {
     showPackages(sender_psid);
 
   }else if(received_message.startsWith("item:")){
-    let dept = received_message.slice(5);
+    let itemArray = received_message.slice(5);
     userInputs[user_id].item = itemArray
     = db.collection('Reservations') = update(
     {preorder: userInputs[user_id].item});
