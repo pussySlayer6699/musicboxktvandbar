@@ -815,11 +815,12 @@ const handlePostback = (sender_psid, received_postback) => {
     botQuestions(current_question, sender_psid);
   } else if(payload.startsWith("item:")){
     let item_name = payload.slice(5);
-    itemArray.push (item_name);
-    continueOrder()
     console.log('SELECTED ITEM IS:', item_name);
     userInputs[user_id].item = item_name;
     console.log('TEST', userInputs);
+    itemArray.push (item_name);
+    continueOrder()
+    
   }else{
 
       switch(payload) {
