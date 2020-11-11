@@ -28,7 +28,7 @@ app.use(session({secret: 'effystonem'}));
 
 const bot_questions = {
   "q1": "For which date do you want to reserve? (dd-mm-yyyy)",
-  "q2": "Our business hour is 11am to 4pm. Please enter time you want to sing.(hh:mm am/pm)",
+  "q2": "Our business hour is 11am to 2am. Please enter time you want to sing.(hh:mm am/pm)",
   "q3": "Please enter your name",
   "q4": "Please enter your phone number",
   "q5": "Please leave a message if you have something to tell us.",
@@ -43,7 +43,7 @@ let current_question = '';
 let user_id = ''; 
 
 let userInputs = [];
-let preorderArray = [];
+let preorderArray = new [];
 let reservation_doc_id;
 /*
 var storage = multer.diskStorage({
@@ -1086,7 +1086,7 @@ const showBasicInfo = (sender_psid) => {
      
 
 const showPackages= (sender_psid) => {
-    let response1 = {"text": "Explore the best lounge packages we offer."};
+    let response1 = {"text": "Explore the best lounge packages we offered."};
     let response2 = {
       "attachment": {
         "type": "template",
@@ -1469,7 +1469,7 @@ const showItem = async(sender_psid, reservation_ref) => {
 
                 if (preorder1.empty) {
                   console.log("CANCEL HHHHH");
-                  let response = { "text": "Your reservation needs to be confirmed before preorder food." };
+                  let response = { "text": "You can preorder food when your reservation is confirmed." };
                   callSend(sender_psid, response)
                 }else{ 
                   console.log("PREORDER MMMMM");
@@ -1664,7 +1664,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "preorder:tequila sunrise cocktail", 
+                  "payload": "preorder:martini", 
                 },               
               ],
           },{
