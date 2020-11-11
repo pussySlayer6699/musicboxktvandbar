@@ -43,7 +43,7 @@ let current_question = '';
 let user_id = ''; 
 
 let userInputs = [];
-let preorderArray = new [];
+let preorderArray = [];
 let reservation_doc_id;
 /*
 var storage = multer.diskStorage({
