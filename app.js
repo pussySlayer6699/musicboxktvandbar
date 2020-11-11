@@ -599,8 +599,11 @@ function handleQuickReply(sender_psid, received_message) {
   }else if(received_message.startsWith("preorder:")){
  
      db.collection('Reservations').doc(reservation_doc_id).update(
-    {preorder: preorderArray.join()});
-    showMenu(sender_psid);
+    {preorder: preorderArray.join()}).then(()=>{
+      showMenu(sender_psid);
+    }).catch((err)=>console.log('ERROR:', err));
+
+    
     
   }else{
 
