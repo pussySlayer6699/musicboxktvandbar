@@ -43,7 +43,7 @@ let current_question = '';
 let user_id = ''; 
 
 let userInputs = [];
-
+let preorderArray = [];
 
 /*
 var storage = multer.diskStorage({
@@ -813,6 +813,7 @@ const handlePostback = (sender_psid, received_postback) => {
     userInputs[user_id].preorder = preorder_name;
     console.log('TEST', userInputs);
     preorderArray.push (preorder_name);
+    console.log('PREORDERARRAY', preorderArray);
     continueOrder(sender_psid);
     
   }else{
@@ -1707,7 +1708,7 @@ const showThanks1 =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
-const preorderArray = [''];
+
 
 /**************
 end KTV
