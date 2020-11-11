@@ -598,7 +598,10 @@ function handleQuickReply(sender_psid, received_message) {
 
   }else if(received_message.startsWith("preorder:")){
  
-     
+     db.collection('Reservations').doc(reservation_doc_id).update(
+    {preorder: preorderArray.join()}).then(()=>{
+      showMenu(sender_psid);
+    }).catch((err)=>console.log('ERROR:', err));
 
     
     
@@ -611,10 +614,7 @@ function handleQuickReply(sender_psid, received_message) {
 
 
         case "preorder":
-            db.collection('Reservations').doc(reservation_doc_id).update(
-    {preorder: preorderArray.join()}).then(()=>{
-      showMenu(sender_psid);
-    }).catch((err)=>console.log('ERROR:', err));
+            showMenu(sender_psid);
           break;
         case "thankyou":
             showThanks(sender_psid);
@@ -816,7 +816,11 @@ const handlePostback = (sender_psid, received_postback) => {
     console.log('TEST', userInputs);
     preorderArray.push (preorder_name);
     console.log('PREORDERARRAY', preorderArray);
-    continueOrder(sender_psid);
+    db.collection('Reservations').doc(reservation_doc_id).update(
+    {preorder: preorderArray.join()}).then(()=>{
+      continueOrder(sender_psid);
+    }).catch((err)=>console.log('ERROR:', err));
+    
     
   }else{
 
