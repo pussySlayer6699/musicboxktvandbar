@@ -44,7 +44,7 @@ let user_id = '';
 
 let userInputs = [];
 let preorderArray = [];
-
+let reservation_doc_id;
 /*
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -597,10 +597,9 @@ function handleQuickReply(sender_psid, received_message) {
     showPackages(sender_psid);
 
   }else if(received_message.startsWith("preorder:")){
-    let preorderArray = received_message.slice(9);
-    userInputs[user_id].preorder = preorderArray
-    = db.collection('Reservations') = update(
-    {preorder: userInputs[user_id].preorder});
+ 
+     db.collection('Reservations').doc(reservation_doc_id).update(
+    {preorder: preorderArray.join()});
     showMenu(sender_psid);
     
   }else{
@@ -1415,7 +1414,8 @@ const showReservations = async(sender_psid, reservation_ref) => {
     }else{
           let reservation = {}
 
-          snapshot.forEach(doc => {      
+          snapshot.forEach(doc => { 
+              reservation.id  = doc.id;   
               reservation.ref = doc.data().ref;
               reservation.status = doc.data().status;
               reservation.package = doc.data().package;
@@ -1424,7 +1424,7 @@ const showReservations = async(sender_psid, reservation_ref) => {
               reservation.sections = doc.data().sections;
               reservation.comment = doc.data().comment;  
           });
-
+          reservation_doc_id = reservation.id;
 
           let response1 = { "text": `Your Reservation ${reservation.ref} is ${reservation.status}.` };
           let response2 = { "text": `Your reserved package: ${reservation.package}.` };
@@ -1605,7 +1605,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "preorder: crispy pork rib",
+                  "payload": "preorder:crispy pork rib",
                 },               
               ],
           },{
