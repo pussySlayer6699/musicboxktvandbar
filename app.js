@@ -1623,7 +1623,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "preorder: sour shrimp salad", 
+                  "payload": "preorder:sour shrimp salad", 
                 },               
               ],
           },{
@@ -1634,7 +1634,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "preorder: fried noodle with seafood", 
+                  "payload": "preorder:fried noodle with seafood", 
                 },               
               ],
           },{
@@ -1645,7 +1645,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "preorder: mojito cocktail", 
+                  "payload": "preorder:mojito cocktail", 
                 },               
               ],
           },{
@@ -1656,7 +1656,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "preorder: tequila sunrise cocktail", 
+                  "payload": "preorder:tequila sunrise cocktail", 
                 },               
               ],
           },{
@@ -1667,7 +1667,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "preorder: gold label 1l", 
+                  "payload": "preorder:gold label 1l", 
                 },               
               ],
           },{
@@ -1678,7 +1678,7 @@ let response2 = {
                 {
                   "type": "postback",
                   "title": "Preoder this",
-                  "payload": "preorder: jose cuervo gold 1l", 
+                  "payload": "preorder:jose cuervo gold 1l", 
                 },               
               ],
           }
@@ -1711,7 +1711,7 @@ const continueOrder =(sender_psid) => {
 }
 
 const showThanks1 =(sender_psid) => {
-  let response = {"text": "Food preorder success. Thank you."};
+  let response = {"text": "Food preorder success. Thank you!"};
   callSend(sender_psid, response);
 }
 
