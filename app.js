@@ -28,7 +28,7 @@ app.use(session({secret: 'effystonem'}));
 
 const bot_questions = {
   "q1": "For which date do you want to reserve? (dd-mm-yyyy)",
-  "q2": "Please enter time you want to sing.(hh:mm am/pm)",
+  "q2": "Our business hour is 11am to 4pm. Please enter time you want to sing.(hh:mm am/pm)",
   "q3": "Please enter your name",
   "q4": "Please enter your phone number",
   "q5": "Please leave a message if you have something to tell us.",
@@ -627,10 +627,10 @@ function handleQuickReply(sender_psid, received_message) {
 
 
         case "off1":
-            showQuickReplyOff1(sender_psid);
+            reqCancel(sender_psid);
           break;
         case "off2":
-            showQuickReplyOff2(sender_psid);
+            reservationCancel(sender_psid);
           break;   
         case "confirm-reservation":
               saveReservation(userInputs[user_id], sender_psid);
@@ -864,7 +864,7 @@ const handlePostback = (sender_psid, received_postback) => {
 
 const generateRandom = (length) => {
    var result           = '';
-   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
    var charactersLength = characters.length;
    for ( var i = 0; i < length; i++ ) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -1018,7 +1018,6 @@ const list = (sender_psid) => {
               ],
           },{
             "title": "Track my reservations.",
-            "subtitle": "Show reservation info you have made.",
             "image_url":"https://static.vecteezy.com/system/resources/thumbnails/000/627/453/small/illust58-5815-01.jpg",                       
             "buttons": [
                 {
@@ -1291,13 +1290,13 @@ const botQuestions = (current_question, sender_psid) => {
 
 const confirmReservation = (sender_psid) => {
   console.log('RESERVATION INFO', userInputs);
-  let summery = "packages:" + userInputs[user_id].package + "\u000A";
-  summery += "date:" + userInputs[user_id].date + "\u000A";
-  summery += "time:" + userInputs[user_id].time + "\u000A";
-  summery += "sections:" + userInputs[user_id].sections + "\u000A";
-  summery += "name:" + userInputs[user_id].name + "\u000A";
-  summery += "phone:" + userInputs[user_id].phone + "\u000A";
-  summery += "message:" + userInputs[user_id].message + "\u000A";
+  let summery = "Packages :" + userInputs[user_id].package + "\u000A";
+  summery += "Date: " + userInputs[user_id].date + "\u000A";
+  summery += "Time: " + userInputs[user_id].time + "\u000A";
+  summery += "Sections: " + userInputs[user_id].sections + "\u000A";
+  summery += "Name: " + userInputs[user_id].name + "\u000A";
+  summery += "Phone: " + userInputs[user_id].phone + "\u000A";
+  summery += "Message: " + userInputs[user_id].message + "\u000A";
 
   let response1 = {"text": summery};
   let response2 = {
@@ -1326,15 +1325,16 @@ const saveReservation = (arg, sender_psid) => {
   let data = arg;
   data.ref = generateRandom(6);
   data.status = "pending";
+  data.comment = "Reservation pending. Please wait.";
   data.preorder = "";
   data.created_on = new Date();
   db.collection('Reservations').add(data).then((success)=>{
     console.log('SAVED', success);
     let text = "Thank you. We have received your reservation."+ "\u000A";
     text += "Please show the REFERENCE CODE at the reception."+ "\u000A";
-    text += "We wil contact you to confirm your reservation. You can also track your reservation."+ "\u000A";
+    text += "We will contact you to confirm your reservation. You can also track your reservation."+ "\u000A";
     text += "CONTACT US if you want to CANCEL your reservation."+ "\u000A";
-    text += "Your reservation reference code is:" + data.ref; 
+    text += "Your reservation reference code is: " + data.ref; 
     let response1 = {"text": text}; 
     callSend(sender_psid, response1);
   });
@@ -1469,7 +1469,7 @@ const showItem = async(sender_psid, reservation_ref) => {
 
                 if (preorder1.empty) {
                   console.log("CANCEL HHHHH");
-                  let response = { "text": "Your reservation need to be confirmed before preorder food." };
+                  let response = { "text": "Your reservation needs to be confirmed before preorder food." };
                   callSend(sender_psid, response)
                 }else{ 
                   console.log("PREORDER MMMMM");
@@ -1497,15 +1497,25 @@ const showThanks =(sender_psid) => {
 }
 
 
-const showQuickReplyOff1 =(sender_psid) => {
-  let response1 = { "text": "Request canceled" };
-  let response2 = { "text": "Explore the best lounge packages we offer." };
-  let response3 = {
+const reqCancel =(sender_psid) => {
+  let response1 = { "text": "Request canceled." };
+  let response2 = {
       "attachment": {
         "type": "template",
         "payload": {
           "template_type": "generic",
-          "elements": [{
+          "elements": [
+            {
+            "title": "Song Request.",
+            "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Song Request",
+                  "payload": "request", 
+                },               
+              ],
+            },{
             "title": "Many Exciting Lounge Packages to Pick.", 
             "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
             "buttons": [
@@ -1522,13 +1532,11 @@ const showQuickReplyOff1 =(sender_psid) => {
     }
   }
         callSend(sender_psid, response1).then(()=>{;
-        return callSend(sender_psid, response2).then(()=>{;
-        return callSend(sender_psid, response3);  
-        });
+        return callSend(sender_psid, response2);
       });
 } 
 
-const showQuickReplyOff2 =(sender_psid) => {
+const reservationCancel =(sender_psid) => {
   let response1 = { "text": "Reservation canceled" };
   let response2 = {
       "attachment": {
