@@ -44,6 +44,7 @@ let user_id = '';
 
 let userInputs = [];
 let preorderArray = [];
+let preorderArray = new Array();
 let reservation_doc_id;
 /*
 var storage = multer.diskStorage({
