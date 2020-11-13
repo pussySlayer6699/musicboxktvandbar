@@ -754,40 +754,6 @@ Function to handle when user send attachment
 **********************************************/
 
 
-const handleAttachments = (sender_psid, attachments) => {
-  
-  console.log('ATTACHMENT', attachments);
-
-
-  let response; 
-  let attachment_url = attachments[0].payload.url;
-    response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Is this the right picture?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes-attachment",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no-attachment",
-              }
-            ],
-          }]
-        }
-      }
-    }
-    callSend(sender_psid, response);
-}
 
 
 /*********************************************
