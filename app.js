@@ -1945,7 +1945,7 @@ FUNCTION TO SET UP PERSISTENT MENU
 
 
 const setupPersistentMenu = (res) => {
-   { 
+   var messageData = { 
       "persistent_menu":[
           {
             "locale":"default",
