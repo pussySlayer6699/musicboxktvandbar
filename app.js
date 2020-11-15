@@ -31,7 +31,7 @@ const bot_questions = {
   "q2": "Our business hour is 11am to 2am. Please enter time you want to sing.(hh:mm am/pm)",
   "q3": "Please enter your name",
   "q4": "Please enter your phone number",
-  "q5": "Please leave a message if you have something to tell us.",
+  "q5": "Please leave a message if you have something to tell us. Or, say No to continue.",
   "q6": "Drop the song name and its artist. (Artist Name - Song Name)",
   "q7": "Please enter your REFERENCE CODE.",
   "q8": "How many sections do you want to take?"
@@ -1559,7 +1559,6 @@ const reservationCancel =(sender_psid) => {
               ],
           },{
             "title": "Track my reservations.",
-            "subtitle": "Show reservation info you have made.",
             "image_url":"https://static.vecteezy.com/system/resources/thumbnails/000/627/453/small/illust58-5815-01.jpg",                       
             "buttons": [
                 {
@@ -1693,7 +1692,7 @@ const continueOrder =(sender_psid) => {
 }
 
 const showThanks1 =(sender_psid) => {
-  let response = {"text": "Food preorder success. Thank you!"};
+  let response = {"text": "Food preorder success. Thank you! See you at MusicBox KTV & Bar."};
   callSend(sender_psid, response);
 }
 
@@ -1973,7 +1972,7 @@ const setupPersistentMenu = (res) => {
   };
         
   request({
-      url: 'https://graph.facebook.com/v2.6/me/musicboxktvandbar?access_token=PAGE_ACCESS_TOKEN',
+      url: 'https://graph.facebook.com/v2.6/m.me/musicboxktvandbar?access_token=PAGE_ACCESS_TOKEN',
       method: 'POST',
       headers: {'Content-Type': 'musicboxktvandbar/app.js'},
       
