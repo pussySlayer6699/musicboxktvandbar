@@ -1945,7 +1945,7 @@ FUNCTION TO SET UP PERSISTENT MENU
 
 
 const setupPersistentMenu = (res) => {
-  var messageData = { 
+   { 
       "persistent_menu":[
           {
             "locale":"default",
@@ -1972,7 +1972,7 @@ const setupPersistentMenu = (res) => {
   };
         
   request({
-      url: 'https://graph.facebook.com/v2.6/m.me/musicboxktvandbar?access_token=PAGE_ACCESS_TOKEN',
+      url: 'https://www.facebook.com/musicboxktvandbar/?access_token=PAGE_ACCESS_TOKEN',
       method: 'POST',
       headers: {'Content-Type': 'musicboxktvandbar/app.js'},
       
