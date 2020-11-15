@@ -807,10 +807,7 @@ const handlePostback = (sender_psid, received_postback) => {
         break;         
       case "info":
           showBasicInfo(sender_psid);
-        break; 
-      case "list":
-          showSongList(sender_psid);
-        break; 
+        break;  
       case "packages":
           showPackages(sender_psid);
         break; 
@@ -1018,23 +1015,13 @@ const showBasicInfo = (sender_psid) => {
     let response1 = {"text": "Location: No.334, within Yangon International Hotel Compound, Ahlone Road, Ahlone Township, Yangon. "};
     let response2 = {"text": "Contact No.: 09453890776"};
     let response3 = {"text": "Operation Time: Everyday 11:00 AM - 2:00 AM"};
-    let response4 = {"text": "Would you like to see song list and lounge packages?"};
+    let response4 = {"text": "Please take a look at our lounge packages and song request."};
     let response5 = {
       "attachment": {
         "type": "template",
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Song Request.",
-            "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Song Request",
-                  "payload": "request", 
-                },               
-              ],
-          },{
             "title": "Many Exciting Lounge Packages to Pick ",
               
             "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
@@ -1043,6 +1030,16 @@ const showBasicInfo = (sender_psid) => {
                   "type": "postback",
                   "title": "See Lounge Packages",
                   "payload": "packages", 
+                },               
+              ],
+          },{
+            "title": "Song Request.",
+            "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Song Request",
+                  "payload": "request", 
                 },               
               ],
           }
@@ -1541,13 +1538,13 @@ const reservationCancel =(sender_psid) => {
                 },               
               ],
           },{
-            "title": "See Song List and Request.",
+            "title": "Song Request.",
             "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
             "buttons": [
                 {
                   "type": "postback",
-                  "title": "Song List",
-                  "payload": "list", 
+                  "title": "Song Request",
+                  "payload": "request", 
                 },               
               ],
           },{
