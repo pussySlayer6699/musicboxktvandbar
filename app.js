@@ -754,6 +754,18 @@ Function to handle when user send attachment
 **********************************************/
 
 
+const handleAttachments = (sender_psid, attachments) => {
+  
+  console.log('ATTACHMENT', attachments);
+
+
+  let response; 
+  let attachment_url = attachments[0].payload.url;
+    response = hiReply(sender_psid);
+    callSend(sender_psid, response);
+}
+
+
 
 /*********************************************
 Function to handle when user click button
@@ -1964,7 +1976,7 @@ const setupPersistentMenu = (res) => {
   };
         
   request({
-      url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token=PAGE_ACCESS_TOKEN',
+      url: 'https://graph.facebook.com/v2.6/me/musicboxktvandbar?access_token=PAGE_ACCESS_TOKEN',
       method: 'POST',
       headers: {'Content-Type': 'musicboxktvandbar/app.js'},
       
