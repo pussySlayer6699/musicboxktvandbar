@@ -1024,7 +1024,7 @@ const showBasicInfo = (sender_psid) => {
           "elements": [{
             "title": "Many Exciting Lounge Packages to Pick ",
               
-            "image_url":"",                       
+            "image_url":"https://static.thehoneycombers.com/wp-content/uploads/sites/2/2018/08/Ziggy-karaoke-in-singapore.png",                       
             "buttons": [
                 {
                   "type": "postback",
@@ -1034,7 +1034,7 @@ const showBasicInfo = (sender_psid) => {
               ],
           },{
             "title": "Song Request.",
-            "image_url":"",                       
+            "image_url":"https://cdn4.iconfinder.com/data/icons/jetflat-2-devices-vol-4/60/0093_036_album_music_media_song_songs-512.png",                       
             "buttons": [
                 {
                   "type": "postback",
@@ -1068,7 +1068,7 @@ const showPackages= (sender_psid) => {
           "template_type": "generic",
           "elements": [{
             "title": "Bronze Package",
-            "subtitle": " ",
+            "subtitle": "small, 4 to 6 people, 35,000Ks per hour+ 2 water bottles ",
             "image_url":"https://jp-mm.drecomejp.com/uploads/picture/image/49417/14233863_10207382915035233_161325588_o.jpg",                       
             "buttons": [
                 {
@@ -1079,7 +1079,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Silver Package",
-            "subtitle": "",
+            "subtitle": "Normal, 6 to 9 people, 50,000Ks per hour + 3 water bottles + chips",
             "image_url":"https://www.yangonbookings.com/timthumb/timthumb.php?src=https://www.yangonbookings.com/assets/uploads/listing/4b61466b91825f579bb3a2645fd7e89f.jpg&h=430&w=860",                       
             "buttons": [
                 {
@@ -1090,7 +1090,7 @@ const showPackages= (sender_psid) => {
               ],
           },{
             "title": "Gold Package",
-            "subtitle": "",
+            "subtitle": "Big, 10 to 12 people, 70,000Ks per hour + 4 water bottles + fruit + chips",
             "image_url":"https://www.straitstimes.com/sites/default/files/articles/2020/08/16/hzjewel0815.jpg",                       
             "buttons": [
                 {
